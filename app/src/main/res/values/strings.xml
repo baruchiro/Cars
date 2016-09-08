@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Cars</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="name">Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="insert_id">Please insert your ID number:</string>
+    <string name="connect">Connect</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="dateOfBirth">Age</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="error_firstname">ERROR: First Name</string>
+    <string name="error_lastname">ERROR: Last Name</string>
+    <string name="error_age">ERROR: dateOfBirth must be 18 or bigger</string>
+    <string name="updating_details">Updating Details</string>
+    <string name="retry">Retry</string>
+    <string name="error_when_updating_details">Error when updating details</string>
+    <string name="connected">Connected</string>
+</resources>
