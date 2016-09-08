@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "641576095016",
+    "firebase_url": "https://cars-ab1f8.firebaseio.com",
+    "project_id": "cars-ab1f8",
+    "storage_bucket": "cars-ab1f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641576095016:android:bd1579bb28934b07",
+        "android_client_info": {
+          "package_name": "rothkoff.baruch.Cars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641576095016-avmp8c7bivmpv0a3nq4ns3ta75hqavm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwKwjL1iLkwIMMzTf9mkVqTJJHuEKtjxs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641576095016:android:eb680551b65927a7",
+        "android_client_info": {
+          "package_name": "rothkoff.baruch.cars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641576095016-avmp8c7bivmpv0a3nq4ns3ta75hqavm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwKwjL1iLkwIMMzTf9mkVqTJJHuEKtjxs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">השכרת רכב</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="dateOfBirth">גיל</string>
+    <string name="connect">התחבר</string>
+    <string name="firstName">שם פרטי</string>
+    <string name="hello_blank_fragment">הייייייי</string>
+    <string name="insert_id">רשום בבקשה את מספר תעודת הזהות</string>
+    <string name="lastName">שם משפחה</string>
+    <string name="name">שם</string>
+    <string name="navigation_drawer_close">סגור חלונית ניווט</string>
+    <string name="navigation_drawer_open">פתח חלונית ניווט</string>
+    <string name="please_wait">המתן בבקשה</string>
+</resources>
