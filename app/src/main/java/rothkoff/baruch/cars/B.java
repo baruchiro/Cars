@@ -15,7 +15,7 @@ public class B {
         public static final String UID = "uid";
     }
 
-    public class Constants {
+    public class Constants { 
         public static final String mainPreference="rothkoff.baruch.cars.MAIN_PREFERENCE";
         public static final String FIRST_LAUNCH = "rothkoff.baruch.cars.MAIN_PREFERENCE.FIRST_LAUNCH";
     }
