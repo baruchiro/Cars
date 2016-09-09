@@ -29,4 +29,7 @@
     <string name="wait_to_ok_from_server">Wait to OK from server</string>
     <string name="full_name">Full name</string>
     <string name="age">Age</string>
+    <string name="date">Date</string>
+    <string name="car">Car</string>
+    <string name="car_number">Car number</string>
 </resources>

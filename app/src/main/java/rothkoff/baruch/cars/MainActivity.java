@@ -228,15 +228,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void ReplaceFragment(Fragment fragment) {
+    public void ReplaceFragment(Fragment... fragments) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (fragment == null) {
-            if (fragmentManager.findFragmentByTag(B.Constants.ANY_FRAGMENT) != null)
-                transaction.remove(fragmentManager.findFragmentByTag(B.Constants.ANY_FRAGMENT));
-        } else transaction.replace(R.id.main_fragment, fragment, B.Constants.ANY_FRAGMENT);
+        if (fragmentManager.getFragments() != null)
+            for (Fragment f : fragmentManager.getFragments())
+                transaction.remove(f);
 
+        for (Fragment f : fragments)
+            transaction.add(R.id.main_fragment, f);
         transaction.commit();
     }
 }

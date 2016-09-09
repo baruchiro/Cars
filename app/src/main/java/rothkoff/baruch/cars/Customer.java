@@ -91,4 +91,8 @@ public class Customer {
 
         return mapForView;
     }
+
+    public Map<String, Rent> getRents() {
+        return rents;
+    }
 }
