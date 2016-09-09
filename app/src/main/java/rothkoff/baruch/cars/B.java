@@ -17,5 +17,6 @@ public class B {
         public static final String mainPreference="rothkoff.baruch.cars.MAIN_PREFERENCE";
         public static final String FIRST_LAUNCH = "rothkoff.baruch.cars.MAIN_PREFERENCE.FIRST_LAUNCH";
         public static final String ANY_FRAGMENT = "rothkoff.baruch.cars.ANY_FRAGMENT";
+        public static final long YEAR_IN_MILISECONDS = 31556952000L;
     }
 }

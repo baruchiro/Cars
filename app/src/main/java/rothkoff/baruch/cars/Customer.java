@@ -1,5 +1,8 @@
 package rothkoff.baruch.cars;
 
+import android.content.res.Resources;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,5 +79,16 @@ public class Customer {
                 lastName.matches("")||
                 IDnumber.matches("")||
                 dateOfBirth == 0L;
+    }
+
+    public static Map<String, String> getMapForView(Customer customer,Resources resources) {
+        Map<String, String> mapForView = new HashMap<>();
+
+        mapForView.put(resources.getString(R.string.full_name), customer.firstName + " " + customer.lastName);
+        long now = new Date().getTime();
+        mapForView.put(resources.getString(R.string.age), String.valueOf((now - customer.dateOfBirth) / B.Constants.YEAR_IN_MILISECONDS));
+        mapForView.put(resources.getString(R.string.IDnumber), customer.IDnumber);
+
+        return mapForView;
     }
 }

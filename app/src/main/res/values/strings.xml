@@ -27,4 +27,6 @@
     <string name="error_idnumber">ERROR: ID number</string>
     <string name="send_data_to_server">Send Data to server</string>
     <string name="wait_to_ok_from_server">Wait to OK from server</string>
+    <string name="full_name">Full name</string>
+    <string name="age">Age</string>
 </resources>

@@ -12,4 +12,18 @@
     <string name="navigation_drawer_close">סגור חלונית ניווט</string>
     <string name="navigation_drawer_open">פתח חלונית ניווט</string>
     <string name="please_wait">המתן בבקשה</string>
+    <string name="IDnumber">תעודת זהות</string>
+    <string name="age">גיל</string>
+    <string name="connected">מחובר</string>
+    <string name="error_age">שגיאה: תאריך לידה חייב להיות לפחות לפני18 שנים</string>
+    <string name="error_connect">שגיאה בחיבור</string>
+    <string name="error_firstname">שגיאה: חסר שם פרטי</string>
+    <string name="error_idnumber">שגיאה: חסר מספר תעודת זהות</string>
+    <string name="error_lastname">שגיאה: חסר שם משפחה</string>
+    <string name="error_when_updating_details">שגיאה בזמן עדכון נתונים</string>
+    <string name="full_name">שם מלא</string>
+    <string name="retry">נסה שוב</string>
+    <string name="send_data_to_server">שולח נתונים לשרת</string>
+    <string name="updating_details">מעדכן פרטים</string>
+    <string name="wait_to_ok_from_server">מחכה לאישור מהשרת</string>
 </resources>
