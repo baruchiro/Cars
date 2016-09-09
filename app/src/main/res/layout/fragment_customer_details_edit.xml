@@ -5,19 +5,21 @@
     android:orientation="vertical"
     tools:context=".CustomerDetailsEditFragment">
 
+    <!--Error Text-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:id="@+id/frag_details_error"/>
 
+    <!--FirstName & LastName-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <android.support.design.widget.TextInputLayout
-
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content">
@@ -43,27 +45,35 @@
                 android:hint="@string/lastName"
                 android:singleLine="true"/>
         </android.support.design.widget.TextInputLayout>
+
     </LinearLayout>
 
-    <LinearLayout
+    <!--DateOfBirth-->
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="0dp"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/dateOfBirth"/>
+            android:hint="@string/dateOfBirth"
+            android:id="@+id/frag_details_edit_dateofbirth"
+            android:singleLine="true"
+            android:inputType="date"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--IDnumber-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <EditText
-
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:inputType="numberSigned"
-            android:id="@+id/frag_details_edit_age"/>
-
-    </LinearLayout>
+            android:hint="@string/IDnumber"
+            android:id="@+id/frag_details_edit_idnumber"/>
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

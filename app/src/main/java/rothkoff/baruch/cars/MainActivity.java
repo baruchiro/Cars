@@ -3,10 +3,9 @@ package rothkoff.baruch.cars;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -40,8 +40,11 @@ public class MainActivity extends AppCompatActivity
     private final int RC_SIGN_IN = 22;
     private AuthStateListener authStateListener;
     private DatabaseReference refCars;
-    private FloatingActionButton fab;
+    //private FloatingActionButton fab;
     private ProgressDialog progressDialog;
+    private LinearLayout layoutNoUser;
+
+    private boolean authFlag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity
         InitDrawer();
         InitMembers();
         InitBeaviors();
+
+        /*if (FirebaseAuth.getInstance().getCurrentUser()==null)UserLogout();
+        else getUserFreshDetails(FirebaseAuth.getInstance());*/
     }
 
     private void InitDrawer() {
@@ -68,22 +74,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void InitMembers() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab = (FloatingActionButton) findViewById(R.id.fab);
         connectBtn = (Button) findViewById(R.id.main_btn_connect);
         recycleCars = (RecyclerView) findViewById(R.id.main_recycle);
         refCars = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
+        layoutNoUser = (LinearLayout)findViewById(R.id.main_layout_nouser);
     }
 
     private void InitBeaviors() {
-        fab.setOnClickListener(new View.OnClickListener() {
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
 
@@ -111,7 +118,6 @@ public class MainActivity extends AppCompatActivity
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
         recycleCars.setAdapter(adapterCars);
-
     }
 
     @Override
@@ -175,50 +181,62 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         if (firebaseAuth.getCurrentUser() != null) {
-            if (!progressDialog.isShowing()) progressDialog.show();
-
-            FirebaseDatabase.getInstance().getReference(B.Keys.CUSTOMERS).child(firebaseAuth.getCurrentUser().getUid())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                B.customer = dataSnapshot.getValue(Customer.class);
-                                OpenUserFragment();
-                            } else {
-                                B.customer = new Customer(dataSnapshot.getKey());
-                                OpenUserDetails();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
+            if (authFlag) {
+                getUserFreshDetails(firebaseAuth);
+                authFlag = false;
+            }
         } else UserLogout();
     }
 
-    private void OpenUserFragment() {
-        progressDialog.dismiss();
-        Toast.makeText(this,R.string.connected,Toast.LENGTH_LONG).show();
+    public void getUserFreshDetails(FirebaseAuth firebaseAuth){
+        if (!progressDialog.isShowing()) progressDialog.show();
+
+        DatabaseReference customerRef = FirebaseDatabase.getInstance()
+                .getReference(B.Keys.CUSTOMERS).child(firebaseAuth.getCurrentUser().getUid());
+        customerRef.keepSynced(true);
+
+        customerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    B.customer = dataSnapshot.getValue(Customer.class);
+                } else {
+                    B.customer = new Customer(dataSnapshot.getKey());
+                }
+                UserLogin();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this,R.string.error_connect,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void OpenUserDetails() {
-        ReplaceFragment(CustomerDetailsEditFragment.getInstance(B.customer));
+    private void UserLogin() {
+        layoutNoUser.setVisibility(View.GONE);
+        if (B.customer.isDetailMissing())ReplaceFragment(CustomerDetailsEditFragment.newInstance());
+        else ReplaceFragment(CustomerMainFragment.newInstance());
         progressDialog.dismiss();
     }
 
     private void UserLogout() {
-
-
+        B.customer = null;
+        layoutNoUser.setVisibility(View.VISIBLE);
+        ReplaceFragment(null);
         progressDialog.dismiss();
     }
 
     @Override
     public void ReplaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment, fragment);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        if (fragment == null) {
+            if (fragmentManager.findFragmentByTag(B.Constants.ANY_FRAGMENT) != null)
+                transaction.remove(fragmentManager.findFragmentByTag(B.Constants.ANY_FRAGMENT));
+        } else transaction.replace(R.id.main_fragment, fragment, B.Constants.ANY_FRAGMENT);
+
         transaction.commit();
     }
 }
