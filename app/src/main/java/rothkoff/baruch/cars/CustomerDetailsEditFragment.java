@@ -31,8 +31,10 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerDetailsEditFragment extends Fragment implements View.OnClickListener, DatabaseReference.CompletionListener, DatePickerDialog.OnDateSetListener {
-    private static final int DIALOG_DATE = 5546;
+public class CustomerDetailsEditFragment extends MyFragment
+        implements View.OnClickListener, DatabaseReference.CompletionListener,
+        DatePickerDialog.OnDateSetListener {
+
     private ForCustomerFragments mainActivity;
     private ProgressDialog updatingDialog;
     private static int COLOR_ERROR;
@@ -78,6 +80,7 @@ public class CustomerDetailsEditFragment extends Fragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_customer_details_edit, container, false);
 
         InitMembers(view);
@@ -217,6 +220,11 @@ public class CustomerDetailsEditFragment extends Fragment implements View.OnClic
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         DateMembers(i,i1,i2);
+    }
+
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.customer_details_edit);
     }
 //pref.edit().putBoolean(B.Constants.FIRST_LAUNCH, false).apply();
 

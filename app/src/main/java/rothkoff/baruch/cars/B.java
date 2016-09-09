@@ -11,6 +11,13 @@ public class B {
         public static final String DATE_OF_BIRTH ="dateOfBirth";
         public static final String UID = "uid";
         public static final String ID_NUMBER = "IDnumber";
+        public static final String CAR_NUMBER = "carNumber";
+        public static final String BRAND = "brand";
+        public static final String COLOR = "color";
+        public static final String IS_YOUNG = "isYoung";
+        public static final String SIZE = "size";
+        public static final String PARK_LOCATION = "parkLocation";
+        public static final String _TARIFF_ID = "tariffID";
     }
 
     public class Constants {
@@ -18,5 +25,6 @@ public class B {
         public static final String FIRST_LAUNCH = "rothkoff.baruch.cars.MAIN_PREFERENCE.FIRST_LAUNCH";
         public static final String ANY_FRAGMENT = "rothkoff.baruch.cars.ANY_FRAGMENT";
         public static final long YEAR_IN_MILISECONDS = 31556952000L;
+        public static final java.lang.String FRAGMENT_TITLE = "rothkoff.baruch.cars.FRAGMENT_TITLE";
     }
 }

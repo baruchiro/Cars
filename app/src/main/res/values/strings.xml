@@ -32,4 +32,22 @@
     <string name="date">Date</string>
     <string name="car">Car</string>
     <string name="car_number">Car number</string>
+    <string name="order_new_rent">Order now</string>
+    <string name="my_account">My Account</string>
+    <string name="manage_database">Manage Database</string>
+    <string name="next_rents">Show next Rents</string>
+    <string name="manage">Manage</string>
+    <string name="brand">Brand</string>
+    <string name="color">Color</string>
+    <string name="park_location">Park location</string>
+    <string name="is_young_driver">Is young driver</string>
+    <string name="error_brand">ERROR: brand</string>
+    <string name="error_color">ERROR: color</string>
+    <string name="error_parklocation">ERROR: park location</string>
+    <string name="error_carnumber">ERROR: car number</string>
+    <string name="success">success</string>
+    <string name="default_activity_title">Bla Bla Bla</string>
+    <string name="addcar_title">Add Car</string>
+    <string name="customer_details_edit">Edit details</string>
+    <string name="customer_main_title">My Account</string>
 </resources>

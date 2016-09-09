@@ -26,4 +26,25 @@
     <string name="send_data_to_server">שולח נתונים לשרת</string>
     <string name="updating_details">מעדכן פרטים</string>
     <string name="wait_to_ok_from_server">מחכה לאישור מהשרת</string>
+    <string name="brand">יצרן</string>
+    <string name="car">רכב</string>
+    <string name="car_number">מספר רכב</string>
+    <string name="color">צבע</string>
+    <string name="date">תאריך</string>
+    <string name="default_activity_title">בלה בלה בלה</string>
+    <string name="error_brand">שגיאה: הכנס שם יצרן</string>
+    <string name="error_carnumber">שגיאה: הכנס מספר רכב</string>
+    <string name="error_color">שגיאה: הכנס צבע רכב</string>
+    <string name="error_parklocation">שגיאה: הכנס מיקום חנייה</string>
+    <string name="is_young_driver">ביטוח צעיר</string>
+    <string name="manage">ניהול</string>
+    <string name="manage_database">ניהול נתונים</string>
+    <string name="my_account">החשבון שלי</string>
+    <string name="next_rents">השכרות קרובות</string>
+    <string name="order_new_rent">הזמן עכשיו</string>
+    <string name="park_location">מיקום חנייה</string>
+    <string name="success">הצליח</string>
+    <string name="addcar_title">הוספת רכב</string>
+    <string name="customer_details_edit">עריכת פרטים</string>
+    <string name="customer_main_title">החשבון שלי</string>
 </resources>

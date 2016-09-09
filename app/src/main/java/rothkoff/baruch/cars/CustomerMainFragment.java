@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerMainFragment extends Fragment {
+public class CustomerMainFragment extends MyFragment {
     private ForCustomerFragments mainActivity;
 
     private LinearLayout llMain;
@@ -48,6 +48,11 @@ public class CustomerMainFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement ForCustomerFragments");
         }
+    }
+
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.customer_main_title);
     }
 
     @Override

@@ -20,6 +20,6 @@ public class CarHolder extends RecyclerView.ViewHolder {
     public void setCar(Car car) {
         this.car = car;
         carColorTxt.setText(car.getColor());
-        carTypeTxt.setText(car.getType());
+        carTypeTxt.setText(car.getBrand());
     }
 }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
 
     private Button connectBtn;
     private RecyclerView recycleCars;
-    private FirebaseRecyclerAdapter<Car,CarHolder> adapterCars;
+    private FirebaseRecyclerAdapter<Car, CarHolder> adapterCars;
     private final int RC_SIGN_IN = 22;
     private AuthStateListener authStateListener;
     private DatabaseReference refCars;
@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog progressDialog;
     private LinearLayout layoutNoUser;
 
-    private boolean authFlag=true;
+    private boolean authFlag = true;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         refCars = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
-        layoutNoUser = (LinearLayout)findViewById(R.id.main_layout_nouser);
+        layoutNoUser = (LinearLayout) findViewById(R.id.main_layout_nouser);
     }
 
     private void InitBeaviors() {
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        adapterCars = new FirebaseRecyclerAdapter<Car, CarHolder>(Car.class,R.layout.item_car,CarHolder.class,refCars) {
+        adapterCars = new FirebaseRecyclerAdapter<Car, CarHolder>(Car.class, R.layout.item_car, CarHolder.class, refCars) {
             @Override
             protected void populateViewHolder(CarHolder viewHolder, Car model, int position) {
                 viewHolder.setCar(model);
@@ -158,18 +159,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id) {
+            case R.id.nav_account:
+                break;
+            case R.id.nav_managedb:
+                ReplaceFragment(AddCarFragment.newInstance());
+                break;
+            case R.id.nav_nextorders:
+                break;
+            case R.id.nav_order:
+                break;
+            case R.id.nav_send:
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_view:
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,7 +193,7 @@ public class MainActivity extends AppCompatActivity
         } else UserLogout();
     }
 
-    public void getUserFreshDetails(FirebaseAuth firebaseAuth){
+    public void getUserFreshDetails(FirebaseAuth firebaseAuth) {
         if (!progressDialog.isShowing()) progressDialog.show();
 
         DatabaseReference customerRef = FirebaseDatabase.getInstance()
@@ -205,18 +210,22 @@ public class MainActivity extends AppCompatActivity
                 }
                 UserLogin();
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 progressDialog.dismiss();
-                Toast.makeText(MainActivity.this,R.string.error_connect,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.error_connect, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void UserLogin() {
         layoutNoUser.setVisibility(View.GONE);
-        if (B.customer.isDetailMissing())ReplaceFragment(CustomerDetailsEditFragment.newInstance());
+        if (B.customer.isDetailMissing())
+            ReplaceFragment(CustomerDetailsEditFragment.newInstance());
         else ReplaceFragment(CustomerMainFragment.newInstance());
+
+        navigationView.getMenu().findItem(R.id.nav_account).setChecked(true);
         progressDialog.dismiss();
     }
 
@@ -232,12 +241,15 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
+        //TODO: bad programming
         if (fragmentManager.getFragments() != null)
             for (Fragment f : fragmentManager.getFragments())
-                transaction.remove(f);
+                if (f != null) transaction.remove(f);
+        setTitle(R.string.app_name);
 
-        for (Fragment f : fragments)
-            transaction.add(R.id.main_fragment, f);
+        if (fragments != null)
+            for (Fragment f : fragments)
+                transaction.add(R.id.main_fragment, f);
         transaction.commit();
     }
 }

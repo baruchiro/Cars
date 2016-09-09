@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rothkoff.baruch.cars.AddCarFragment">
+
+    <!--Error Text-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/frag_addcar_error"/>
+
+    <!--Brand & Color-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frag_addcar_edit_brand"
+                android:hint="@string/brand"
+                android:singleLine="true"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frag_addcar_edit_color"
+                android:hint="@string/color"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <!--Park Location-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/park_location"
+            android:id="@+id/frag_addcar_edit_parklocation"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Car Number-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:hint="@string/car_number"
+            android:id="@+id/frag_addcar_edit_carnumber" />
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Is Young Driver-->
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_young_driver"
+        android:id="@+id/frag_addcar_isyoung"
+        android:layout_gravity="start" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_save"
+        android:id="@+id/frag_addcar_fab"/>
+
+</LinearLayout>
