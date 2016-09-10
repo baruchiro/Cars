@@ -50,4 +50,9 @@
     <string name="addcar_title">Add Car</string>
     <string name="customer_details_edit">Edit details</string>
     <string name="customer_main_title">My Account</string>
+    <string name="menuitem_unavilable">Not available</string>
+    <string name="order_title">Create order</string>
+    <string name="dateFirst">Date first</string>
+    <string name="is_one_day">One day</string>
+    <string name="dateend">Date end</string>
 </resources>

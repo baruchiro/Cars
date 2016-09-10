@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AuthStateListener,ForCustomerFragments {
 
-    private Button connectBtn;
     private RecyclerView recycleCars;
     private FirebaseRecyclerAdapter<Car, CarHolder> adapterCars;
     private final int RC_SIGN_IN = 22;
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity
 
     private void InitMembers() {
         //fab = (FloatingActionButton) findViewById(R.id.fab);
-        connectBtn = (Button) findViewById(R.id.main_btn_connect);
         recycleCars = (RecyclerView) findViewById(R.id.main_recycle);
         refCars = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
         progressDialog = new ProgressDialog(this);
@@ -94,22 +91,7 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-
-        connectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setProviders(
-                                        AuthUI.EMAIL_PROVIDER,
-                                        AuthUI.GOOGLE_PROVIDER)
-                                .build(),
-                        RC_SIGN_IN);
-            }
-        });
-
-        adapterCars = new FirebaseRecyclerAdapter<Car, CarHolder>(Car.class, R.layout.item_car, CarHolder.class, refCars) {
+                adapterCars = new FirebaseRecyclerAdapter<Car, CarHolder>(Car.class, R.layout.item_car, CarHolder.class, refCars) {
             @Override
             protected void populateViewHolder(CarHolder viewHolder, Car model, int position) {
                 viewHolder.setCar(model);
@@ -160,21 +142,35 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.nav_connect:
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setProviders(
+                                        AuthUI.EMAIL_PROVIDER,
+                                        AuthUI.GOOGLE_PROVIDER)
+                                .build(),
+                        RC_SIGN_IN);
+                break;
+            case R.id.nav_order:
+                ReplaceFragment(OrderFragment.newInstance());
+                break;
             case R.id.nav_account:
                 break;
             case R.id.nav_managedb:
                 ReplaceFragment(AddCarFragment.newInstance());
                 break;
-            case R.id.nav_nextorders:
+            /*case R.id.nav_nextorders:
                 break;
-            case R.id.nav_order:
-                break;
+
             case R.id.nav_send:
                 break;
             case R.id.nav_share:
                 break;
             case R.id.nav_view:
-                break;
+                break;*/
+            default:
+                Toast.makeText(this,R.string.menuitem_unavilable,Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -221,6 +217,7 @@ public class MainActivity extends AppCompatActivity
 
     private void UserLogin() {
         layoutNoUser.setVisibility(View.GONE);
+        ShowMenuItems(true,B.customer.isManager());
         if (B.customer.isDetailMissing())
             ReplaceFragment(CustomerDetailsEditFragment.newInstance());
         else ReplaceFragment(CustomerMainFragment.newInstance());
@@ -231,9 +228,23 @@ public class MainActivity extends AppCompatActivity
 
     private void UserLogout() {
         B.customer = null;
+        ShowMenuItems(false, false);
         layoutNoUser.setVisibility(View.VISIBLE);
         ReplaceFragment(null);
         progressDialog.dismiss();
+    }
+
+    private void ShowMenuItems(boolean connected,boolean manager) {
+        //Hide connect MenuItem
+        navigationView.getMenu().findItem(R.id.nav_connect).setVisible(!connected);
+
+        //Show Order now & My account MenuItems
+        navigationView.getMenu().findItem(R.id.nav_order).setVisible(connected);
+        navigationView.getMenu().findItem(R.id.nav_account).setVisible(connected);
+
+        //Show Next order & Manage DB if customer is Manager
+        navigationView.getMenu().findItem(R.id.nav_nextorders).setVisible(manager);
+        navigationView.getMenu().findItem(R.id.nav_managedb).setVisible(manager);
     }
 
     @Override

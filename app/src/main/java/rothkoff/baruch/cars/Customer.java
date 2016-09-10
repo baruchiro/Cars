@@ -12,6 +12,7 @@ public class Customer {
     private String firstName = "";
     private String lastName = "";
     private long dateOfBirth = 0L;
+    private boolean manager = false;
     private Map<String,Rent> rents = new HashMap<>();
 
     public Customer() {
@@ -56,6 +57,18 @@ public class Customer {
 
     public void setIDnumber(String IDnumber) {
         this.IDnumber = IDnumber;
+    }
+
+    public void setRents(Map<String, Rent> rents) {
+        this.rents = rents;
+    }
+
+    public boolean isManager() {
+        return manager;
+    }
+
+    public void setManager(boolean manager) {
+        this.manager = manager;
     }
 
     public void setDateOfBirth(long dateOfBirth) {

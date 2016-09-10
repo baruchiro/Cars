@@ -18,6 +18,8 @@ public class B {
         public static final String SIZE = "size";
         public static final String PARK_LOCATION = "parkLocation";
         public static final String _TARIFF_ID = "tariffID";
+        public static final String CUSTOMER = "CUSTOMER";
+
     }
 
     public class Constants {
@@ -25,6 +27,7 @@ public class B {
         public static final String FIRST_LAUNCH = "rothkoff.baruch.cars.MAIN_PREFERENCE.FIRST_LAUNCH";
         public static final String ANY_FRAGMENT = "rothkoff.baruch.cars.ANY_FRAGMENT";
         public static final long YEAR_IN_MILISECONDS = 31556952000L;
+        public static final long DAY_IN_MILISECONDS = 86400000L;
         public static final java.lang.String FRAGMENT_TITLE = "rothkoff.baruch.cars.FRAGMENT_TITLE";
     }
 }

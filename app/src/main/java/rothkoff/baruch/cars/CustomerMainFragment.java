@@ -21,7 +21,6 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class CustomerMainFragment extends MyFragment {
-    private ForCustomerFragments mainActivity;
 
     private LinearLayout llMain;
     private RecyclerView recyclerView;
@@ -41,13 +40,6 @@ public class CustomerMainFragment extends MyFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ForCustomerFragments");
-        }
     }
 
     @Override

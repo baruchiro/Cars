@@ -2,14 +2,11 @@ package rothkoff.baruch.cars;
 
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -35,7 +32,6 @@ public class CustomerDetailsEditFragment extends MyFragment
         implements View.OnClickListener, DatabaseReference.CompletionListener,
         DatePickerDialog.OnDateSetListener {
 
-    private ForCustomerFragments mainActivity;
     private ProgressDialog updatingDialog;
     private static int COLOR_ERROR;
     private static int COLOR_HEADING;
@@ -65,13 +61,6 @@ public class CustomerDetailsEditFragment extends MyFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ForCustomerFragments");
-        }
 
         COLOR_ERROR = ContextCompat.getColor(context, R.color.errorColor);
         COLOR_HEADING = ContextCompat.getColor(context, R.color.headingColor);
@@ -225,27 +214,5 @@ public class CustomerDetailsEditFragment extends MyFragment
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.customer_details_edit);
-    }
-//pref.edit().putBoolean(B.Constants.FIRST_LAUNCH, false).apply();
-
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
-        }
     }
 }

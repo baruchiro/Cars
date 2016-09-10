@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class AddCarFragment extends MyFragment implements DatabaseReference.CompletionListener {
 
-    private ForCustomerFragments mainActivity;
+    //private ForCustomerFragments mainActivity;
     private ProgressDialog updatingDialog;
     private static int COLOR_ERROR;
     private static int COLOR_HEADING;
@@ -56,13 +56,6 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ForCustomerFragments");
-        }
 
         COLOR_ERROR = ContextCompat.getColor(context, R.color.errorColor);
         COLOR_HEADING = ContextCompat.getColor(context, R.color.headingColor);
