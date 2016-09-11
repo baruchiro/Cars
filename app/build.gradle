@@ -7,8 +7,8 @@ android {
         applicationId "rothkoff.baruch.cars"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 11
-        versionName '1.1 alpha'
+        versionCode 12
+        versionName '1.2 alpha'
     }
     buildTypes {
         release {
