@@ -47,4 +47,13 @@
     <string name="addcar_title">הוספת רכב</string>
     <string name="customer_details_edit">עריכת פרטים</string>
     <string name="customer_main_title">החשבון שלי</string>
+    <string name="Previous">הקודם</string>
+    <string name="dateFirst">תאריך התחלה</string>
+    <string name="dateend">תאריך סיום</string>
+    <string name="is_one_day">יום אחד</string>
+    <string name="menuitem_unavilable">לא זמין</string>
+    <string name="order_dates_frag_title">תאריכים</string>
+    <string name="order_title">יצירת הזמנה</string>
+    <string name="send">שלח</string>
+    <string name="next_button">הבא</string>
 </resources>

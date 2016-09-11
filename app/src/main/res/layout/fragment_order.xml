@@ -12,24 +12,22 @@
         android:layout_weight="1"
         android:id="@+id/frag_order_viewpager"/>
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="@string/Previous"
-            style="?android:attr/buttonBarButtonStyle"
-            android:visibility="gone"/>
+            style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/next"
+            android:text="@string/next_button"
             style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
@@ -37,9 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="@string/send"
-            style="?android:attr/buttonBarButtonStyle"
-            android:visibility="gone"/>
+            style="?android:attr/buttonBarButtonStyle"/>
 
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

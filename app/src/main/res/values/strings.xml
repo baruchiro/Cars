@@ -58,4 +58,5 @@
     <string name="order_dates_frag_title">Dates</string>
     <string name="Previous">Previous</string>
     <string name="send">Send</string>
+    <string name="next_button">Next</string>
 </resources>
