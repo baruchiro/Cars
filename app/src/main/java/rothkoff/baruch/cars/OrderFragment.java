@@ -21,7 +21,7 @@ import rothkoff.baruch.cars.order.MainOrderFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderFragment extends MyFragment implements MainOrderFragment.ForOrderFragments{
+public class OrderFragment extends MyFragment{
 
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;

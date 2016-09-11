@@ -32,7 +32,6 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     private Calendar dateStart,dateEnd;
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialogStart,datePickerDialogEnd;
-    private OnDateSetListener dateSetListenerStart,dateSetListenerEnd;
 
     public DatesFragment() {
         // Required empty public constructor
@@ -67,18 +66,18 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     }
 
     private void BehaviorMembers() {
-        dateSetListenerStart = new OnDateSetListener() {
+        OnDateSetListener dateSetListenerStart = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                DateStartMembers(i,i1,i2);
+                DateStartMembers(i, i1, i2);
             }
         };
         datePickerDialogStart = new DatePickerDialog(getContext(), dateSetListenerStart, 0, 0, 0);
 
-        dateSetListenerEnd = new OnDateSetListener() {
+        OnDateSetListener dateSetListenerEnd = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                DateEndMembers(i,i1,i2);
+                DateEndMembers(i, i1, i2);
             }
         };
         datePickerDialogEnd = new DatePickerDialog(getContext(), dateSetListenerEnd, 0, 0, 0);
@@ -127,7 +126,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        getView().findViewById(R.id.frag_order_input_dateend).setVisibility(b?View.GONE:View.VISIBLE);
+        getActivity().findViewById(R.id.frag_order_input_dateend).setVisibility(b?View.GONE:View.VISIBLE);
     }
 
 

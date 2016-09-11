@@ -56,4 +56,6 @@
     <string name="is_one_day">One day</string>
     <string name="dateend">Date end</string>
     <string name="order_dates_frag_title">Dates</string>
+    <string name="Previous">Previous</string>
+    <string name="send">Send</string>
 </resources>
