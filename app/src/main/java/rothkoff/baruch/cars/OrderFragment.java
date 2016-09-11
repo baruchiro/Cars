@@ -1,43 +1,36 @@
 package rothkoff.baruch.cars;
 
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Switch;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
+
+import rothkoff.baruch.cars.order.DatesFragment;
+import rothkoff.baruch.cars.order.MainOrderFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderFragment extends MyFragment implements CompoundButton.OnCheckedChangeListener {
+public class OrderFragment extends MyFragment implements MainOrderFragment.ForOrderFragments{
 
-    private EditText etDateStart,etDateEnd;
-    private Switch sIsOneDay;
-
-    private Calendar dateStart,dateEnd;
-    private SimpleDateFormat simpleDateFormat;
-    private DatePickerDialog datePickerDialogStart,datePickerDialogEnd;
-    private OnDateSetListener dateSetListenerStart,dateSetListenerEnd;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
     public OrderFragment() {
         // Required empty public constructor
     }
 
-    public static OrderFragment newInstance(){
+    public static OrderFragment newInstance() {
         OrderFragment fragment = new OrderFragment();
 
         return fragment;
@@ -55,74 +48,12 @@ public class OrderFragment extends MyFragment implements CompoundButton.OnChecke
     }
 
     private void InitMembers(View view) {
-        etDateStart = (EditText) view.findViewById(R.id.frag_order_edit_datestart);
-        etDateEnd = (EditText) view.findViewById(R.id.frag_order_edit_dateend);
-        sIsOneDay = (Switch)view.findViewById(R.id.frag_order_switch_oneday);
-
-        dateStart = Calendar.getInstance();
-        dateEnd = Calendar.getInstance();
-
-        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        viewPager = (ViewPager) view.findViewById(R.id.frag_order_viewpager);
+        pagerAdapter = new PageAdapter(getChildFragmentManager());
     }
 
     private void BehaviorMembers() {
-        dateSetListenerStart = new OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                DateStartMembers(i,i1,i2);
-            }
-        };
-        datePickerDialogStart = new DatePickerDialog(getContext(), dateSetListenerStart, 0, 0, 0);
-
-        dateSetListenerEnd = new OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                DateEndMembers(i,i1,i2);
-            }
-        };
-        datePickerDialogEnd = new DatePickerDialog(getContext(), dateSetListenerEnd, 0, 0, 0);
-
-        dateStart.add(Calendar.DATE,1);
-        datePickerDialogStart.getDatePicker().setMinDate(dateStart.getTimeInMillis());
-        DateStartMembers(dateStart.get(Calendar.YEAR),
-                dateStart.get(Calendar.MONTH),
-                dateStart.get(Calendar.DAY_OF_MONTH));
-
-        dateEnd.add(Calendar.DATE,2);
-        DateEndMembers(dateEnd.get(Calendar.YEAR),
-                dateEnd.get(Calendar.MONTH),
-                dateEnd.get(Calendar.DAY_OF_MONTH));
-
-        etDateStart.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!datePickerDialogStart.isShowing()) datePickerDialogStart.show();
-                return false;
-            }
-        });
-
-        etDateEnd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!datePickerDialogEnd.isShowing()) datePickerDialogEnd.show();
-                return true;
-            }
-        });
-
-        sIsOneDay.setOnCheckedChangeListener(this);
-    }
-
-    private void DateStartMembers(int year,int month,int day){
-        datePickerDialogStart.updateDate(year, month, day);
-        dateStart.set(year, month, day);
-        etDateStart.setText(simpleDateFormat.format(dateStart.getTime()));
-
-        datePickerDialogEnd.getDatePicker().setMinDate(dateStart.getTimeInMillis()+B.Constants.DAY_IN_MILISECONDS);
-    }
-    private void DateEndMembers(int year,int month,int day){
-        datePickerDialogEnd.updateDate(year, month, day);
-        dateEnd.set(year, month, day);
-        etDateEnd.setText(simpleDateFormat.format(dateEnd.getTime()));
+        viewPager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -130,25 +61,29 @@ public class OrderFragment extends MyFragment implements CompoundButton.OnChecke
         getActivity().setTitle(R.string.order_title);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        etDateEnd.setVisibility(b?View.GONE:View.VISIBLE);
-    }
+    private class PageAdapter extends FragmentPagerAdapter {
 
-    private class MyAdapter extends FragmentPagerAdapter{
+        private List<MainOrderFragment> fragments;
 
-        public MyAdapter(FragmentManager fm) {
+        public PageAdapter(FragmentManager fm) {
             super(fm);
+            fragments = new ArrayList<>();
+            fragments.add(DatesFragment.newInstance());
         }
 
         @Override
         public Fragment getItem(int position) {
-            return null;
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getString(fragments.get(position).getPageTitle());
         }
     }
 }

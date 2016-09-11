@@ -6,38 +6,16 @@
     tools:context="rothkoff.baruch.cars.OrderFragment"
     android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:id="@+id/frag_order_viewpager">
 
-        <EditText
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dateFirst"
-            android:id="@+id/frag_order_edit_datestart"
-            android:singleLine="true"
-            android:inputType="date"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/is_one_day"
-        android:id="@+id/frag_order_switch_oneday"
-        android:checked="true"/>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/dateend"
-            android:id="@+id/frag_order_edit_dateend"
-            android:singleLine="true"
-            android:inputType="date"
-            android:visibility="gone"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_gravity="top" />
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
