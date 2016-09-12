@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AuthStateListener,ForCustomerFragments {
 
     private RecyclerView recycleCars;
-    private FirebaseRecyclerAdapter<Car, CarHolder> adapterCars;
+    private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
     private AuthStateListener authStateListener;
     private DatabaseReference refCars;
@@ -91,12 +90,7 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-                adapterCars = new FirebaseRecyclerAdapter<Car, CarHolder>(Car.class, R.layout.item_car, CarHolder.class, refCars) {
-            @Override
-            protected void populateViewHolder(CarHolder viewHolder, Car model, int position) {
-                viewHolder.setCar(model);
-            }
-        };
+        adapterCars = new CarsAvailableAdapter(this, Tarrif.ALL);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
@@ -170,7 +164,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_view:
                 break;*/
             default:
-                Toast.makeText(this,R.string.menuitem_unavilable,Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.menuitem_unavilable, Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -217,7 +211,7 @@ public class MainActivity extends AppCompatActivity
 
     private void UserLogin() {
         layoutNoUser.setVisibility(View.GONE);
-        ShowMenuItems(true,B.customer.isManager());
+        ShowMenuItems(true, B.customer.isManager());
         if (B.customer.isDetailMissing())
             ReplaceFragment(CustomerDetailsEditFragment.newInstance());
         else ReplaceFragment(CustomerMainFragment.newInstance());
@@ -234,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         progressDialog.dismiss();
     }
 
-    private void ShowMenuItems(boolean connected,boolean manager) {
+    private void ShowMenuItems(boolean connected, boolean manager) {
         //Hide connect MenuItem
         navigationView.getMenu().findItem(R.id.nav_connect).setVisible(!connected);
 

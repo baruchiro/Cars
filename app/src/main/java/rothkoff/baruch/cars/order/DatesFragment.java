@@ -46,7 +46,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dates, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_dates, container, false);
 
         InitMembers(view);
         BehaviorMembers();

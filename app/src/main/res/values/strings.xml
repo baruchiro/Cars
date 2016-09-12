@@ -59,4 +59,8 @@
     <string name="Previous">Previous</string>
     <string name="send">Send</string>
     <string name="next_button">Next</string>
+    <string name="order_caravail_title">Cars availables</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
 </resources>
