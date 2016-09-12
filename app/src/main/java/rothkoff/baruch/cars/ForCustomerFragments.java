@@ -7,5 +7,7 @@ import java.util.List;
 public interface ForCustomerFragments {
     void ReplaceFragment(Fragment... fragments);
 
-    List<Tarrif> getTarrifNames();
+    List<Tarrif> getTarrif();
+    List<String> getTarrifUids();
+
 }

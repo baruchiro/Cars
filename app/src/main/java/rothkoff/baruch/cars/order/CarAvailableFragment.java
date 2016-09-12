@@ -1,16 +1,21 @@
 package rothkoff.baruch.cars.order;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import rothkoff.baruch.cars.CarsAvailableAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
+import rothkoff.baruch.cars.Car;
+import rothkoff.baruch.cars.ForCustomerFragments;
 import rothkoff.baruch.cars.R;
 
 /**
@@ -18,14 +23,25 @@ import rothkoff.baruch.cars.R;
  */
 public class CarAvailableFragment extends MainOrderFragment {
 
-    private Button btnSmall,btnMedium,btnLarge;
-    private RecyclerView recyclerView;
-    private CarsAvailableAdapter adapter;
+    private ForCustomerFragments mainActivity;
+    private Car selectedCar;
+    private ViewPager pager;
 
     public CarAvailableFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ForCustomerFragments) {
+            mainActivity = (ForCustomerFragments) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement ForCustomerFragments");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,20 +55,37 @@ public class CarAvailableFragment extends MainOrderFragment {
     }
 
     private void InitMembers(View view){
-        btnSmall = (Button)view.findViewById(R.id.frag_ordercaravail_btn_small);
-        btnMedium = (Button)view.findViewById(R.id.frag_ordercaravail_btn_medium);
-        btnLarge = (Button)view.findViewById(R.id.frag_ordercaravail_btn_large);
-
-        recyclerView = (RecyclerView)view.findViewById(R.id.frag_ordercaravail_recycle);
-        adapter = new CarsAvailableAdapter(getContext());
+        pager = (ViewPager)view.findViewById(R.id.frag_order_caravail_pager);
+        pager.setAdapter(new PagerAdapter(getChildFragmentManager(),mainActivity.getTarrifUids()));
     }
     private void BehaviorMembers(){
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,true));
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public int getPageTitle() {
         return R.string.order_caravail_title;
+    }
+
+    private class PagerAdapter extends FragmentPagerAdapter{
+
+        private List<CarsListFragment> fragments;
+
+        public PagerAdapter(FragmentManager fm, List<String> tarrifsUid) {
+            super(fm);
+
+            fragments = new ArrayList<>();
+            for (String s : tarrifsUid)
+                fragments.add(CarsListFragment.newInstance(s));
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
     }
 }

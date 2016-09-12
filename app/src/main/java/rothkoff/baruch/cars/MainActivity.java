@@ -271,8 +271,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public List<Tarrif> getTarrifNames() {
+    public List<Tarrif> getTarrif() {
         return new ArrayList<>(tarrifMap.values());
+    }
+
+    @Override
+    public List<String> getTarrifUids() {
+        List<String> list = new ArrayList<>();
+        for (Tarrif t : tarrifMap.values())
+            list.add(t.getUid());
+        return list;
     }
 
     private class TarrifChildEventListener implements ChildEventListener{

@@ -1,45 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="rothkoff.baruch.cars.order.CarAvailableFragment"
-    android:orientation="vertical">
+    android:id="@+id/frag_order_caravail_pager"
+    tools:context="rothkoff.baruch.cars.order.CarAvailableFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="@string/small"
-            android:id="@+id/frag_ordercaravail_btn_small"
-            style="?android:attr/buttonBarButtonStyle"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="@string/medium"
-            android:id="@+id/frag_ordercaravail_btn_medium"
-            style="?android:attr/buttonBarButtonStyle"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="@string/large"
-            android:id="@+id/frag_ordercaravail_btn_large"
-            style="?android:attr/buttonBarButtonStyle"/>
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frag_ordercaravail_recycle"/>
-
-</LinearLayout>
+</android.support.v4.view.ViewPager>
