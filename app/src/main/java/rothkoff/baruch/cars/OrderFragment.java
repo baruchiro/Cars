@@ -10,10 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rothkoff.baruch.cars.order.CarAvailableFragment;
 import rothkoff.baruch.cars.order.DatesFragment;
 import rothkoff.baruch.cars.order.MainOrderFragment;
 
@@ -21,10 +23,11 @@ import rothkoff.baruch.cars.order.MainOrderFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderFragment extends MyFragment{
+public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
+    private Button btnNext,btnPrevious,btnSend;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -48,17 +51,56 @@ public class OrderFragment extends MyFragment{
     }
 
     private void InitMembers(View view) {
+        btnNext = (Button)view.findViewById(R.id.frag_order_next);
+        btnPrevious = (Button)view.findViewById(R.id.frag_order_previous);
+        btnSend = (Button)view.findViewById(R.id.frag_order_send);
+
         viewPager = (ViewPager) view.findViewById(R.id.frag_order_viewpager);
         pagerAdapter = new PageAdapter(getChildFragmentManager());
     }
 
     private void BehaviorMembers() {
         viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(this);
+        btnSend.setVisibility(View.GONE);
+        btnPrevious.setEnabled(false);
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+            }
+        });
     }
 
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.order_title);
+    }
+
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+    @Override
+    public void onPageSelected(int position) {
+        int count = pagerAdapter.getCount();
+        position+=1;
+        btnNext.setVisibility(position == count ? View.GONE : View.VISIBLE);
+        btnPrevious.setEnabled(position != 1);
+        btnSend.setVisibility(position == count ? View.VISIBLE : View.GONE);
+    }
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     private class PageAdapter extends FragmentPagerAdapter {
@@ -69,6 +111,7 @@ public class OrderFragment extends MyFragment{
             super(fm);
             fragments = new ArrayList<>();
             fragments.add(DatesFragment.newInstance());
+            fragments.add(CarAvailableFragment.newInstance());
         }
 
         @Override

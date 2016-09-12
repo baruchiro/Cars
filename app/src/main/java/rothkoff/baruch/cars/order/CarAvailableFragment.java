@@ -31,6 +31,12 @@ public class CarAvailableFragment extends MainOrderFragment {
         // Required empty public constructor
     }
 
+    public static CarAvailableFragment newInstance() {
+        CarAvailableFragment fragment = new CarAvailableFragment();
+
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -69,9 +75,12 @@ public class CarAvailableFragment extends MainOrderFragment {
     private class PagerAdapter extends FragmentPagerAdapter{
 
         private List<CarsListFragment> fragments;
+        private List<String> tarrifsUid;
 
         public PagerAdapter(FragmentManager fm, List<String> tarrifsUid) {
             super(fm);
+
+            this.tarrifsUid = tarrifsUid;
 
             fragments = new ArrayList<>();
             for (String s : tarrifsUid)
@@ -86,6 +95,11 @@ public class CarAvailableFragment extends MainOrderFragment {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mainActivity.getTarrifName(tarrifsUid.get(position));
         }
     }
 }

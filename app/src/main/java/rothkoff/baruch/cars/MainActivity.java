@@ -283,6 +283,11 @@ public class MainActivity extends AppCompatActivity
         return list;
     }
 
+    @Override
+    public String getTarrifName(String uid) {
+        return tarrifMap.get(uid).getName();
+    }
+
     private class TarrifChildEventListener implements ChildEventListener{
 
         @Override

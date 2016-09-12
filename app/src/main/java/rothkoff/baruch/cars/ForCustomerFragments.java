@@ -10,4 +10,5 @@ public interface ForCustomerFragments {
     List<Tarrif> getTarrif();
     List<String> getTarrifUids();
 
+    String getTarrifName(String uid);
 }

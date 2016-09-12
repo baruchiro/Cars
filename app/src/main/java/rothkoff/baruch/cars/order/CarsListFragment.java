@@ -43,6 +43,4 @@ public class CarsListFragment extends Fragment {
 
         return recyclerView;
     }
-
-
 }
