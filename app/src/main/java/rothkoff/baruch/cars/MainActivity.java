@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             /*case R.id.nav_nextorders:
                 break;
-
             case R.id.nav_send:
                 break;
             case R.id.nav_share:

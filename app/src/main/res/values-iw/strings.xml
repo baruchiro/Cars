@@ -56,4 +56,19 @@
     <string name="order_title">יצירת הזמנה</string>
     <string name="send">שלח</string>
     <string name="next_button">הבא</string>
+    <string name="addtarrif_title">הוספת תעריף</string>
+    <string name="engine_capacity">נפח מנוע</string>
+    <string name="error_enginecapacity">שגיאה: הכנס נפח מנוע</string>
+    <string name="error_name">שגיאה: הכנס שם תעריף</string>
+    <string name="error_price">שגיאה: הכנס תעריף (מחיר)</string>
+    <string name="error_seatcount">שגיאה: הכנס מספר מושבים</string>
+    <string name="error_with_some_numbers">וודא שהכנסת מספרים גדולים מ0</string>
+    <string name="error_youngprice">שגיאה: מחיר בביטוח צעיר</string>
+    <string name="large">גדול</string>
+    <string name="medium">בינוני</string>
+    <string name="order_caravail_title">רכבים זמינים</string>
+    <string name="price">מחיר</string>
+    <string name="seat_count">כמות מושבים</string>
+    <string name="small">קטן</string>
+    <string name="young_price">תוספת ביטוח צעיר</string>
 </resources>

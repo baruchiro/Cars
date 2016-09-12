@@ -40,14 +40,12 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
     private double youngPrice;
 
     public AddTarrifFragment() {
-        if (getArguments().getString(B.Keys.UID)!=null)uid = getArguments().getString(B.Keys.UID);
-        else throw new NullPointerException("Argument 'UID' not found. use static method 'newInstance' to create this fragment");
-    }
+}
 
     public static AddTarrifFragment newInstance(@NonNull String uid) {
         AddTarrifFragment fragment = new AddTarrifFragment();
 
-        Bundle args = fragment.getArguments();
+        Bundle args = new Bundle();
         args.putString(B.Keys.UID,uid);
         fragment.setArguments(args);
 
@@ -77,6 +75,9 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
         fab = (FloatingActionButton) view.findViewById(R.id.frag_addtarrif_fab);
 
         updatingDialog = new ProgressDialog(getContext());
+
+        if (getArguments().getString(B.Keys.UID)!=null)uid = getArguments().getString(B.Keys.UID);
+        else throw new NullPointerException("Argument 'UID' not found. use static method 'newInstance' to create this fragment");
     }
 
     private void BehavoirMembers() {

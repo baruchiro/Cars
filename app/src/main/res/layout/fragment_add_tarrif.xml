@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="rothkoff.baruch.cars.AddTarrifFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan">
 
     <!--Error Text-->
     <TextView
@@ -21,7 +22,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_hint"
+            android:hint="@string/name"
             android:id="@+id/frag_addtarrif_edit_name"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
@@ -77,7 +78,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/price"
+            android:hint="@string/young_price"
             android:id="@+id/frag_addtarrif_edit_youngPrice"
             android:singleLine="true"
             android:inputType="numberDecimal"/>
