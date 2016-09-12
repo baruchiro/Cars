@@ -17,7 +17,7 @@ public class B {
         public static final String IS_YOUNG = "isYoung";
         public static final String SIZE = "size";
         public static final String PARK_LOCATION = "parkLocation";
-        public static final String _TARIFF_ID = "tariffID";
+        public static final String TARIFF_UID = "tariffUid";
         public static final String CUSTOMER = "CUSTOMER";
 
         public static final String TARIFFS = "tariffs";

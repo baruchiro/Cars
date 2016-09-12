@@ -8,7 +8,7 @@ import android.widget.TextView;
 public class CarHolder extends RecyclerView.ViewHolder {
     private View view;
     private Car car;
-    TextView carTypeTxt, carColorTxt;
+    private TextView carTypeTxt, carColorTxt;
 
     public CarHolder(View itemView) {
         super(itemView);
@@ -17,13 +17,18 @@ public class CarHolder extends RecyclerView.ViewHolder {
         carTypeTxt = (TextView) view.findViewById(R.id.item_car_type);
     }
 
-    public void setCar(Car car, int tariffToShow) {
+    public void setCar(Car car, String tariffToShow) {
         this.car = car;
         carColorTxt.setText(car.getColor());
         carTypeTxt.setText(car.getBrand());
 
-        if (tariffToShow == 0 || tariffToShow == car.getTariffID())
+        if ( tariffToShow.equals(car.getTariffUid()))
             view.setVisibility(View.VISIBLE);
         else view.setVisibility(View.GONE);
+    }
+    public void setCar(Car car){
+        this.car = car;
+        carColorTxt.setText(car.getColor());
+        carTypeTxt.setText(car.getBrand());
     }
 }

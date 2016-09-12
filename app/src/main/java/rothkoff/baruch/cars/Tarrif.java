@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tarrif {
-    public static final int SMALL = 1;
-    public static final int MEDIUM = 2;
-    public static final int LARGE = 3;
-    public static final int ALL = 0;
     private String uid;
     private String name;
     private double price;
@@ -76,6 +72,7 @@ public class Tarrif {
     public Map<String, Object> getMapForUpdate() {
         Map<String, Object> m = new HashMap<>();
 
+        m.put(B.Keys.UID,uid);
         m.put(B.Keys.NAME, name);
         m.put(B.Keys.PRICE, price);
         m.put(B.Keys.SEAT_COUNT, seatCount);

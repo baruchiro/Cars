@@ -20,17 +20,16 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implem
     private Context context;
     private List<Car> cars;
     private DatabaseReference carsRef;
-    private int tariffToShow;
+    private String tariffToShow;
 
     public CarsAvailableAdapter(Context context) {
         this.context = context;
-        tariffToShow = 0;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
 
         carsRef.addListenerForSingleValueEvent(this);
     }
-    public CarsAvailableAdapter(Context context,int tariffToShow){
+    public CarsAvailableAdapter(Context context,String tariffToShow){
         this.context = context;
         this.tariffToShow = tariffToShow;
         cars = new ArrayList<>();
@@ -46,7 +45,9 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implem
 
     @Override
     public void onBindViewHolder(CarHolder holder, int position) {
-        holder.setCar(cars.get(position),tariffToShow);
+        if (tariffToShow == null) holder.setCar(cars.get(position));
+        else
+            holder.setCar(cars.get(position), tariffToShow);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implem
 
     }
 
-    public void setTariffToShow(int tariffToShow) {
+    public void setTariffToShow(String tariffToShow) {
         this.tariffToShow = tariffToShow;
         notifyDataSetChanged();
     }

@@ -12,7 +12,6 @@ import android.widget.Button;
 
 import rothkoff.baruch.cars.CarsAvailableAdapter;
 import rothkoff.baruch.cars.R;
-import rothkoff.baruch.cars.Tarrif;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,32 +47,8 @@ public class CarAvailableFragment extends MainOrderFragment {
         adapter = new CarsAvailableAdapter(getContext());
     }
     private void BehaviorMembers(){
-        btnSmall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnClick(Tarrif.SMALL);
-            }
-        });
-        btnMedium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnClick(Tarrif.MEDIUM);
-            }
-        });
-        btnLarge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnClick(Tarrif.LARGE);
-            }
-        });
-
-        adapter.setTariffToShow(Tarrif.MEDIUM);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,true));
         recyclerView.setAdapter(adapter);
-    }
-
-    private void OnClick(int tariff) {
-        adapter.setTariffToShow(tariff);
     }
 
     @Override

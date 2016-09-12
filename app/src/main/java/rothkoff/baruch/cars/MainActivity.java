@@ -23,11 +23,17 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AuthStateListener,ForCustomerFragments {
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity
 
     private boolean authFlag = true;
     private NavigationView navigationView;
+
+    private Map<String,Tarrif> tarrifMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,8 @@ public class MainActivity extends AppCompatActivity
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.please_wait));
         layoutNoUser = (LinearLayout) findViewById(R.id.main_layout_nouser);
+
+        tarrifMap = new HashMap<>();
     }
 
     private void InitBeaviors() {
@@ -90,11 +100,13 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        adapterCars = new CarsAvailableAdapter(this, Tarrif.ALL);
+        adapterCars = new CarsAvailableAdapter(this);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
         recycleCars.setAdapter(adapterCars);
+
+        FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).addChildEventListener(new TarrifChildEventListener());
     }
 
     @Override
@@ -256,5 +268,38 @@ public class MainActivity extends AppCompatActivity
             for (Fragment f : fragments)
                 transaction.add(R.id.main_fragment, f);
         transaction.commit();
+    }
+
+    @Override
+    public List<Tarrif> getTarrifNames() {
+        return new ArrayList<>(tarrifMap.values());
+    }
+
+    private class TarrifChildEventListener implements ChildEventListener{
+
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            tarrifMap.put(dataSnapshot.getKey(),dataSnapshot.getValue(Tarrif.class));
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+tarrifMap.put(dataSnapshot.getKey(),dataSnapshot.getValue(Tarrif.class));
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+tarrifMap.remove(dataSnapshot.getKey());
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
     }
 }

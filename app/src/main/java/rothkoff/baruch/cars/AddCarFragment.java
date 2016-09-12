@@ -10,8 +10,10 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,12 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddCarFragment extends MyFragment implements DatabaseReference.CompletionListener {
+public class AddCarFragment extends MyFragment implements DatabaseReference.CompletionListener, AdapterView.OnItemSelectedListener {
 
     //private ForCustomerFragments mainActivity;
     private ProgressDialog updatingDialog;
 
     private EditText etBrand, etColor, etParkLocation, etCarNumber;
+    private Spinner tariffList;
     private Switch sYoungDriver;
     private FloatingActionButton fab;
     private TextView errorFields;
@@ -38,6 +41,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
     private String color;
     private String parkLocation;
     private String carNumber;
+    private Tarrif tarrif;
     private boolean youngDriver;
 
     public AddCarFragment() {
@@ -66,6 +70,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
         etParkLocation = (EditText) view.findViewById(R.id.frag_addcar_edit_parklocation);
         etCarNumber = (EditText) view.findViewById(R.id.frag_addcar_edit_carnumber);
         sYoungDriver = (Switch)view.findViewById(R.id.frag_addcar_isyoung);
+        tariffList = (Spinner) view.findViewById(R.id.frag_addcar_spinner);
 
         errorFields = (TextView) view.findViewById(R.id.frag_addcar_error);
 
@@ -79,7 +84,9 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updatingDialog.show();
                 if (Validate()) SaveCarDetails();
+                else updatingDialog.dismiss();
             }
         });
         updatingDialog.setMessage(getString(R.string.send_data_to_server));
@@ -91,12 +98,16 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
             }
         });
         sYoungDriver.setChecked(false);
+
+        TarrifsAdapter adapter = new TarrifsAdapter(getContext(),android.R.layout.simple_spinner_item,mainActivity.getTarrifNames());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tariffList.setAdapter(adapter);
+        tariffList.setOnItemSelectedListener(this);
     }
 
     private void SaveCarDetails() {
-        updatingDialog.show();
 
-        Car car = new Car(carNumber, brand,color);
+        Car car = new Car(carNumber, brand,color,tarrif);
         car.setParkLocation(parkLocation);
         car.setYoung(youngDriver);
 
@@ -128,6 +139,8 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
             errorMessage += getString(R.string.error_carnumber) + "<br/>";
             etCarNumber.setHighlightColor(COLOR_ERROR);
         }
+        if (tarrif==null)
+            errorMessage += getString(R.string.error_select_tarrif) + "<br/>";
 
         if (errorMessage.equals("")) {
             errorFields.setVisibility(View.GONE);
@@ -165,5 +178,15 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.addcar_title);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        this.tarrif = (Tarrif) adapterView.getSelectedItem();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

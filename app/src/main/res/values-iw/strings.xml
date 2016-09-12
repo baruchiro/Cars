@@ -31,7 +31,6 @@
     <string name="car_number">מספר רכב</string>
     <string name="color">צבע</string>
     <string name="date">תאריך</string>
-    <string name="default_activity_title">בלה בלה בלה</string>
     <string name="error_brand">שגיאה: הכנס שם יצרן</string>
     <string name="error_carnumber">שגיאה: הכנס מספר רכב</string>
     <string name="error_color">שגיאה: הכנס צבע רכב</string>

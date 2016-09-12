@@ -73,4 +73,5 @@
     <string name="error_youngprice">ERROR: young price</string>
     <string name="addtarrif_title">Add Tarrif</string>
     <string name="young_price">Young price</string>
+    <string name="error_select_tarrif">Must select Tarrif</string>
 </resources>

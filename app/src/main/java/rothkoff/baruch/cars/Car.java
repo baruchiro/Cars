@@ -8,18 +8,18 @@ public class Car {
     private String brand;
     private String color;
     private boolean isYoung = false;
-    private int size;
     private Map<String,Maka> makot;
     private String parkLocation = "";
-    private int tariffID;
+    private String tariffUid;
 
     public Car(){
     }
 
-    public Car(String carNumber, String brand, String color) {
+    public Car(String carNumber, String brand, String color,Tarrif tarrif) {
         this.carNumber = carNumber;
         this.brand = brand;
         this.color = color;
+        this.tariffUid = tarrif.getUid();
         makot = new HashMap<>();
     }
 
@@ -55,14 +55,6 @@ public class Car {
         isYoung = young;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public Map<String, Maka> getMakot() {
         return makot;
     }
@@ -79,12 +71,12 @@ public class Car {
         this.parkLocation = parkLocation;
     }
 
-    public int getTariffID() {
-        return tariffID;
+    public String getTariffUid() {
+        return tariffUid;
     }
 
-    public void setTariffID(int tariffID) {
-        this.tariffID = tariffID;
+    public void setTariffUid(String tariffUid) {
+        this.tariffUid = tariffUid;
     }
 
     public Map<String, Object> getMapForUpdate() {
@@ -94,9 +86,8 @@ public class Car {
         m.put(B.Keys.BRAND, brand);
         m.put(B.Keys.COLOR, color);
         m.put(B.Keys.IS_YOUNG, isYoung);
-        m.put(B.Keys.SIZE, size);
         m.put(B.Keys.PARK_LOCATION, parkLocation);
-        m.put(B.Keys._TARIFF_ID, tariffID);
+        m.put(B.Keys.TARIFF_UID, tariffUid);
 
         return m;
     }
