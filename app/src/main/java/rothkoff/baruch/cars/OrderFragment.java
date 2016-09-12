@@ -62,20 +62,22 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
     private void BehaviorMembers() {
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(pagerAdapter.getCount());
+
         btnSend.setVisibility(View.GONE);
         btnPrevious.setEnabled(false);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
             }
         });
 
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
     }
@@ -93,10 +95,10 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
     @Override
     public void onPageSelected(int position) {
         int count = pagerAdapter.getCount();
-        position+=1;
-        btnNext.setVisibility(position == count ? View.GONE : View.VISIBLE);
-        btnPrevious.setEnabled(position != 1);
-        btnSend.setVisibility(position == count ? View.VISIBLE : View.GONE);
+        position += 1;
+        btnNext.setVisibility(position == 1 ? View.GONE : View.VISIBLE);
+        btnPrevious.setEnabled(position != count);
+        btnSend.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
     }
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -110,8 +112,9 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
         public PageAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<>();
-            fragments.add(DatesFragment.newInstance());
             fragments.add(CarAvailableFragment.newInstance());
+            fragments.add(DatesFragment.newInstance());
+
         }
 
         @Override

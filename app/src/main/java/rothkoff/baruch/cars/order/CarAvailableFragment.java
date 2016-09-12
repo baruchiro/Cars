@@ -3,6 +3,7 @@ package rothkoff.baruch.cars.order;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -26,6 +27,7 @@ public class CarAvailableFragment extends MainOrderFragment {
     private ForCustomerFragments mainActivity;
     private Car selectedCar;
     private ViewPager pager;
+    private TabLayout tabLayout;
 
     public CarAvailableFragment() {
         // Required empty public constructor
@@ -60,11 +62,13 @@ public class CarAvailableFragment extends MainOrderFragment {
         return view;
     }
 
-    private void InitMembers(View view){
-        pager = (ViewPager)view.findViewById(R.id.frag_order_caravail_pager);
-        pager.setAdapter(new PagerAdapter(getChildFragmentManager(),mainActivity.getTarrifUids()));
+    private void InitMembers(View view) {
+        pager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
+        pager.setAdapter(new PagerAdapter(getChildFragmentManager(), mainActivity.getTarrifUids()));
+        tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
     private void BehaviorMembers(){
+        tabLayout.setupWithViewPager(pager,true);
     }
 
     @Override
