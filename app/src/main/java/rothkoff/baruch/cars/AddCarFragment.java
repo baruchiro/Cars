@@ -2,12 +2,10 @@ package rothkoff.baruch.cars;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +28,6 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
 
     //private ForCustomerFragments mainActivity;
     private ProgressDialog updatingDialog;
-    private static int COLOR_ERROR;
-    private static int COLOR_HEADING;
 
     private EditText etBrand, etColor, etParkLocation, etCarNumber;
     private Switch sYoungDriver;
@@ -52,15 +48,6 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
 
         return fragment;
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        COLOR_ERROR = ContextCompat.getColor(context, R.color.errorColor);
-        COLOR_HEADING = ContextCompat.getColor(context, R.color.headingColor);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

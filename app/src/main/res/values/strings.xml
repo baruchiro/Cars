@@ -63,4 +63,14 @@
     <string name="small">Small</string>
     <string name="medium">Medium</string>
     <string name="large">Large</string>
+    <string name="price">Price</string>
+    <string name="seat_count">Seat count</string>
+    <string name="engine_capacity">Engine Capacity</string>
+    <string name="error_with_some_numbers">Error with some numbers</string>
+    <string name="error_name">ERROR: name</string>
+    <string name="error_price">ERROR: price</string>
+    <string name="error_seatcount">ERROR: seat count</string>
+    <string name="error_enginecapacity">ERROR:Eengine Capacity</string>
+    <string name="error_youngprice">ERROR: young price</string>
+    <string name="addtarrif_title">Add Tarrif</string>
 </resources>

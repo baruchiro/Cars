@@ -20,6 +20,12 @@ public class B {
         public static final String _TARIFF_ID = "tariffID";
         public static final String CUSTOMER = "CUSTOMER";
 
+        public static final String TARIFFS = "tariffs";
+        public static final String NAME = "name";
+        public static final String PRICE = "price";
+        public static final String SEAT_COUNT = "seatCount";
+        public static final String ENGINE_CAPACITY = "engineCapacity";
+        public static final String YOUNG_PRICE = "youngPrice";
     }
 
     public class Constants {

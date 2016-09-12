@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_account:
                 break;
             case R.id.nav_managedb:
-                ReplaceFragment(AddCarFragment.newInstance());
+                ReplaceFragment(ManageDBFragment.newInstance());
                 break;
             /*case R.id.nav_nextorders:
                 break;
