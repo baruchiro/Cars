@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity
                 ReplaceFragment(OrderFragment.newInstance());
                 break;
             case R.id.nav_account:
+                ReplaceFragment(MyAccountFragment.newInstance());
                 break;
             case R.id.nav_managedb:
                 ReplaceFragment(ManageDBFragment.newInstance());
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity
         ShowMenuItems(true, B.customer.isManager());
         if (B.customer.isDetailMissing())
             ReplaceFragment(CustomerDetailsEditFragment.newInstance());
-        else ReplaceFragment(CustomerMainFragment.newInstance());
+        else ReplaceFragment(MyAccountFragment.newInstance());
 
         navigationView.getMenu().findItem(R.id.nav_account).setChecked(true);
         progressDialog.dismiss();

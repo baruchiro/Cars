@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerMainFragment extends MyFragment {
+public class MyAccountFragment extends MyFragment {
 
     private LinearLayout llMain;
     private RecyclerView recyclerView;
@@ -28,13 +28,13 @@ public class CustomerMainFragment extends MyFragment {
     private RentsAdapter adapter;
     private ScrollView scrollView;
 
-    public static CustomerMainFragment newInstance() {
-        CustomerMainFragment fragment = new CustomerMainFragment();
+    public static MyAccountFragment newInstance() {
+        MyAccountFragment fragment = new MyAccountFragment();
 
         return fragment;
     }
 
-    public CustomerMainFragment() {
+    public MyAccountFragment() {
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CustomerMainFragment extends MyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_customer_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_account, container, false);
 
         InitMembers(view);
         BehaviorMembers();

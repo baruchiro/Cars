@@ -146,7 +146,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
     @Override
     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
         if (databaseError == null) {
-            mainActivity.ReplaceFragment(CustomerMainFragment.newInstance());
+            mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
             Toast.makeText(getContext(),R.string.success,Toast.LENGTH_LONG).show();
             updatingDialog.dismiss();
         } else {

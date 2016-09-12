@@ -181,7 +181,7 @@ public class CustomerDetailsEditFragment extends MyFragment
     @Override
     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
         if (databaseError == null) {
-            mainActivity.ReplaceFragment(CustomerMainFragment.newInstance());
+            mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
             updatingDialog.dismiss();
         } else {
             updatingDialog.dismiss();
