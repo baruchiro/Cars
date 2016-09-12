@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import rothkoff.baruch.cars.order.CarAvailableFragment;
@@ -28,6 +29,9 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private Button btnNext,btnPrevious,btnSend;
+
+    private Calendar dateStart,dateEnd;
+    private Car selectedCar;
 
     public OrderFragment() {
         // Required empty public constructor

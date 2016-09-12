@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        adapterCars = new CarsAvailableAdapter(this);
+        adapterCars = new CarsAvailableAdapter(this,null);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));

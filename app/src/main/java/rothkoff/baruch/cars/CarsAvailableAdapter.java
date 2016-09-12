@@ -15,22 +15,28 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implements ValueEventListener {
+public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
+        implements ValueEventListener {
 
     private Context context;
     private List<Car> cars;
     private DatabaseReference carsRef;
     private String tariffToShow;
+    private View.OnClickListener onClickListener;
+    Car selectedCar= null;
 
-    public CarsAvailableAdapter(Context context) {
+    public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener) {
         this.context = context;
+        this.onClickListener = onClickListener;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
 
+
         carsRef.addListenerForSingleValueEvent(this);
     }
-    public CarsAvailableAdapter(Context context,String tariffToShow){
+    public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener,String tariffToShow){
         this.context = context;
+        this.onClickListener = onClickListener;
         this.tariffToShow = tariffToShow;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
@@ -45,9 +51,9 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implem
 
     @Override
     public void onBindViewHolder(CarHolder holder, int position) {
-        if (tariffToShow == null) holder.setCar(cars.get(position));
+        if (tariffToShow == null) holder.Init(onClickListener,cars.get(position));
         else
-            holder.setCar(cars.get(position), tariffToShow);
+            holder.Init(onClickListener,cars.get(position), tariffToShow);
     }
 
     @Override
@@ -71,5 +77,9 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder> implem
     public void setTariffToShow(String tariffToShow) {
         this.tariffToShow = tariffToShow;
         notifyDataSetChanged();
+    }
+
+    public Car getCarInPosition(int position) {
+        return cars.get(position);
     }
 }
