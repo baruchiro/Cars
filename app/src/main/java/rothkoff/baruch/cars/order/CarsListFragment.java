@@ -8,17 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
 
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.CarsAvailableAdapter;
+import rothkoff.baruch.cars.Customer;
+import rothkoff.baruch.cars.R;
 
-public class CarsListFragment extends Fragment implements View.OnClickListener {
+public class CarsListFragment extends Fragment implements View.OnClickListener, CarsAvailableAdapter.OnDataChangeListener {
 
     private RecyclerView recyclerView;
     private CarsAvailableAdapter adapter;
+    private TextView emptyView;
     private String tarrifUid;
     private ForTarrifsListsFragment parentFragment;
+    private Customer customer;
 
     public CarsListFragment() {
         // Required empty public constructor
@@ -32,19 +39,40 @@ public class CarsListFragment extends Fragment implements View.OnClickListener {
 
         return carsListFragment;
     }
+
+    public static CarsListFragment newInstance(ForTarrifsListsFragment fragment, String tarrifUid, Customer customer) {
+        CarsListFragment carsListFragment = CarsListFragment.newInstance(fragment, tarrifUid);
+
+        carsListFragment.customer = customer;
+
+        return carsListFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        recyclerView = new RecyclerView(getContext());
-        recyclerView.setLayoutParams(new RecyclerView.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        View view = inflater.inflate(R.layout.fragment_cars_list,container,false);
+
+        InitMembers(view);
+        BehaviorMembers();
+
+        return view;
+    }
+
+    private void InitMembers(View view){
+        recyclerView =(RecyclerView)view.findViewById(R.id.frag_carslist_recycler);
+        adapter = new CarsAvailableAdapter(getContext(),this,tarrifUid);
+
+        emptyView = (TextView)view.findViewById(R.id.frag_carslist_emptylist);
+    }
+
+    private void BehaviorMembers(){
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
-        adapter = new CarsAvailableAdapter(getContext(),this,tarrifUid);
+        if (customer!=null) adapter.showPrices(customer);
+        adapter.setOnDataChangeListener(this);
+
         recyclerView.setAdapter(adapter);
-
-
-        return recyclerView;
     }
 
     @Override
@@ -58,6 +86,12 @@ public class CarsListFragment extends Fragment implements View.OnClickListener {
 
     public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void OnDataChange(List<Car> data) {
+        emptyView.setVisibility(data.size()==0?View.VISIBLE:View.GONE);
+        recyclerView.setVisibility(data.size()==0?View.GONE:View.VISIBLE);
     }
 
     public interface ForTarrifsListsFragment{

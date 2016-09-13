@@ -74,4 +74,6 @@
     <string name="addtarrif_title">Add Tarrif</string>
     <string name="young_price">Young price</string>
     <string name="error_select_tarrif">ERROR: Must select Tarrif</string>
+    <string name="NIS">NIS</string>
+    <string name="not_found_data">Not found data</string>
 </resources>

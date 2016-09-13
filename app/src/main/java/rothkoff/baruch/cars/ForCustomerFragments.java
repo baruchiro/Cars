@@ -1,5 +1,6 @@
 package rothkoff.baruch.cars;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import java.util.List;
@@ -7,8 +8,12 @@ import java.util.List;
 public interface ForCustomerFragments {
     void ReplaceFragment(Fragment... fragments);
 
-    List<Tarrif> getTarrif();
+    List<Tarrif> getTarrifsList();
     List<String> getTarrifUids();
-
     String getTarrifName(String uid);
+    Tarrif getTarrifByUid(String uid);
+
+    String getString(int resID);
+
+    Context getContext();
 }

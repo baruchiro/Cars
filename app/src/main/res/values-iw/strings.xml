@@ -71,4 +71,6 @@
     <string name="small">קטן</string>
     <string name="young_price">תוספת ביטוח צעיר</string>
     <string name="error_select_tarrif">חובה לבחור תעריף</string>
+    <string name="NIS">ש"ח</string>
+    <string name="not_found_data">אין רכבים זמינים</string>
 </resources>

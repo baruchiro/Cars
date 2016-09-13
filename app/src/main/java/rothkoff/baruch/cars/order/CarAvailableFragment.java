@@ -1,7 +1,6 @@
 package rothkoff.baruch.cars.order;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,9 +14,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
-import rothkoff.baruch.cars.ForCustomerFragments;
 import rothkoff.baruch.cars.R;
 
 /**
@@ -26,7 +25,6 @@ import rothkoff.baruch.cars.R;
 public class CarAvailableFragment extends MainOrderFragment
         implements CarsListFragment.ForTarrifsListsFragment {
 
-    private ForCustomerFragments mainActivity;
     private Car selectedCar;
     private ViewPager pager;
     private CarAvailableFragment.PagerAdapter adapter;
@@ -40,18 +38,6 @@ public class CarAvailableFragment extends MainOrderFragment
         CarAvailableFragment fragment = new CarAvailableFragment();
 
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ForCustomerFragments");
-        }
     }
 
     @Override
@@ -99,7 +85,7 @@ public class CarAvailableFragment extends MainOrderFragment
 
             fragments = new ArrayList<>();
             for (String s : tarrifsUid)
-                fragments.add(CarsListFragment.newInstance(CarAvailableFragment.this,s));
+                fragments.add(CarsListFragment.newInstance(CarAvailableFragment.this,s, B.customer));
         }
 
         @Override

@@ -18,24 +18,30 @@ import java.util.List;
 public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
         implements ValueEventListener {
 
-    private Context context;
+    private ForCustomerFragments context;
     private List<Car> cars;
     private DatabaseReference carsRef;
     private String tariffToShow;
     private View.OnClickListener onClickListener;
     Car selectedCar= null;
+    private Customer customer;
+    private OnDataChangeListener onDataChangeListener;
 
     public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener) {
-        this.context = context;
+        if (context instanceof  ForCustomerFragments) this.context = (ForCustomerFragments) context;
+        else throw new RuntimeException(context.toString()
+                + " must implement ForCustomerFragments");
         this.onClickListener = onClickListener;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
 
-
         carsRef.addListenerForSingleValueEvent(this);
     }
+
     public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener,String tariffToShow){
-        this.context = context;
+        if (context instanceof  ForCustomerFragments) this.context = (ForCustomerFragments) context;
+        else throw new RuntimeException(context.toString()
+                + " must implement ForCustomerFragments");
         this.onClickListener = onClickListener;
         this.tariffToShow = tariffToShow;
         cars = new ArrayList<>();
@@ -45,15 +51,15 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     }
     @Override
     public CarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_car,parent,false);
+        View view = LayoutInflater.from(context.getContext()).inflate(R.layout.item_car,parent,false);
         return new CarHolder(view);
     }
 
     @Override
     public void onBindViewHolder(CarHolder holder, int position) {
-        if (tariffToShow == null) holder.Init(onClickListener,cars.get(position));
-        else
-            holder.Init(onClickListener,cars.get(position), tariffToShow);
+        holder.Init(context, onClickListener, cars.get(position));
+        if (customer != null)
+            holder.ShowPrice(customer);
     }
 
     @Override
@@ -63,10 +69,21 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        for (DataSnapshot d : dataSnapshot.getChildren()){
-            cars.add(d.getValue(Car.class));
+
+        if (tariffToShow == null) {
+            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                cars.add(d.getValue(Car.class));
+            }
+        } else {
+            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                Car car = d.getValue(Car.class);
+                if (tariffToShow.equals(car.getTariffUid()))
+                    if (car.getPrice(customer, context.getTarrifByUid(car.getTariffUid())) != 0)
+                    cars.add(car);
+            }
         }
-        notifyDataSetChanged();
+
+        notifyMyDataSetChanged();
     }
 
     @Override
@@ -74,12 +91,26 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
 
     }
 
-    public void setTariffToShow(String tariffToShow) {
-        this.tariffToShow = tariffToShow;
-        notifyDataSetChanged();
-    }
-
     public Car getCarInPosition(int position) {
         return cars.get(position);
+    }
+
+    public void showPrices(Customer customer) {
+        this.customer = customer;
+
+        carsRef.addListenerForSingleValueEvent(this);
+    }
+
+    public void setOnDataChangeListener(OnDataChangeListener listener){
+        this.onDataChangeListener = listener;
+    }
+
+    public void notifyMyDataSetChanged(){
+        notifyDataSetChanged();
+        if (onDataChangeListener!=null)onDataChangeListener.OnDataChange(cars);
+    }
+
+    public interface OnDataChangeListener{
+        void OnDataChange(List<Car> data);
     }
 }

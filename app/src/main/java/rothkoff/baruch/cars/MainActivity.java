@@ -1,6 +1,7 @@
 package rothkoff.baruch.cars;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private boolean authFlag = true;
     private NavigationView navigationView;
 
-    private Map<String,Tarrif> tarrifMap;
+    private Map<String, Tarrif> tarrifMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        adapterCars = new CarsAvailableAdapter(this,null);
+        adapterCars = new CarsAvailableAdapter(this, null);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
@@ -271,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public List<Tarrif> getTarrif() {
+    public List<Tarrif> getTarrifsList() {
         return new ArrayList<>(tarrifMap.values());
     }
 
@@ -288,21 +289,31 @@ public class MainActivity extends AppCompatActivity
         return tarrifMap.get(uid).getName();
     }
 
-    private class TarrifChildEventListener implements ChildEventListener{
+    @Override
+    public Tarrif getTarrifByUid(String uid) {
+        return tarrifMap.get(uid);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    private class TarrifChildEventListener implements ChildEventListener {
 
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            tarrifMap.put(dataSnapshot.getKey(),dataSnapshot.getValue(Tarrif.class));
+            tarrifMap.put(dataSnapshot.getKey(), dataSnapshot.getValue(Tarrif.class));
         }
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-tarrifMap.put(dataSnapshot.getKey(),dataSnapshot.getValue(Tarrif.class));
+            tarrifMap.put(dataSnapshot.getKey(), dataSnapshot.getValue(Tarrif.class));
         }
 
         @Override
         public void onChildRemoved(DataSnapshot dataSnapshot) {
-tarrifMap.remove(dataSnapshot.getKey());
+            tarrifMap.remove(dataSnapshot.getKey());
         }
 
         @Override

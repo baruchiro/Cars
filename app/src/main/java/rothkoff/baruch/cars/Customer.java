@@ -98,8 +98,7 @@ public class Customer {
         Map<String, String> mapForView = new HashMap<>();
 
         mapForView.put(resources.getString(R.string.full_name), customer.firstName + " " + customer.lastName);
-        long now = new Date().getTime();
-        mapForView.put(resources.getString(R.string.age), String.valueOf((now - customer.dateOfBirth) / B.Constants.YEAR_IN_MILISECONDS));
+        mapForView.put(resources.getString(R.string.age), String.valueOf(customer.getAge()));
         mapForView.put(resources.getString(R.string.IDnumber), customer.IDnumber);
 
         return mapForView;
@@ -107,5 +106,11 @@ public class Customer {
 
     public Map<String, Rent> getRents() {
         return rents;
+    }
+
+    public int getAge() {
+        long now = new Date().getTime();
+        int age = (int) ((now - dateOfBirth) / B.Constants.YEAR_IN_MILISECONDS);
+        return age;
     }
 }

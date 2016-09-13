@@ -92,6 +92,13 @@ public class Car {
         return m;
     }
 
+    public double getPrice(Customer customer,Tarrif tarrif) {
+        if (customer.getAge()<24){
+            if (!isYoung)return 0;
+            return tarrif.getPrice()+tarrif.getYoungPrice();
+        }return tarrif.getPrice();
+    }
+
     private class Maka{
         private String location;
         private String details;

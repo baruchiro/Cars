@@ -99,7 +99,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
         });
         sYoungDriver.setChecked(false);
 
-        TarrifsAdapter adapter = new TarrifsAdapter(getContext(),android.R.layout.simple_spinner_item,mainActivity.getTarrif());
+        TarrifsAdapter adapter = new TarrifsAdapter(getContext(),android.R.layout.simple_spinner_item,mainActivity.getTarrifsList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tariffList.setAdapter(adapter);
         tariffList.setOnItemSelectedListener(this);
