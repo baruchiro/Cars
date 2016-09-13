@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
@@ -26,6 +27,8 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     Car selectedCar= null;
     private Customer customer;
     private OnDataChangeListener onDataChangeListener;
+    private Calendar dateStart;
+    private Calendar dateEnd;
 
     public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener) {
         if (context instanceof  ForCustomerFragments) this.context = (ForCustomerFragments) context;
@@ -72,7 +75,13 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
 
         if (tariffToShow == null) {
             for (DataSnapshot d : dataSnapshot.getChildren()) {
-                cars.add(d.getValue(Car.class));
+                Car car = d.getValue(Car.class);
+                if (dateStart != null) {
+                    if (dateEnd != null) {
+                        if (car.availableInDates(dateStart, dateEnd)) cars.add(car);
+                    } else if (car.availableInDate(dateStart)) cars.add(car);
+                } else
+                    cars.add(car);
             }
         } else {
             for (DataSnapshot d : dataSnapshot.getChildren()) {
@@ -108,6 +117,17 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     public void notifyMyDataSetChanged(){
         notifyDataSetChanged();
         if (onDataChangeListener!=null)onDataChangeListener.OnDataChange(cars);
+    }
+
+    public void ShowAvailableInDate(Calendar dateStart) {
+        this.dateStart = dateStart;
+        carsRef.addListenerForSingleValueEvent(this);
+    }
+
+    public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        carsRef.addListenerForSingleValueEvent(this);
     }
 
     public interface OnDataChangeListener{

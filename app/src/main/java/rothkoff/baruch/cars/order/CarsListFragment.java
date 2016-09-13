@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import rothkoff.baruch.cars.Car;
@@ -92,6 +93,14 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     public void OnDataChange(List<Car> data) {
         emptyView.setVisibility(data.size()==0?View.VISIBLE:View.GONE);
         recyclerView.setVisibility(data.size()==0?View.GONE:View.VISIBLE);
+    }
+
+    public void ShowAvailableInDate(Calendar dateStart) {
+        adapter.ShowAvailableInDate(dateStart);
+    }
+
+    public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
+        adapter.ShowAvailableInDates(dateStart,dateEnd);
     }
 
     public interface ForTarrifsListsFragment{

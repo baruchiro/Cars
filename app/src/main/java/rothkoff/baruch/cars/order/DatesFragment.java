@@ -29,7 +29,6 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     private EditText etDateStart,etDateEnd;
     private Switch sIsOneDay;
 
-    private Calendar dateStart,dateEnd;
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialogStart,datePickerDialogEnd;
 
@@ -126,6 +125,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        isOneDay = b;
         getActivity().findViewById(R.id.frag_order_input_dateend).setVisibility(b?View.GONE:View.VISIBLE);
     }
 

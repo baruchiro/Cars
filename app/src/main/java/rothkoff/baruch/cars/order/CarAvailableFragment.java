@@ -25,7 +25,6 @@ import rothkoff.baruch.cars.R;
 public class CarAvailableFragment extends MainOrderFragment
         implements CarsListFragment.ForTarrifsListsFragment {
 
-    private Car selectedCar;
     private ViewPager pager;
     private CarAvailableFragment.PagerAdapter adapter;
     private TabLayout tabLayout;
@@ -90,7 +89,13 @@ public class CarAvailableFragment extends MainOrderFragment
 
         @Override
         public Fragment getItem(int position) {
-            return fragments.get(position);
+            CarsListFragment fr = fragments.get(position);
+            if (dateStart == null)
+                return fr;
+            if (isOneDay) fr.ShowAvailableInDate(dateStart);
+            else fr.ShowAvailableInDates(dateStart, dateEnd);
+
+            return fr;
         }
 
         @Override

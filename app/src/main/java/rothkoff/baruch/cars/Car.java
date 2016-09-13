@@ -1,5 +1,6 @@
 package rothkoff.baruch.cars;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class Car {
     private Map<String,Maka> makot;
     private String parkLocation = "";
     private String tariffUid;
+    private Map<String,Rent> rents;
 
     public Car(){
     }
@@ -97,6 +99,22 @@ public class Car {
             if (!isYoung)return 0;
             return tarrif.getPrice()+tarrif.getYoungPrice();
         }return tarrif.getPrice();
+    }
+
+    public boolean availableInDates(Calendar dateStart, Calendar dateEnd) {
+
+    }
+
+    public boolean availableInDate(Calendar dateStart) {
+
+    }
+
+    public Map<String, Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(Map<String, Rent> rents) {
+        this.rents = rents;
     }
 
     private class Maka{
