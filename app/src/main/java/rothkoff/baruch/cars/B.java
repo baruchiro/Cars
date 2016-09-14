@@ -1,7 +1,36 @@
 package rothkoff.baruch.cars;
 
+import java.util.Calendar;
+
 public class B {
     public static Customer customer;
+
+    /**
+     * <p>
+     *     this Method get two Calendar objects and check if his date (31/12/2016) is compering
+     * </p>
+     * @param oneCal Calendar Object
+     * @param twoCal Calendar object
+     * @return 'true' if Day, Month, Year is ==. else false.
+     */
+    public static boolean CompareWithYearMonthDay(Calendar oneCal, Calendar twoCal) {
+        if (oneCal.get(Calendar.DAY_OF_MONTH) == twoCal.get(Calendar.DAY_OF_MONTH)) {
+            if (oneCal.get(Calendar.MONTH) == twoCal.get(Calendar.MONTH)) {
+                if (oneCal.get(Calendar.YEAR) == twoCal.get(Calendar.YEAR))
+                    return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public static Calendar getCalenderWithOnlyDate(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
 
     public static final class Keys {
         public static final String CARS = "cars";

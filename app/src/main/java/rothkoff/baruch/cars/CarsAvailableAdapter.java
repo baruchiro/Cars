@@ -19,7 +19,7 @@ import java.util.List;
 public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
         implements ValueEventListener {
 
-    private ForCustomerFragments context;
+    private ForUseMainActivity context;
     private List<Car> cars;
     private DatabaseReference carsRef;
     private String tariffToShow;
@@ -31,9 +31,10 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     private Calendar dateEnd;
 
     public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener) {
-        if (context instanceof  ForCustomerFragments) this.context = (ForCustomerFragments) context;
+        if (context instanceof ForUseMainActivity) this.context = (ForUseMainActivity) context;
         else throw new RuntimeException(context.toString()
                 + " must implement ForCustomerFragments");
+
         this.onClickListener = onClickListener;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
@@ -42,9 +43,10 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     }
 
     public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener,String tariffToShow){
-        if (context instanceof  ForCustomerFragments) this.context = (ForCustomerFragments) context;
+        if (context instanceof ForUseMainActivity) this.context = (ForUseMainActivity) context;
         else throw new RuntimeException(context.toString()
                 + " must implement ForCustomerFragments");
+
         this.onClickListener = onClickListener;
         this.tariffToShow = tariffToShow;
         cars = new ArrayList<>();

@@ -2,19 +2,30 @@ package rothkoff.baruch.cars;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.Calendar;
+
+import rothkoff.baruch.cars.available.CarsAvailablePagerAdapter;
+import rothkoff.baruch.cars.available.ForCarsAvailable;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManageDBFragment extends MyFragment {
+public class ManageDBFragment extends MyFragment implements ForCarsAvailable {
 
     private Button btnAddCar,btnAddTarrif;
+
+    private ViewPager pager;
+    private CarsAvailablePagerAdapter pagerAdapter;
+    private TabLayout tabLayout;
 
     public ManageDBFragment() {
         // Required empty public constructor
@@ -36,16 +47,22 @@ public class ManageDBFragment extends MyFragment {
         return view;
     }
     private void InitMembers(View view) {
-btnAddCar = (Button)view.findViewById(R.id.frag_manage_btn_addcar);
-        btnAddTarrif = (Button)view.findViewById(R.id.frag_manage_btn_addtarrif);
+        btnAddCar = (Button) view.findViewById(R.id.frag_manage_btn_addcar);
+        btnAddTarrif = (Button) view.findViewById(R.id.frag_manage_btn_addtarrif);
+
+        pager = (ViewPager) view.findViewById(R.id.frag_manage_pager);
+        pagerAdapter = new CarsAvailablePagerAdapter(getChildFragmentManager(), this, mainActivity.getTarrifUids());
+        pager.setAdapter(pagerAdapter);
+        tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
+
     private void BehaviorMembers() {
-btnAddCar.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        mainActivity.ReplaceFragment(AddCarFragment.newInstance());
-    }
-});
+        btnAddCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.ReplaceFragment(AddCarFragment.newInstance());
+            }
+        });
         btnAddTarrif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,4 +77,28 @@ btnAddCar.setOnClickListener(new View.OnClickListener() {
     }
 
 
+    @Override
+    public Calendar getDateStart() {
+        return null;
+    }
+
+    @Override
+    public Calendar getDateEnd() {
+        return null;
+    }
+
+    @Override
+    public boolean isOneDay() {
+        return false;
+    }
+
+    @Override
+    public void setSelectedCar(CarHolder holder, Car car) {
+
+    }
+
+    @Override
+    public Tarrif getTarrif(String uid) {
+        return mainActivity.getTarrifByUid(uid);
+    }
 }

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class CarHolder extends RecyclerView.ViewHolder {
     private View view;
-    private ForCustomerFragments context;
+    private ForUseMainActivity context;
     //private boolean checked;
     private Car car;
     private TextView etBrand, etColor, etPrice;
@@ -21,7 +21,7 @@ public class CarHolder extends RecyclerView.ViewHolder {
         etPrice = (TextView)view.findViewById(R.id.iten_car_price);
     }
 
-    public void Init(ForCustomerFragments context, View.OnClickListener listener, Car car) {
+    public void Init(ForUseMainActivity context, View.OnClickListener listener, Car car) {
         this.context = context;
         this.car = car;
         etColor.setText(car.getColor());

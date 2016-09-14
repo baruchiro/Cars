@@ -58,9 +58,6 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
         etDateEnd = (EditText) view.findViewById(R.id.frag_order_edit_dateend);
         sIsOneDay = (Switch)view.findViewById(R.id.frag_order_switch_oneday);
 
-        dateStart = Calendar.getInstance();
-        dateEnd = Calendar.getInstance();
-
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
 
@@ -133,5 +130,10 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     @Override
     public int getPageTitle() {
         return R.string.order_dates_frag_title;
+    }
+
+    @Override
+    public void setTitle() {
+
     }
 }

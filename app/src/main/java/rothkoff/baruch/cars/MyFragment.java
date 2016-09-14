@@ -10,15 +10,15 @@ public abstract class MyFragment extends Fragment {
 
     public static int COLOR_ERROR;
     public static int COLOR_HEADING;
-    protected ForCustomerFragments mainActivity;
+    protected ForUseMainActivity mainActivity;
     public abstract void setTitle();
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
+        if (context instanceof ForUseMainActivity) {
+            mainActivity = (ForUseMainActivity) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement ForCustomerFragments");
@@ -32,5 +32,9 @@ public abstract class MyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle();
+    }
+
+    public Tarrif getTarrif(String uid) {
+        return mainActivity.getTarrifByUid(uid);
     }
 }

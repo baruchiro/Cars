@@ -5,9 +5,8 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
-public interface ForCustomerFragments {
+public interface ForUseMainActivity {
     void ReplaceFragment(Fragment... fragments);
-
     List<Tarrif> getTarrifsList();
     List<String> getTarrifUids();
     String getTarrifName(String uid);

@@ -37,10 +37,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AuthStateListener,ForCustomerFragments {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AuthStateListener,ForUseMainActivity {
 
     private RecyclerView recycleCars;
-    private CarsAvailableAdapter adapterCars;
+    //private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
     private AuthStateListener authStateListener;
     private DatabaseReference refCars;
@@ -101,11 +102,11 @@ public class MainActivity extends AppCompatActivity
         });*/
 
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        adapterCars = new CarsAvailableAdapter(this, null);
+        //adapterCars = new CarsAvailableAdapter(this, null);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
-        recycleCars.setAdapter(adapterCars);
+        //recycleCars.setAdapter(adapterCars);
 
         FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).addChildEventListener(new TarrifChildEventListener());
     }

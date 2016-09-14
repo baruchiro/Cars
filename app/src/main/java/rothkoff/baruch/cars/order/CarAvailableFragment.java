@@ -4,29 +4,26 @@ package rothkoff.baruch.cars.order;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
-import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.R;
+import rothkoff.baruch.cars.available.CarsAvailablePagerAdapter;
+import rothkoff.baruch.cars.available.ForCarsAvailable;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CarAvailableFragment extends MainOrderFragment
-        implements CarsListFragment.ForTarrifsListsFragment {
+public class CarAvailableFragment extends MainOrderFragment implements ForCarsAvailable {
 
     private ViewPager pager;
-    private CarAvailableFragment.PagerAdapter adapter;
+    private CarsAvailablePagerAdapter adapter;
     private TabLayout tabLayout;
 
     public CarAvailableFragment() {
@@ -52,7 +49,7 @@ public class CarAvailableFragment extends MainOrderFragment
 
     private void InitMembers(View view) {
         pager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
-        adapter = new PagerAdapter(getChildFragmentManager(), mainActivity.getTarrifUids());
+        adapter = new CarsAvailablePagerAdapter(getChildFragmentManager(),this, mainActivity.getTarrifUids());
         pager.setAdapter(adapter);
         tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
@@ -66,53 +63,29 @@ public class CarAvailableFragment extends MainOrderFragment
     }
 
     @Override
+    public Calendar getDateStart() {
+        return dateStart;
+    }
+
+    @Override
+    public Calendar getDateEnd() {
+        return dateEnd;
+    }
+
+    @Override
+    public boolean isOneDay() {
+        return isOneDay;
+    }
+
+    @Override
     public void setSelectedCar(CarHolder holder,Car car) {
         selectedCar = car;
         holder.MakeChecked();
         adapter.notifyDataSetChanged();
     }
 
-    private class PagerAdapter extends FragmentPagerAdapter{
-
-        private List<CarsListFragment> fragments;
-        private List<String> tarrifsUid;
-
-        public PagerAdapter(FragmentManager fm, List<String> tarrifsUid) {
-            super(fm);
-
-            this.tarrifsUid = tarrifsUid;
-
-            fragments = new ArrayList<>();
-            for (String s : tarrifsUid)
-                fragments.add(CarsListFragment.newInstance(CarAvailableFragment.this,s, B.customer));
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            CarsListFragment fr = fragments.get(position);
-            if (dateStart == null)
-                return fr;
-            if (isOneDay) fr.ShowAvailableInDate(dateStart);
-            else fr.ShowAvailableInDates(dateStart, dateEnd);
-
-            return fr;
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mainActivity.getTarrifName(tarrifsUid.get(position));
-        }
-
-        @Override
-        public void notifyDataSetChanged() {
-            super.notifyDataSetChanged();
-            for (CarsListFragment f : fragments)
-                f.notifyDataSetChanged();
-        }
+    @Override
+    public void setTitle() {
+        getActivity().setTitle(R.string.order_caravail_title);
     }
 }

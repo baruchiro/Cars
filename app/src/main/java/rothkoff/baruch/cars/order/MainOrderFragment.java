@@ -1,15 +1,14 @@
 package rothkoff.baruch.cars.order;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import java.util.Calendar;
 
 import rothkoff.baruch.cars.Car;
-import rothkoff.baruch.cars.ForCustomerFragments;
+import rothkoff.baruch.cars.ForUseMainActivity;
+import rothkoff.baruch.cars.MyFragment;
 
-public abstract class MainOrderFragment extends Fragment {
-    protected ForCustomerFragments mainActivity;
+public abstract class MainOrderFragment extends MyFragment {
 
     protected static Calendar dateStart,dateEnd;
     protected static Car selectedCar;
@@ -20,11 +19,15 @@ public abstract class MainOrderFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof ForCustomerFragments) {
-            mainActivity = (ForCustomerFragments) context;
+        if (context instanceof ForUseMainActivity) {
+            mainActivity = (ForUseMainActivity) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement ForCustomerFragments");
         }
+
+        dateStart = Calendar.getInstance();
+        dateEnd = Calendar.getInstance();
+        isOneDay = true;
     }
 }

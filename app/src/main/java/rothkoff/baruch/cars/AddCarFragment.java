@@ -99,7 +99,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
         });
         sYoungDriver.setChecked(false);
 
-        TarrifsAdapter adapter = new TarrifsAdapter(getContext(),android.R.layout.simple_spinner_item,mainActivity.getTarrifsList());
+        TarrifsAdapter adapter = new TarrifsAdapter(getContext(),android.R.layout.simple_spinner_item, mainActivity.getTarrifsList());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tariffList.setAdapter(adapter);
         tariffList.setOnItemSelectedListener(this);
@@ -159,7 +159,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
     @Override
     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
         if (databaseError == null) {
-            mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
+            mainActivity.ReplaceFragment(ManageDBFragment.newInstance());
             Toast.makeText(getContext(),R.string.success,Toast.LENGTH_LONG).show();
             updatingDialog.dismiss();
         } else {

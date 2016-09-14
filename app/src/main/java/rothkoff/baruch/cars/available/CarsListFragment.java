@@ -1,4 +1,4 @@
-package rothkoff.baruch.cars.order;
+package rothkoff.baruch.cars.available;
 
 
 import android.os.Bundle;
@@ -25,14 +25,16 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     private CarsAvailableAdapter adapter;
     private TextView emptyView;
     private String tarrifUid;
-    private ForTarrifsListsFragment parentFragment;
+    private ForCarsAvailable parentFragment;
     private Customer customer;
+    private Calendar dateStart;
+    private Calendar dateEnd;
 
     public CarsListFragment() {
         // Required empty public constructor
     }
 
-    public static CarsListFragment newInstance(ForTarrifsListsFragment fragment,String tarrifUid) {
+    public static CarsListFragment newInstance(ForCarsAvailable fragment,String tarrifUid) {
         CarsListFragment carsListFragment = new CarsListFragment();
 
         carsListFragment.tarrifUid = tarrifUid;
@@ -41,7 +43,7 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         return carsListFragment;
     }
 
-    public static CarsListFragment newInstance(ForTarrifsListsFragment fragment, String tarrifUid, Customer customer) {
+    public static CarsListFragment newInstance(ForCarsAvailable fragment, String tarrifUid, Customer customer) {
         CarsListFragment carsListFragment = CarsListFragment.newInstance(fragment, tarrifUid);
 
         carsListFragment.customer = customer;
@@ -67,13 +69,23 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         emptyView = (TextView)view.findViewById(R.id.frag_carslist_emptylist);
     }
 
-    private void BehaviorMembers(){
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    private void BehaviorMembers() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        if (customer!=null) adapter.showPrices(customer);
         adapter.setOnDataChangeListener(this);
+        UpdateAdapter();
 
         recyclerView.setAdapter(adapter);
+    }
+
+    private void UpdateAdapter(){
+        if (adapter!=null) {
+            if (customer != null) adapter.showPrices(customer);
+            if (dateStart != null) {
+                if (dateEnd != null) adapter.ShowAvailableInDates(dateStart, dateEnd);
+                else adapter.ShowAvailableInDate(dateStart);
+            }
+        }
     }
 
     @Override
@@ -96,14 +108,11 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void ShowAvailableInDate(Calendar dateStart) {
-        adapter.ShowAvailableInDate(dateStart);
+        this.dateStart = dateStart;
     }
 
     public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
-        adapter.ShowAvailableInDates(dateStart,dateEnd);
-    }
-
-    public interface ForTarrifsListsFragment{
-        void setSelectedCar(CarHolder holder,Car car);
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
     }
 }
