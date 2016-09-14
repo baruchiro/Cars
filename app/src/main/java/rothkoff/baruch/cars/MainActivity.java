@@ -249,7 +249,6 @@ public class MainActivity extends AppCompatActivity
         //Show Order now & My account MenuItems
         navigationView.getMenu().findItem(R.id.nav_order).setVisible(connected);
         navigationView.getMenu().findItem(R.id.nav_account).setVisible(connected);
-
         //Show Next order & Manage DB if customer is Manager
         navigationView.getMenu().findItem(R.id.nav_nextorders).setVisible(manager);
         navigationView.getMenu().findItem(R.id.nav_managedb).setVisible(manager);

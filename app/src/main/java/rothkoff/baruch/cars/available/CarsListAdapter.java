@@ -1,4 +1,4 @@
-package rothkoff.baruch.cars;
+package rothkoff.baruch.cars.available;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
+import rothkoff.baruch.cars.B;
+import rothkoff.baruch.cars.Car;
+import rothkoff.baruch.cars.CarHolder;
+import rothkoff.baruch.cars.Customer;
+import rothkoff.baruch.cars.ForUseMainActivity;
+import rothkoff.baruch.cars.R;
+
+public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
         implements ValueEventListener {
 
     private ForUseMainActivity context;
@@ -24,13 +31,20 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
     private DatabaseReference carsRef;
     private String tariffToShow;
     private View.OnClickListener onClickListener;
-    Car selectedCar= null;
+    private Car selectedCar= null;
     private Customer customer;
     private OnDataChangeListener onDataChangeListener;
     private Calendar dateStart;
     private Calendar dateEnd;
+    private boolean firstBind = true;
 
-    public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener) {
+    /**
+     * <p>Constractor</p>
+     * <p><b>Don't forget to call the 'Bind' method!!</b></p>
+     * @param context
+     * @param onClickListener
+     */
+    public CarsListAdapter(Context context, View.OnClickListener onClickListener) {
         if (context instanceof ForUseMainActivity) this.context = (ForUseMainActivity) context;
         else throw new RuntimeException(context.toString()
                 + " must implement ForCustomerFragments");
@@ -38,22 +52,8 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
         this.onClickListener = onClickListener;
         cars = new ArrayList<>();
         carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
-
-        carsRef.addListenerForSingleValueEvent(this);
     }
 
-    public CarsAvailableAdapter(Context context, View.OnClickListener onClickListener,String tariffToShow){
-        if (context instanceof ForUseMainActivity) this.context = (ForUseMainActivity) context;
-        else throw new RuntimeException(context.toString()
-                + " must implement ForCustomerFragments");
-
-        this.onClickListener = onClickListener;
-        this.tariffToShow = tariffToShow;
-        cars = new ArrayList<>();
-        carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
-
-        carsRef.addListenerForSingleValueEvent(this);
-    }
     @Override
     public CarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context.getContext()).inflate(R.layout.item_car,parent,false);
@@ -74,26 +74,25 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        this.cars = new ArrayList<>();
 
-        if (tariffToShow == null) {
-            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                Car car = d.getValue(Car.class);
-                if (dateStart != null) {
-                    if (dateEnd != null) {
-                        if (car.availableInDates(dateStart, dateEnd)) cars.add(car);
-                    } else if (car.availableInDate(dateStart)) cars.add(car);
-                } else
-                    cars.add(car);
-            }
-        } else {
-            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                Car car = d.getValue(Car.class);
-                if (tariffToShow.equals(car.getTariffUid()))
-                    if (car.getPrice(customer, context.getTarrifByUid(car.getTariffUid())) != 0)
-                    cars.add(car);
-            }
-        }
+        for (DataSnapshot d : dataSnapshot.getChildren()){
+            Car car = d.getValue(Car.class);
 
+            boolean isInTarrif = tariffToShow==null||car.getTariffUid().equals(tariffToShow);
+            boolean isInDates = dateStart==null;
+            if (!isInDates)
+                if (dateEnd != null) {
+                    isInDates = car.availableInDates(dateStart, dateEnd);
+                } else isInDates=car.availableInDate(dateStart);
+            boolean isCustomer = customer == null ||
+                    car.getPrice(customer, context.getTarrifByUid(car.getTariffUid())) != 0;
+
+            if (isInTarrif&&isInDates&&isCustomer)
+                cars.add(car);
+            }
+
+        firstBind = false;
         notifyMyDataSetChanged();
     }
 
@@ -106,30 +105,40 @@ public class CarsAvailableAdapter extends RecyclerView.Adapter<CarHolder>
         return cars.get(position);
     }
 
-    public void showPrices(Customer customer) {
-        this.customer = customer;
-
-        carsRef.addListenerForSingleValueEvent(this);
-    }
-
     public void setOnDataChangeListener(OnDataChangeListener listener){
         this.onDataChangeListener = listener;
     }
 
-    public void notifyMyDataSetChanged(){
+    public void notifyMyDataSetChanged() {
         notifyDataSetChanged();
-        if (onDataChangeListener!=null)onDataChangeListener.OnDataChange(cars);
+        if (onDataChangeListener != null) onDataChangeListener.OnDataChange(cars);
     }
 
-    public void ShowAvailableInDate(Calendar dateStart) {
-        this.dateStart = dateStart;
+    /**
+     * <p font="bold">You must call this method if you want that this Adapter load his data</p>
+     * <p>So call this after you end setup the Adapter</p>
+     */
+    public void Bind(){
         carsRef.addListenerForSingleValueEvent(this);
     }
+    public void setTariffToShow(String uid){
+        this.tariffToShow = uid;
+    }
 
-    public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
+    public void setSelectedCar(Car selectedCar) {
+        this.selectedCar = selectedCar;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setDateStart(Calendar dateStart) {
         this.dateStart = dateStart;
+    }
+
+    public void setDateEnd(Calendar dateEnd) {
         this.dateEnd = dateEnd;
-        carsRef.addListenerForSingleValueEvent(this);
     }
 
     public interface OnDataChangeListener{

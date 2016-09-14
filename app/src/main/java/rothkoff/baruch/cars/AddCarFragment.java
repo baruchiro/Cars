@@ -109,7 +109,7 @@ public class AddCarFragment extends MyFragment implements DatabaseReference.Comp
 
         Car car = new Car(carNumber, brand,color,tarrif);
         car.setParkLocation(parkLocation);
-        car.setYoung(youngDriver);
+        car.setIsYoung(youngDriver);
 
         FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(carNumber)
                 .updateChildren(car.getMapForUpdate(), this);

@@ -7,25 +7,36 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import rothkoff.baruch.cars.B;
+import rothkoff.baruch.cars.Customer;
 
-public class CarsAvailablePagerAdapter extends FragmentPagerAdapter {
+public class CarsPagerAdapter extends FragmentPagerAdapter {
 
     private ForCarsAvailable mainFragment;
     private List<CarsListFragment> fragments;
     private List<String> tarrifsUid;
 
-    public CarsAvailablePagerAdapter(FragmentManager fm,
-                                     ForCarsAvailable mainFragment,
-                                     List<String> tarrifsUid) {
+    /**
+     * <p>create custom PagerAdapter for show Cars in One Fragment and Tab for Tarrif</p>
+     *
+     * <p>Fragment or Activity that want to show this ViewPager
+     * , <b>must implement "ForCarsAvailable"</b>.
+     * mainFragment Parameter should be 'this' (Fragment or Activity).</p>
+     *
+     * @param fm Fragment Manager (Child)
+     * @param mainFragment Object implement ForCarsAvailable
+     * @param tarrifsUid The uid of Tarrifs that you want to show
+     */
+    public CarsPagerAdapter(FragmentManager fm,
+                            ForCarsAvailable mainFragment,
+                            List<String> tarrifsUid) {
         super(fm);
 
         this.tarrifsUid = tarrifsUid;
         this.mainFragment = mainFragment;
 
         fragments = new ArrayList<>();
-        for (String s : tarrifsUid)
-            fragments.add(CarsListFragment.newInstance(mainFragment,s, B.customer));
+        for (String uid : tarrifsUid)
+            fragments.add(CarsListFragment.newInstance(mainFragment,uid));
     }
 
     @Override
@@ -54,5 +65,10 @@ public class CarsAvailablePagerAdapter extends FragmentPagerAdapter {
         super.notifyDataSetChanged();
         for (CarsListFragment f : fragments)
             f.notifyDataSetChanged();
+    }
+
+    public void setCustomer(Customer customer){
+        for (CarsListFragment fragment:fragments)
+            fragment.setCustomer(customer);
     }
 }

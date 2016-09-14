@@ -15,14 +15,13 @@ import java.util.List;
 
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
-import rothkoff.baruch.cars.CarsAvailableAdapter;
 import rothkoff.baruch.cars.Customer;
 import rothkoff.baruch.cars.R;
 
-public class CarsListFragment extends Fragment implements View.OnClickListener, CarsAvailableAdapter.OnDataChangeListener {
+public class CarsListFragment extends Fragment implements View.OnClickListener, CarsListAdapter.OnDataChangeListener {
 
     private RecyclerView recyclerView;
-    private CarsAvailableAdapter adapter;
+    private CarsListAdapter adapter;
     private TextView emptyView;
     private String tarrifUid;
     private ForCarsAvailable parentFragment;
@@ -64,7 +63,7 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
 
     private void InitMembers(View view){
         recyclerView =(RecyclerView)view.findViewById(R.id.frag_carslist_recycler);
-        adapter = new CarsAvailableAdapter(getContext(),this,tarrifUid);
+        adapter = new CarsListAdapter(getContext(),this);
 
         emptyView = (TextView)view.findViewById(R.id.frag_carslist_emptylist);
     }
@@ -78,13 +77,14 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         recyclerView.setAdapter(adapter);
     }
 
-    private void UpdateAdapter(){
-        if (adapter!=null) {
-            if (customer != null) adapter.showPrices(customer);
-            if (dateStart != null) {
-                if (dateEnd != null) adapter.ShowAvailableInDates(dateStart, dateEnd);
-                else adapter.ShowAvailableInDate(dateStart);
-            }
+    private void UpdateAdapter() {
+        if (adapter != null) {
+            adapter.setTariffToShow(tarrifUid);
+            adapter.setCustomer(customer);
+            adapter.setDateStart(dateStart);
+            adapter.setDateEnd(dateEnd);
+
+            adapter.Bind();
         }
     }
 
@@ -98,7 +98,7 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void notifyDataSetChanged() {
-        adapter.notifyDataSetChanged();
+        adapter.notifyMyDataSetChanged();
     }
 
     @Override
@@ -109,10 +109,17 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
 
     public void ShowAvailableInDate(Calendar dateStart) {
         this.dateStart = dateStart;
+        UpdateAdapter();
     }
 
     public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        UpdateAdapter();
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        UpdateAdapter();
     }
 }

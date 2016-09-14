@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 
 import java.util.Calendar;
 
+import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.R;
-import rothkoff.baruch.cars.available.CarsAvailablePagerAdapter;
+import rothkoff.baruch.cars.available.CarsPagerAdapter;
 import rothkoff.baruch.cars.available.ForCarsAvailable;
 
 /**
@@ -23,7 +24,7 @@ import rothkoff.baruch.cars.available.ForCarsAvailable;
 public class CarAvailableFragment extends MainOrderFragment implements ForCarsAvailable {
 
     private ViewPager pager;
-    private CarsAvailablePagerAdapter adapter;
+    private CarsPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
     public CarAvailableFragment() {
@@ -49,12 +50,15 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsAv
 
     private void InitMembers(View view) {
         pager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
-        adapter = new CarsAvailablePagerAdapter(getChildFragmentManager(),this, mainActivity.getTarrifUids());
-        pager.setAdapter(adapter);
+        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),this, mainActivity.getTarrifUids());
         tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
     private void BehaviorMembers(){
         tabLayout.setupWithViewPager(pager,true);
+
+        pagerAdapter.setCustomer(B.customer);
+
+        pager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -81,7 +85,7 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsAv
     public void setSelectedCar(CarHolder holder,Car car) {
         selectedCar = car;
         holder.MakeChecked();
-        adapter.notifyDataSetChanged();
+        pagerAdapter.notifyDataSetChanged();
     }
 
     @Override

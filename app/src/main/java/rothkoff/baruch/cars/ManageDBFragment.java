@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import java.util.Calendar;
 
-import rothkoff.baruch.cars.available.CarsAvailablePagerAdapter;
+import rothkoff.baruch.cars.available.CarsPagerAdapter;
 import rothkoff.baruch.cars.available.ForCarsAvailable;
 
 
@@ -24,7 +24,7 @@ public class ManageDBFragment extends MyFragment implements ForCarsAvailable {
     private Button btnAddCar,btnAddTarrif;
 
     private ViewPager pager;
-    private CarsAvailablePagerAdapter pagerAdapter;
+    private CarsPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
     public ManageDBFragment() {
@@ -51,12 +51,16 @@ public class ManageDBFragment extends MyFragment implements ForCarsAvailable {
         btnAddTarrif = (Button) view.findViewById(R.id.frag_manage_btn_addtarrif);
 
         pager = (ViewPager) view.findViewById(R.id.frag_manage_pager);
-        pagerAdapter = new CarsAvailablePagerAdapter(getChildFragmentManager(), this, mainActivity.getTarrifUids());
+        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),
+                this, mainActivity.getTarrifUids());
+
         pager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
+        tabLayout = (TabLayout) view.findViewById(R.id.frag_manage_tablayout);
     }
 
     private void BehaviorMembers() {
+        tabLayout.setupWithViewPager(pager,true);
+
         btnAddCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

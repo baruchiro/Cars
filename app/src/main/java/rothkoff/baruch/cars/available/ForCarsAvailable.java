@@ -11,6 +11,5 @@ public interface ForCarsAvailable {
     Calendar getDateEnd();
     boolean isOneDay();
     void setSelectedCar(CarHolder holder, Car car);
-
     Tarrif getTarrif(String uid);
 }

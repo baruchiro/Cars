@@ -8,7 +8,7 @@ public class Car {
     private String carNumber;
     private String brand;
     private String color;
-    private boolean isYoung = false;
+    private boolean isYoung;
     private Map<String,Maka> makot;
     private String parkLocation = "";
     private String tariffUid;
@@ -58,12 +58,12 @@ public class Car {
         this.color = color;
     }
 
-    public boolean isYoung() {
+    public boolean getIsYoung() {
         return isYoung;
     }
 
-    public void setYoung(boolean young) {
-        isYoung = young;
+    public void setIsYoung(boolean isYoung) {
+        this.isYoung = isYoung;
     }
 
     public Map<String, Maka> getMakot() {
@@ -110,6 +110,7 @@ public class Car {
         }return tarrif.getPrice();
     }
     public boolean availableInDate(Calendar dateStart) {
+        if (rentDates == null)return true;
 
         for (long l : rentDates.values()){
             Calendar c = Calendar.getInstance();
