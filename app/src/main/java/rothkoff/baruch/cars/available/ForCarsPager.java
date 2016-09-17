@@ -6,7 +6,7 @@ import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.Tarrif;
 
-public interface ForCarsAvailable {
+public interface ForCarsPager {
     Calendar getDateStart();
     Calendar getDateEnd();
     boolean isOneDay();

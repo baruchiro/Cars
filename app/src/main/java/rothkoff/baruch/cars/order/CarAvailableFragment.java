@@ -16,12 +16,12 @@ import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.available.CarsPagerAdapter;
-import rothkoff.baruch.cars.available.ForCarsAvailable;
+import rothkoff.baruch.cars.available.ForCarsPager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CarAvailableFragment extends MainOrderFragment implements ForCarsAvailable {
+public class CarAvailableFragment extends MainOrderFragment implements ForCarsPager {
 
     private ViewPager pager;
     private CarsPagerAdapter pagerAdapter;
@@ -50,11 +50,12 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsAv
 
     private void InitMembers(View view) {
         pager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
-        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),this, mainActivity.getTarrifUids());
+        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(), this, mainActivity.getTarrifUids());
         tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
-    private void BehaviorMembers(){
-        tabLayout.setupWithViewPager(pager,true);
+
+    private void BehaviorMembers() {
+        tabLayout.setupWithViewPager(pager, true);
 
         pagerAdapter.setCustomer(B.customer);
 
@@ -82,7 +83,7 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsAv
     }
 
     @Override
-    public void setSelectedCar(CarHolder holder,Car car) {
+    public void setSelectedCar(CarHolder holder, Car car) {
         selectedCar = car;
         holder.MakeChecked();
         pagerAdapter.notifyDataSetChanged();

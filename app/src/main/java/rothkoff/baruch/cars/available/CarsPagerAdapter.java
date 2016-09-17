@@ -11,7 +11,7 @@ import rothkoff.baruch.cars.Customer;
 
 public class CarsPagerAdapter extends FragmentPagerAdapter {
 
-    private ForCarsAvailable mainFragment;
+    private ForCarsPager mainFragment;
     private List<CarsListFragment> fragments;
     private List<String> tarrifsUid;
 
@@ -27,7 +27,7 @@ public class CarsPagerAdapter extends FragmentPagerAdapter {
      * @param tarrifsUid The uid of Tarrifs that you want to show
      */
     public CarsPagerAdapter(FragmentManager fm,
-                            ForCarsAvailable mainFragment,
+                            ForCarsPager mainFragment,
                             List<String> tarrifsUid) {
         super(fm);
 
@@ -35,8 +35,17 @@ public class CarsPagerAdapter extends FragmentPagerAdapter {
         this.mainFragment = mainFragment;
 
         fragments = new ArrayList<>();
-        for (String uid : tarrifsUid)
-            fragments.add(CarsListFragment.newInstance(mainFragment,uid));
+        for (String uid : tarrifsUid) {
+            CarsListFragment fragment = CarsListFragment.newInstance(mainFragment,mainFragment.getTarrif(uid));
+
+            if (mainFragment.getDateStart() != null) {
+                if (mainFragment.isOneDay()) fragment.ShowAvailableInDate(mainFragment.getDateStart());
+                else
+                    fragment.ShowAvailableInDates(mainFragment.getDateStart(), mainFragment.getDateEnd());
+            }
+
+            fragments.add(fragment);
+        }
     }
 
     @Override

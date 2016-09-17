@@ -17,14 +17,17 @@ import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.Customer;
 import rothkoff.baruch.cars.R;
+import rothkoff.baruch.cars.Tarrif;
 
 public class CarsListFragment extends Fragment implements View.OnClickListener, CarsListAdapter.OnDataChangeListener {
+
+    private TextView tvSeatCount,tvEngine,tvPrice,tvYoungPrice;
 
     private RecyclerView recyclerView;
     private CarsListAdapter adapter;
     private TextView emptyView;
-    private String tarrifUid;
-    private ForCarsAvailable parentFragment;
+    private Tarrif tarrif;
+    private ForCarsPager parentFragment;
     private Customer customer;
     private Calendar dateStart;
     private Calendar dateEnd;
@@ -33,17 +36,17 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         // Required empty public constructor
     }
 
-    public static CarsListFragment newInstance(ForCarsAvailable fragment,String tarrifUid) {
+    public static CarsListFragment newInstance(ForCarsPager fragment, Tarrif tarrif) {
         CarsListFragment carsListFragment = new CarsListFragment();
 
-        carsListFragment.tarrifUid = tarrifUid;
+        carsListFragment.tarrif = tarrif;
         carsListFragment.parentFragment = fragment;
 
         return carsListFragment;
     }
 
-    public static CarsListFragment newInstance(ForCarsAvailable fragment, String tarrifUid, Customer customer) {
-        CarsListFragment carsListFragment = CarsListFragment.newInstance(fragment, tarrifUid);
+    public static CarsListFragment newInstance(ForCarsPager fragment, Tarrif tarrif, Customer customer) {
+        CarsListFragment carsListFragment = CarsListFragment.newInstance(fragment, tarrif);
 
         carsListFragment.customer = customer;
 
@@ -62,6 +65,11 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void InitMembers(View view){
+        tvSeatCount = (TextView)view.findViewById(R.id.frag_carslist_seacount);
+        tvEngine = (TextView)view.findViewById(R.id.frag_carslist_engine);
+        tvPrice = (TextView)view.findViewById(R.id.frag_carslist_price);
+        tvYoungPrice = (TextView)view.findViewById(R.id.frag_carslist_youngprice);
+
         recyclerView =(RecyclerView)view.findViewById(R.id.frag_carslist_recycler);
         adapter = new CarsListAdapter(getContext(),this);
 
@@ -69,6 +77,13 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void BehaviorMembers() {
+        if (tarrif!=null){
+            tvSeatCount.setText(String.valueOf(tarrif.getSeatCount()));
+            tvEngine.setText(String.valueOf(tarrif.getEngineCapacity()));
+            tvPrice.setText(String.valueOf(tarrif.getPrice())+" "+getString(R.string.NIS));
+            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice())+" "+getString(R.string.NIS));
+        }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         adapter.setOnDataChangeListener(this);
@@ -79,7 +94,7 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
 
     private void UpdateAdapter() {
         if (adapter != null) {
-            adapter.setTariffToShow(tarrifUid);
+            adapter.setTarrif(tarrif);
             adapter.setCustomer(customer);
             adapter.setDateStart(dateStart);
             adapter.setDateEnd(dateEnd);

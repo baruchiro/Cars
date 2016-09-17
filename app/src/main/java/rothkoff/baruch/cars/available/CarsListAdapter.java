@@ -22,6 +22,7 @@ import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.Customer;
 import rothkoff.baruch.cars.ForUseMainActivity;
 import rothkoff.baruch.cars.R;
+import rothkoff.baruch.cars.Tarrif;
 
 public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
         implements ValueEventListener {
@@ -29,18 +30,18 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
     private ForUseMainActivity context;
     private List<Car> cars;
     private DatabaseReference carsRef;
-    private String tariffToShow;
+    private Tarrif tarrif;
     private View.OnClickListener onClickListener;
-    private Car selectedCar= null;
+    private Car selectedCar = null;
     private Customer customer;
     private OnDataChangeListener onDataChangeListener;
     private Calendar dateStart;
     private Calendar dateEnd;
-    private boolean firstBind = true;
 
     /**
      * <p>Constractor</p>
      * <p><b>Don't forget to call the 'Bind' method!!</b></p>
+     *
      * @param context
      * @param onClickListener
      */
@@ -56,7 +57,7 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
 
     @Override
     public CarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context.getContext()).inflate(R.layout.item_car,parent,false);
+        View view = LayoutInflater.from(context.getContext()).inflate(R.layout.item_car, parent, false);
         return new CarHolder(view);
     }
 
@@ -76,23 +77,22 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
     public void onDataChange(DataSnapshot dataSnapshot) {
         this.cars = new ArrayList<>();
 
-        for (DataSnapshot d : dataSnapshot.getChildren()){
+        for (DataSnapshot d : dataSnapshot.getChildren()) {
             Car car = d.getValue(Car.class);
 
-            boolean isInTarrif = tariffToShow==null||car.getTariffUid().equals(tariffToShow);
-            boolean isInDates = dateStart==null;
+            boolean isInTarrif = tarrif == null || car.getTariffUid().equals(tarrif.getUid());
+            boolean isInDates = dateStart == null;
             if (!isInDates)
                 if (dateEnd != null) {
                     isInDates = car.availableInDates(dateStart, dateEnd);
-                } else isInDates=car.availableInDate(dateStart);
+                } else isInDates = car.availableInDate(dateStart);
             boolean isCustomer = customer == null ||
                     car.getPrice(customer, context.getTarrifByUid(car.getTariffUid())) != 0;
 
-            if (isInTarrif&&isInDates&&isCustomer)
+            if (isInTarrif && isInDates && isCustomer)
                 cars.add(car);
-            }
+        }
 
-        firstBind = false;
         notifyMyDataSetChanged();
     }
 
@@ -105,7 +105,7 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
         return cars.get(position);
     }
 
-    public void setOnDataChangeListener(OnDataChangeListener listener){
+    public void setOnDataChangeListener(OnDataChangeListener listener) {
         this.onDataChangeListener = listener;
     }
 
@@ -118,11 +118,12 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
      * <p font="bold">You must call this method if you want that this Adapter load his data</p>
      * <p>So call this after you end setup the Adapter</p>
      */
-    public void Bind(){
+    public void Bind() {
         carsRef.addListenerForSingleValueEvent(this);
     }
-    public void setTariffToShow(String uid){
-        this.tariffToShow = uid;
+
+    public void setTarrif(Tarrif tarrif) {
+        this.tarrif = tarrif;
     }
 
     public void setSelectedCar(Car selectedCar) {
@@ -141,7 +142,7 @@ public class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
         this.dateEnd = dateEnd;
     }
 
-    public interface OnDataChangeListener{
+    public interface OnDataChangeListener {
         void OnDataChange(List<Car> data);
     }
 }

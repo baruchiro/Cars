@@ -13,13 +13,13 @@ import android.widget.Button;
 import java.util.Calendar;
 
 import rothkoff.baruch.cars.available.CarsPagerAdapter;
-import rothkoff.baruch.cars.available.ForCarsAvailable;
+import rothkoff.baruch.cars.available.ForCarsPager;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManageDBFragment extends MyFragment implements ForCarsAvailable {
+public class ManageDBFragment extends MyFragment implements ForCarsPager {
 
     private Button btnAddCar,btnAddTarrif;
 
