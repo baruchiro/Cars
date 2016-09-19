@@ -60,6 +60,7 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsPa
         pagerAdapter.setCustomer(B.customer);
 
         pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(pagerAdapter.getCount());
     }
 
     @Override

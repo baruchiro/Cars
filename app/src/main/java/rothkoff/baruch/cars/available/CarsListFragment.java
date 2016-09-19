@@ -113,7 +113,10 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void notifyDataSetChanged() {
-        adapter.notifyMyDataSetChanged();
+        if (adapter != null)
+            adapter.notifyMyDataSetChanged();
+        else
+            throw new NullPointerException(this.toString() + " is not load. you need to call to 'setOffscreenPageLimit' method from ViewPger object");
     }
 
     @Override
