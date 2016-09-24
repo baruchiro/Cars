@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.Car;
-import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.available.CarsPagerAdapter;
 import rothkoff.baruch.cars.available.ForCarsPager;
@@ -84,14 +83,12 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsPa
     }
 
     @Override
-    public void setSelectedCar(CarHolder holder, Car car) {
-        selectedCar = car;
-        holder.MakeChecked();
-        pagerAdapter.notifyDataSetChanged();
+    public void setTitle() {
+        getActivity().setTitle(R.string.order_caravail_title);
     }
 
     @Override
-    public void setTitle() {
-        getActivity().setTitle(R.string.order_caravail_title);
+    public void setSelectedCar(Car car) {
+        selectedCar = car;
     }
 }

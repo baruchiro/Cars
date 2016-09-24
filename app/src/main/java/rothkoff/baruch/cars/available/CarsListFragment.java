@@ -1,6 +1,7 @@
 package rothkoff.baruch.cars.available;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,24 +11,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.Customer;
+import rothkoff.baruch.cars.ForUseMainActivity;
 import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.Tarrif;
 
-public class CarsListFragment extends Fragment implements View.OnClickListener, CarsListAdapter.OnDataChangeListener {
+public class CarsListFragment extends Fragment {
 
     private TextView tvSeatCount,tvEngine,tvPrice,tvYoungPrice;
 
     private RecyclerView recyclerView;
-    private CarsListAdapter adapter;
+    private CarsListAdapter listAdapter;
     private TextView emptyView;
     private Tarrif tarrif;
-    private ForCarsPager parentFragment;
+    private ForUseMainActivity mainActivity;
+    private CarsPagerAdapter parentPagerAdapter;
     private Customer customer;
     private Calendar dateStart;
     private Calendar dateEnd;
@@ -36,21 +47,39 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         // Required empty public constructor
     }
 
-    public static CarsListFragment newInstance(ForCarsPager fragment, Tarrif tarrif) {
+    public static CarsListFragment newInstance(CarsPagerAdapter parentPagerAdapter,Tarrif tarrif) {
         CarsListFragment carsListFragment = new CarsListFragment();
 
         carsListFragment.tarrif = tarrif;
-        carsListFragment.parentFragment = fragment;
+        carsListFragment.parentPagerAdapter = parentPagerAdapter;
 
         return carsListFragment;
     }
 
-    public static CarsListFragment newInstance(ForCarsPager fragment, Tarrif tarrif, Customer customer) {
-        CarsListFragment carsListFragment = CarsListFragment.newInstance(fragment, tarrif);
+    public static CarsListFragment newInstance(CarsPagerAdapter parentPagerAdapter,Tarrif tarrif, Customer customer) {
+        CarsListFragment carsListFragment = CarsListFragment.newInstance(parentPagerAdapter, tarrif);
 
         carsListFragment.customer = customer;
 
         return carsListFragment;
+    }
+
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ForUseMainActivity) {
+            mainActivity = (ForUseMainActivity) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement ForUseMainActivity");
+        }
     }
 
     @Override
@@ -71,73 +100,138 @@ public class CarsListFragment extends Fragment implements View.OnClickListener, 
         tvYoungPrice = (TextView)view.findViewById(R.id.frag_carslist_youngprice);
 
         recyclerView =(RecyclerView)view.findViewById(R.id.frag_carslist_recycler);
-        adapter = new CarsListAdapter(getContext(),this);
+        listAdapter = new CarsListAdapter();
 
         emptyView = (TextView)view.findViewById(R.id.frag_carslist_emptylist);
     }
 
     private void BehaviorMembers() {
-        if (tarrif!=null){
+        if (tarrif != null) {
             tvSeatCount.setText(String.valueOf(tarrif.getSeatCount()));
             tvEngine.setText(String.valueOf(tarrif.getEngineCapacity()));
-            tvPrice.setText(String.valueOf(tarrif.getPrice())+" "+getString(R.string.NIS));
-            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice())+" "+getString(R.string.NIS));
+            tvPrice.setText(String.valueOf(tarrif.getPrice()) + " " + getString(R.string.NIS));
+            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice()) + " " + getString(R.string.NIS));
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        adapter.setOnDataChangeListener(this);
-        UpdateAdapter();
+        listAdapter.Bind();
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(listAdapter);
     }
 
-    private void UpdateAdapter() {
-        if (adapter != null) {
-            adapter.setTarrif(tarrif);
-            adapter.setCustomer(customer);
-            adapter.setDateStart(dateStart);
-            adapter.setDateEnd(dateEnd);
-
-            adapter.Bind();
-        }
+    public void OnDataChange() {
+        emptyView.setVisibility(listAdapter.cars.size() == 0 ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(listAdapter.cars.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
-    @Override
-    public void onClick(View view) {
-        int position = recyclerView.getChildAdapterPosition(view);
-
-        CarHolder holder = (CarHolder) recyclerView.findViewHolderForAdapterPosition(position);
-        Car car = adapter.getCarInPosition(position);
-        parentFragment.setSelectedCar(holder,car);
-    }
-
-    public void notifyDataSetChanged() {
-        if (adapter != null)
-            adapter.notifyMyDataSetChanged();
-        else
-            throw new NullPointerException(this.toString() + " is not load. you need to call to 'setOffscreenPageLimit' method from ViewPger object");
-    }
-
-    @Override
-    public void OnDataChange(List<Car> data) {
-        emptyView.setVisibility(data.size()==0?View.VISIBLE:View.GONE);
-        recyclerView.setVisibility(data.size()==0?View.GONE:View.VISIBLE);
-    }
-
-    public void ShowAvailableInDate(Calendar dateStart) {
+    public void setDateStart(Calendar dateStart) {
         this.dateStart = dateStart;
-        UpdateAdapter();
     }
 
-    public void ShowAvailableInDates(Calendar dateStart, Calendar dateEnd) {
-        this.dateStart = dateStart;
+    public void setDateEnd(Calendar dateEnd) {
         this.dateEnd = dateEnd;
-        UpdateAdapter();
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-        UpdateAdapter();
+    }
+
+    public void setChecked(Car car) {
+        if (listAdapter!=null) {
+            listAdapter.setSelectedCar(car);
+            listAdapter.Bind();
+        }else throw new NullPointerException(this.toString() + " is not load. you need to call to 'setOffscreenPageLimit' method from ViewPger object");
+    }
+
+    private class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
+            implements ValueEventListener {
+
+        private List<Car> cars;
+        private DatabaseReference carsRef;
+        private Car selectedCar;
+
+        /**
+         * <p>Constractor</p>
+         * <p><b>Don't forget to call the 'Bind' method!!</b></p>
+         */
+        public CarsListAdapter() {
+
+            cars = new ArrayList<>();
+            carsRef = FirebaseDatabase.getInstance().getReference(B.Keys.CARS);
+        }
+
+        @Override
+        public CarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_car, parent, false);
+            return new CarHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CarHolder holder, int position) {
+            Car c = cars.get(position);
+            holder.Init(mainActivity, parentPagerAdapter, c);
+            if (customer != null)
+                holder.ShowPrice(customer);
+
+            if (selectedCar != null)
+                holder.MakeChecked(c.getCarNumber().equals(selectedCar.getCarNumber()));
+        }
+
+        @Override
+        public int getItemCount() {
+            return cars.size();
+        }
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            this.cars = new ArrayList<>();
+
+            for (DataSnapshot d : dataSnapshot.getChildren()) {
+                Car car = d.getValue(Car.class);
+
+                boolean isInTarrif = tarrif == null || car.getTariffUid().equals(tarrif.getUid());
+                boolean isInDates = dateStart == null;
+                if (!isInDates)
+                    if (dateEnd != null) {
+                        isInDates = car.availableInDates(dateStart, dateEnd);
+                    } else isInDates = car.availableInDate(dateStart);
+
+                boolean isCustomer = customer == null ||
+                        car.getPrice(customer,mainActivity.getTarrifByUid(car.getTariffUid())) != 0;
+
+
+                if (isInTarrif && isInDates && isCustomer)
+                    cars.add(car);
+            }
+
+            notifyMyDataSetChanged();
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+
+        public Car getCarInPosition(int position) {
+            return cars.get(position);
+        }
+
+        public void notifyMyDataSetChanged() {
+            notifyDataSetChanged();
+            CarsListFragment.this.OnDataChange();
+        }
+
+        /**
+         * <p>You must call this method if you want that this Adapter load his data</p>
+         * <p>So call this after you end setup the Adapter</p>
+         */
+        public void Bind() {
+            carsRef.addListenerForSingleValueEvent(this);
+        }
+
+        public void setSelectedCar(Car selectedCar) {
+            this.selectedCar = selectedCar;
+        }
     }
 }

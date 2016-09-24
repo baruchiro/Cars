@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import rothkoff.baruch.cars.Car;
+import rothkoff.baruch.cars.CarHolder;
 import rothkoff.baruch.cars.Customer;
 
-public class CarsPagerAdapter extends FragmentPagerAdapter {
+public class CarsPagerAdapter extends FragmentPagerAdapter implements CarHolder.OnClickListener {
 
     private ForCarsPager mainFragment;
     private List<CarsListFragment> fragments;
@@ -36,12 +38,14 @@ public class CarsPagerAdapter extends FragmentPagerAdapter {
 
         fragments = new ArrayList<>();
         for (String uid : tarrifsUid) {
-            CarsListFragment fragment = CarsListFragment.newInstance(mainFragment,mainFragment.getTarrif(uid));
+            CarsListFragment fragment = CarsListFragment.newInstance(this, mainFragment.getTarrif(uid));
 
             if (mainFragment.getDateStart() != null) {
-                if (mainFragment.isOneDay()) fragment.ShowAvailableInDate(mainFragment.getDateStart());
-                else
-                    fragment.ShowAvailableInDates(mainFragment.getDateStart(), mainFragment.getDateEnd());
+                if (mainFragment.isOneDay()) fragment.setDateStart(mainFragment.getDateStart());
+                else {
+                    fragment.setDateStart(mainFragment.getDateStart());
+                    fragment.setDateEnd(mainFragment.getDateEnd());
+                }
             }
 
             fragments.add(fragment);
@@ -53,8 +57,11 @@ public class CarsPagerAdapter extends FragmentPagerAdapter {
         CarsListFragment fr = fragments.get(position);
         if (mainFragment.getDateStart() == null)
             return fr;
-        if (mainFragment.isOneDay()) fr.ShowAvailableInDate(mainFragment.getDateStart());
-        else fr.ShowAvailableInDates(mainFragment.getDateStart(), mainFragment.getDateEnd());
+        if (mainFragment.isOneDay()) fr.setDateStart(mainFragment.getDateStart());
+        else {
+            fr.setDateStart(mainFragment.getDateStart());
+            fr.setDateEnd(mainFragment.getDateEnd());
+        }
 
         return fr;
     }
@@ -69,15 +76,15 @@ public class CarsPagerAdapter extends FragmentPagerAdapter {
         return mainFragment.getTarrif(tarrifsUid.get(position)).getName();
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        for (CarsListFragment f : fragments)
-            f.notifyDataSetChanged();
-    }
-
     public void setCustomer(Customer customer){
         for (CarsListFragment fragment:fragments)
             fragment.setCustomer(customer);
+    }
+
+    @Override
+    public void onClick(Car car, CarHolder holder) {
+        mainFragment.setSelectedCar(car);
+        for (CarsListFragment fragment : fragments)
+            fragment.setChecked(car);
     }
 }

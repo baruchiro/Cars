@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class CarHolder extends RecyclerView.ViewHolder {
+public class CarHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private View view;
     private ForUseMainActivity context;
+    private OnClickListener listener;
     //private boolean checked;
     private Car car;
     private TextView tvBrand, tvColor, tvPrice, tvYoung;
@@ -22,14 +23,15 @@ public class CarHolder extends RecyclerView.ViewHolder {
         tvYoung = (TextView) view.findViewById(R.id.item_car_young);
     }
 
-    public void Init(ForUseMainActivity context, View.OnClickListener listener, Car car) {
+    public void Init(ForUseMainActivity context, OnClickListener listener, Car car) {
         this.context = context;
         this.car = car;
+        this.listener = listener;
         tvColor.setText(car.getColor());
         tvBrand.setText(car.getBrand());
         if (car.getIsYoung()) tvYoung.setVisibility(View.VISIBLE);
 
-        view.setOnClickListener(listener);
+        view.setOnClickListener(this);
     }
 
     public double ShowPrice(Customer customer){
@@ -40,7 +42,18 @@ public class CarHolder extends RecyclerView.ViewHolder {
         return price;
     }
 
-    public void MakeChecked() {
-        view.setBackgroundColor(Color.GRAY);
+    public void MakeChecked(boolean checked) {
+        if (checked) {
+            view.setBackgroundColor(Color.GRAY);
+        }else view.setBackgroundColor(Color.WHITE);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (listener!=null) listener.onClick(car,this);
+    }
+
+    public interface OnClickListener{
+        void onClick(Car car,CarHolder holder);
     }
 }
