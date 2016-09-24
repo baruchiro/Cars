@@ -55,6 +55,7 @@ public class B {
         public static final String SEAT_COUNT = "seatCount";
         public static final String ENGINE_CAPACITY = "engineCapacity";
         public static final String YOUNG_PRICE = "youngPrice";
+        public static final String RENTS = "rents";
     }
 
     public class Constants {

@@ -33,7 +33,7 @@ public class RentViewHolder extends RecyclerView.ViewHolder {
 
         tvDate.setText(temp);
 
-        temp = rent.getCarType()+" "+rent.getCarColor()+context.getResources().getString(R.string.car_number)+": "+rent.getCarNumber();
+        temp = rent.getCarBrand()+" "+rent.getCarColor()+context.getResources().getString(R.string.car_number)+": "+rent.getCarNumber();
         tvCar.setText(temp);
     }
     public void setRent(Context context,Rent rent, boolean showCustomerName) {

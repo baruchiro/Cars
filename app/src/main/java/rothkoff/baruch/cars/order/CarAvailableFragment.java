@@ -9,18 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Calendar;
-
 import rothkoff.baruch.cars.B;
-import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.available.CarsPagerAdapter;
-import rothkoff.baruch.cars.available.ForCarsPager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CarAvailableFragment extends MainOrderFragment implements ForCarsPager {
+public class CarAvailableFragment extends MainOrderFragment {
 
     private ViewPager pager;
     private CarsPagerAdapter pagerAdapter;
@@ -68,27 +64,7 @@ public class CarAvailableFragment extends MainOrderFragment implements ForCarsPa
     }
 
     @Override
-    public Calendar getDateStart() {
-        return dateStart;
-    }
-
-    @Override
-    public Calendar getDateEnd() {
-        return dateEnd;
-    }
-
-    @Override
-    public boolean isOneDay() {
-        return isOneDay;
-    }
-
-    @Override
     public void setTitle() {
         getActivity().setTitle(R.string.order_caravail_title);
-    }
-
-    @Override
-    public void setSelectedCar(Car car) {
-        selectedCar = car;
     }
 }

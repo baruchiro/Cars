@@ -4,14 +4,23 @@ public class Rent {
     private long dateStart;
     private long dateEnd;
     private String uid;
-    private String customerID;
+    private String customerUid;
     private String customerName;
     private String carNumber;
-    private String carType;
+    private String carBrand;
     private String carColor;
-    private int totalPrice;
+    private double totalPrice;
 
     public Rent(){}
+
+    public Rent(long dateStart, long dateEnd, Car selectedCar, double totalPrice) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.carNumber = selectedCar.getCarNumber();
+        this.carBrand = selectedCar.getBrand();
+        this.carColor = selectedCar.getColor();
+        this.totalPrice = totalPrice;
+    }
 
     public long getDateStart() {
         return dateStart;
@@ -37,12 +46,12 @@ public class Rent {
         this.uid = uid;
     }
 
-    public String getCustomerID() {
-        return customerID;
+    public String getCustomerUid() {
+        return customerUid;
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+    public void setCustomerUid(String customerUid) {
+        this.customerUid = customerUid;
     }
 
     public String getCustomerName() {
@@ -61,12 +70,12 @@ public class Rent {
         this.carNumber = carNumber;
     }
 
-    public String getCarType() {
-        return carType;
+    public String getCarBrand() {
+        return carBrand;
     }
 
-    public void setCarType(String carType) {
-        this.carType = carType;
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
     }
 
     public String getCarColor() {
@@ -77,7 +86,7 @@ public class Rent {
         this.carColor = carColor;
     }
 
-    public int getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import rothkoff.baruch.cars.order.CarAvailableFragment;
@@ -27,11 +25,8 @@ import rothkoff.baruch.cars.order.MainOrderFragment;
 public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
+    private PageAdapter pagerAdapter;
     private Button btnNext,btnPrevious,btnSend;
-
-    private Calendar dateStart,dateEnd;
-    private Car selectedCar;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -84,6 +79,12 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
                 viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
             }
         });
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pagerAdapter.CreateRent();
+            }
+        });
     }
 
     @Override
@@ -134,6 +135,18 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
         @Override
         public CharSequence getPageTitle(int position) {
             return getString(fragments.get(position).getPageTitle());
+        }
+
+        public void CreateRent() {
+            MainOrderFragment fragment = fragments.get(1);
+            long dateStart = fragment.getDateStart().getTimeInMillis();
+            long dateEnd = fragment.getDateEnd().getTimeInMillis();
+            Car selectedCar = fragment.getSelectedCar();
+            double totalPrice = fragment.getTotalPrice();
+
+            Rent rent = new Rent(dateStart, dateEnd, selectedCar, totalPrice);
+
+            B.customer.addRent(rent);
         }
     }
 }
