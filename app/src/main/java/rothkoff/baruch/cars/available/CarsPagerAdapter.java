@@ -40,29 +40,14 @@ public class CarsPagerAdapter extends FragmentPagerAdapter implements CarHolder.
         for (String uid : tarrifsUid) {
             CarsListFragment fragment = CarsListFragment.newInstance(this, mainFragment.getTarrif(uid));
 
-            if (mainFragment.getDateStart() != null) {
-                if (mainFragment.isOneDay()) fragment.setDateStart(mainFragment.getDateStart());
-                else {
-                    fragment.setDateStart(mainFragment.getDateStart());
-                    fragment.setDateEnd(mainFragment.getDateEnd());
-                }
-            }
-
             fragments.add(fragment);
         }
     }
 
     @Override
     public Fragment getItem(int position) {
-        CarsListFragment fr = fragments.get(position);
-        if (mainFragment.getDateStart() == null)
-            return fr;
-        if (mainFragment.isOneDay()) fr.setDateStart(mainFragment.getDateStart());
-        else {
-            fr.setDateStart(mainFragment.getDateStart());
-            fr.setDateEnd(mainFragment.getDateEnd());
-        }
 
+        CarsListFragment fr = fragments.get(position);
         return fr;
     }
 
@@ -86,5 +71,10 @@ public class CarsPagerAdapter extends FragmentPagerAdapter implements CarHolder.
         mainFragment.setSelectedCar(car);
         for (CarsListFragment fragment : fragments)
             fragment.setChecked(car);
+    }
+
+    public void UpdateDates() {
+        for (CarsListFragment fragment:fragments)
+            fragment.UpdateDates(mainFragment.getDateStart(),mainFragment.getDateEnd());
     }
 }

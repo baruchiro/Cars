@@ -82,6 +82,15 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
 
     }
 
+    @Override
+    public Tarrif getTarrif(String uid) {
+        return mainActivity.getTarrifByUid(uid);
+    }
+
+    @Override
+    public void setSelectedCar(Car car) {
+
+    }
 
     @Override
     public Calendar getDateStart() {
@@ -91,20 +100,5 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
     @Override
     public Calendar getDateEnd() {
         return null;
-    }
-
-    @Override
-    public boolean isOneDay() {
-        return false;
-    }
-
-    @Override
-    public Tarrif getTarrif(String uid) {
-        return mainActivity.getTarrifByUid(uid);
-    }
-
-    @Override
-    public void setSelectedCar(Car car) {
-
     }
 }

@@ -101,6 +101,7 @@ public class Car {
         }return tarrif.getPrice();
     }
 
+    //TODO check this
     public boolean availableInDates(Calendar dateStart, Calendar dateEnd) {
         dateStart = B.getCalenderWithOnlyDate(dateStart);
         dateEnd = B.getCalenderWithOnlyDate(dateEnd);

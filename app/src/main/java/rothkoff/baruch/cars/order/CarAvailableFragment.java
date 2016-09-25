@@ -18,7 +18,7 @@ import rothkoff.baruch.cars.available.CarsPagerAdapter;
  */
 public class CarAvailableFragment extends MainOrderFragment {
 
-    private ViewPager pager;
+    private ViewPager viewPager;
     private CarsPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
@@ -44,23 +44,28 @@ public class CarAvailableFragment extends MainOrderFragment {
     }
 
     private void InitMembers(View view) {
-        pager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
+        viewPager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
         pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(), this, mainActivity.getTarrifUids());
         tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
 
     private void BehaviorMembers() {
-        tabLayout.setupWithViewPager(pager, true);
+        tabLayout.setupWithViewPager(viewPager, true);
 
         pagerAdapter.setCustomer(B.customer);
 
-        pager.setAdapter(pagerAdapter);
-        pager.setOffscreenPageLimit(pagerAdapter.getCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
     }
 
     @Override
     public int getPageTitle() {
         return R.string.order_caravail_title;
+    }
+
+    @Override
+    public void Refresh() {
+        pagerAdapter.UpdateDates();
     }
 
     @Override

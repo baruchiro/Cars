@@ -100,10 +100,16 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
     @Override
     public void onPageSelected(int position) {
         int count = pagerAdapter.getCount();
+        MainOrderFragment fragment = (MainOrderFragment) pagerAdapter.getItem(position);
+
         position += 1;
+
         btnNext.setVisibility(position == 1 ? View.GONE : View.VISIBLE);
         btnPrevious.setEnabled(position != count);
         btnSend.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+        btnSend.setEnabled(fragment.isAllDone());
+
+        //fragment.Refresh();
     }
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -139,12 +145,9 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
 
         public void CreateRent() {
             MainOrderFragment fragment = fragments.get(1);
-            long dateStart = fragment.getDateStart().getTimeInMillis();
-            long dateEnd = fragment.getDateEnd().getTimeInMillis();
             Car selectedCar = fragment.getSelectedCar();
-            double totalPrice = fragment.getTotalPrice();
 
-            Rent rent = new Rent(dateStart, dateEnd, selectedCar, totalPrice);
+            Rent rent = new Rent(0L, 0L, selectedCar, 0);
 
             if (rent.AddToDB(B.customer)) mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
         }

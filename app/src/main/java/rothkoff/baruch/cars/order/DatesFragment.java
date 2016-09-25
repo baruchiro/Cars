@@ -31,6 +31,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
 
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialogStart,datePickerDialogEnd;
+    private OnDateSetListener dateSetListenerEnd;
 
     public DatesFragment() {
         // Required empty public constructor
@@ -49,6 +50,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
 
         InitMembers(view);
         BehaviorMembers();
+        Refresh();
 
         return view;
     }
@@ -69,25 +71,15 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
             }
         };
         datePickerDialogStart = new DatePickerDialog(getContext(), dateSetListenerStart, 0, 0, 0);
+        datePickerDialogStart.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis()+B.Constants.DAY_IN_MILISECONDS);
 
-        OnDateSetListener dateSetListenerEnd = new OnDateSetListener() {
+        dateSetListenerEnd = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 DateEndMembers(i, i1, i2);
             }
         };
         datePickerDialogEnd = new DatePickerDialog(getContext(), dateSetListenerEnd, 0, 0, 0);
-
-        dateStart.add(Calendar.DATE,1);
-        datePickerDialogStart.getDatePicker().setMinDate(dateStart.getTimeInMillis());
-        DateStartMembers(dateStart.get(Calendar.YEAR),
-                dateStart.get(Calendar.MONTH),
-                dateStart.get(Calendar.DAY_OF_MONTH));
-
-        dateEnd.add(Calendar.DATE,2);
-        DateEndMembers(dateEnd.get(Calendar.YEAR),
-                dateEnd.get(Calendar.MONTH),
-                dateEnd.get(Calendar.DAY_OF_MONTH));
 
         etDateStart.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -108,28 +100,35 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
         sIsOneDay.setOnCheckedChangeListener(this);
     }
 
-    private void DateStartMembers(int year,int month,int day){
+    private void DateStartMembers(int year, int month, int day) {
         datePickerDialogStart.updateDate(year, month, day);
-        dateStart.set(year, month, day);
-        etDateStart.setText(simpleDateFormat.format(dateStart.getTime()));
+        boolean b = setDateStart(year, month, day);
+        etDateStart.setText(simpleDateFormat.format(getDateStart().getTime()));
 
-        datePickerDialogEnd.getDatePicker().setMinDate(dateStart.getTimeInMillis()+B.Constants.DAY_IN_MILISECONDS);
+        if (b) DateEndMembers(year, month, day);
     }
+
     private void DateEndMembers(int year,int month,int day){
         datePickerDialogEnd.updateDate(year, month, day);
-        dateEnd.set(year, month, day);
-        etDateEnd.setText(simpleDateFormat.format(dateEnd.getTime()));
+        boolean b = setDateEnd(year,month,day);
+        etDateEnd.setText(simpleDateFormat.format(getDateEnd().getTimeInMillis()));
+
+        if (b)DateStartMembers(year, month, day);
     }
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        isOneDay = b;
         getActivity().findViewById(R.id.frag_order_input_dateend).setVisibility(b?View.GONE:View.VISIBLE);
     }
-
 
     @Override
     public int getPageTitle() {
         return R.string.order_dates_frag_title;
+    }
+
+    @Override
+    public void Refresh() {
+        DateStartMembers(getDateStart().get(Calendar.YEAR),getDateStart().get(Calendar.MONTH),getDateStart().get(Calendar.DAY_OF_MONTH));
+        DateEndMembers(getDateEnd().get(Calendar.YEAR),getDateEnd().get(Calendar.MONTH),getDateEnd().get(Calendar.DAY_OF_MONTH));
     }
 
     @Override

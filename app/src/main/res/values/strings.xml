@@ -76,4 +76,5 @@
     <string name="error_select_tarrif">ERROR: Must select Tarrif</string>
     <string name="NIS">NIS</string>
     <string name="not_found_data">Not found data</string>
+    <string name="order_details">Order Details</string>
 </resources>

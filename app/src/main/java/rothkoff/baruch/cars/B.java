@@ -38,6 +38,7 @@ public class B {
         return getCalenderWithOnlyDate(c).getTimeInMillis();
     }
 
+    //TODO check this
     public static boolean isBetweenDate(long dateStart,long dateEnd,long temp) {
         if (temp >= dateStart && temp <= dateEnd) return true;
         return false;

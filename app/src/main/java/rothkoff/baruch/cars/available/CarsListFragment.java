@@ -125,14 +125,6 @@ public class CarsListFragment extends Fragment {
         recyclerView.setVisibility(listAdapter.cars.size() == 0 ? View.GONE : View.VISIBLE);
     }
 
-    public void setDateStart(Calendar dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public void setDateEnd(Calendar dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -142,6 +134,12 @@ public class CarsListFragment extends Fragment {
             listAdapter.setSelectedCar(car);
             listAdapter.Bind();
         }else throw new NullPointerException(this.toString() + " is not load. you need to call to 'setOffscreenPageLimit' method from ViewPger object");
+    }
+
+    public void UpdateDates(Calendar dateStart, Calendar dateEnd) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        listAdapter.Bind();
     }
 
     private class CarsListAdapter extends RecyclerView.Adapter<CarHolder>
@@ -191,17 +189,17 @@ public class CarsListFragment extends Fragment {
                 Car car = d.getValue(Car.class);
 
                 boolean isInTarrif = tarrif == null || car.getTariffUid().equals(tarrif.getUid());
-                boolean isInDates = dateStart == null;
-                if (!isInDates)
-                    if (dateEnd != null) {
-                        isInDates = car.availableInDates(dateStart, dateEnd);
-                    } else isInDates = car.availableInDates(dateStart,dateStart);
 
                 boolean isCustomer = customer == null ||
-                        car.getPrice(customer,mainActivity.getTarrifByUid(car.getTariffUid())) != 0;
+                        car.getPrice(customer, mainActivity.getTarrifByUid(car.getTariffUid())) != 0;
+
+                boolean isDates = dateStart == null;
+                if (!isDates){
+                    isDates = car.availableInDates(dateStart,dateEnd);
+                }
 
 
-                if (isInTarrif && isInDates && isCustomer)
+                if (isInTarrif && isCustomer && isDates)
                     cars.add(car);
             }
 

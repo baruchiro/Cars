@@ -11,16 +11,13 @@ import rothkoff.baruch.cars.available.ForCarsPager;
 
 public abstract class MainOrderFragment extends MyFragment implements ForCarsPager {
 
-    protected static Calendar dateStart,dateEnd;
-    protected static Car selectedCar;
-    protected static boolean isOneDay;
-    private double totalPrice;
-
-    public Car getSelectedCar() {
-        return selectedCar;
-    }
+    private static Car selectedCar;
+    private static Calendar dateStart;
+    private static Calendar dateEnd;
 
     public abstract int getPageTitle();
+    public abstract void Refresh();
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -32,28 +29,54 @@ public abstract class MainOrderFragment extends MyFragment implements ForCarsPag
                     + " must implement ForCustomerFragments");
         }
 
-        dateStart = Calendar.getInstance();
-        dateEnd = Calendar.getInstance();
-        isOneDay = true;
+        if (dateStart == null) {
+            dateStart = Calendar.getInstance();
+            dateStart.add(Calendar.DATE, 1);
+        }
+        if (dateEnd==null){
+            dateEnd = Calendar.getInstance();
+            dateEnd.add(Calendar.DATE, 1);
+        }
     }
 
-    public Calendar getDateStart() {
+    protected boolean setDateStart(int year, int month, int day) {
+        dateStart.set(year, month, day);
+
+        if (dateStart.compareTo(dateEnd) > 0) {
+            dateEnd.set(year, month, day);
+            return true;
+        }
+        return false;
+    }
+
+    public Calendar getDateStart(){
         return dateStart;
     }
 
-    public Calendar getDateEnd() {
+    protected boolean setDateEnd(int year, int month, int day) {
+        dateEnd.set(year, month, day);
+
+        if (dateStart.compareTo(dateEnd) > 0) {
+            dateStart.set(year, month, day);
+            return true;
+        }
+        return false;
+    }
+
+    public Calendar getDateEnd(){
         return dateEnd;
     }
 
-    public boolean isOneDay() {
-        return isOneDay;
+    public Car getSelectedCar() {
+        return selectedCar;
     }
-
     public void setSelectedCar(Car car) {
         selectedCar = car;
+        Refresh();
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public boolean isAllDone() {
+        if (selectedCar!=null) return true;
+        return false;
     }
 }
