@@ -32,6 +32,17 @@ public class B {
         return calendar;
     }
 
+    public static long getLongWithOnlyDate(long date){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(date);
+        return getCalenderWithOnlyDate(c).getTimeInMillis();
+    }
+
+    public static boolean isBetweenDate(long dateStart,long dateEnd,long temp) {
+        if (temp >= dateStart && temp <= dateEnd) return true;
+        return false;
+    }
+
     public static final class Keys {
         public static final String CARS = "cars";
         public static final String CUSTOMERS ="customers";

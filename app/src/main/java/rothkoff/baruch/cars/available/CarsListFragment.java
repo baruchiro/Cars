@@ -195,7 +195,7 @@ public class CarsListFragment extends Fragment {
                 if (!isInDates)
                     if (dateEnd != null) {
                         isInDates = car.availableInDates(dateStart, dateEnd);
-                    } else isInDates = car.availableInDate(dateStart);
+                    } else isInDates = car.availableInDates(dateStart,dateStart);
 
                 boolean isCustomer = customer == null ||
                         car.getPrice(customer,mainActivity.getTarrifByUid(car.getTariffUid())) != 0;

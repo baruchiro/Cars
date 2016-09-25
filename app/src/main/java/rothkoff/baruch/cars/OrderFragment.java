@@ -146,7 +146,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
 
             Rent rent = new Rent(dateStart, dateEnd, selectedCar, totalPrice);
 
-            B.customer.addRent(rent);
+            if (rent.AddToDB(B.customer)) mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
         }
     }
 }

@@ -12,7 +12,6 @@ public class Car {
     private Map<String,Maka> makot;
     private String parkLocation = "";
     private String tariffUid;
-    private Map<String,Long> rentDates;
     private Map<String,Rent> rents;
 
     public Car(){
@@ -24,14 +23,6 @@ public class Car {
         this.color = color;
         this.tariffUid = tarrif.getUid();
         makot = new HashMap<>();
-    }
-
-    public Map<String, Long> getRentDates() {
-        return rentDates;
-    }
-
-    public void setRentDates(Map<String, Long> rentDates) {
-        this.rentDates = rentDates;
     }
 
     public String getCarNumber() {
@@ -109,24 +100,15 @@ public class Car {
             return tarrif.getPrice()+tarrif.getYoungPrice();
         }return tarrif.getPrice();
     }
-    public boolean availableInDate(Calendar dateStart) {
-        if (rentDates == null)return true;
-
-        for (long l : rentDates.values()){
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(l);
-            if (B.CompareWithYearMonthDay(c,dateStart))return false;
-        }
-        return true;
-    }
 
     public boolean availableInDates(Calendar dateStart, Calendar dateEnd) {
         dateStart = B.getCalenderWithOnlyDate(dateStart);
         dateEnd = B.getCalenderWithOnlyDate(dateEnd);
 
-        while (dateStart.compareTo(dateEnd)<=0){
-            if (!availableInDate(dateStart)) return false;
-            dateStart.add(Calendar.DATE,1);
+        for (long time = dateStart.getTimeInMillis(); time <= dateEnd.getTimeInMillis(); time += B.Constants.DAY_IN_MILISECONDS) {
+            if (rents != null)
+                for (Rent rent : rents.values())
+                    if (B.isBetweenDate(rent.getDateStart(), rent.getDateEnd(), time)) return false;
         }
         return true;
     }

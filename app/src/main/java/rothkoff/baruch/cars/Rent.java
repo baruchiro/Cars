@@ -1,5 +1,8 @@
 package rothkoff.baruch.cars;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Rent {
     private long dateStart;
     private long dateEnd;
@@ -92,5 +95,24 @@ public class Rent {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public boolean AddToDB(Customer customer){
+        setCustomerName(customer.getFullName());
+        setCustomerUid(customer.getUid());
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference rentRef = firebaseDatabase.getReference(B.Keys.RENTS).push();
+
+        uid = rentRef.getKey();
+
+        DatabaseReference customerRef = firebaseDatabase.getReference(B.Keys.CUSTOMERS).child(customer.getUid()).child(B.Keys.RENTS).child(uid);
+        DatabaseReference carRef = firebaseDatabase.getReference(B.Keys.CARS).child(carNumber).child(B.Keys.RENTS).child(uid);
+
+        rentRef.setValue(this);
+        customerRef.setValue(this);
+        carRef.setValue(this);
+
+        return true;
     }
 }
