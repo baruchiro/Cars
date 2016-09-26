@@ -70,13 +70,14 @@ public abstract class MainOrderFragment extends MyFragment implements ForCarsPag
     public Car getSelectedCar() {
         return selectedCar;
     }
+
     public void setSelectedCar(Car car) {
         selectedCar = car;
         Refresh();
     }
 
     public boolean isAllDone() {
-        if (selectedCar!=null) return true;
+        if (selectedCar != null && dateStart != null) return true;
         return false;
     }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import rothkoff.baruch.cars.order.CarAvailableFragment;
 import rothkoff.baruch.cars.order.DatesFragment;
 import rothkoff.baruch.cars.order.MainOrderFragment;
+import rothkoff.baruch.cars.order.OrderDetailsFragment;
 
 
 /**
@@ -109,7 +110,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
         btnSend.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         btnSend.setEnabled(fragment.isAllDone());
 
-        //fragment.Refresh();
+        fragment.Refresh();
     }
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -123,6 +124,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
         public PageAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<>();
+            fragments.add(OrderDetailsFragment.newInstance());
             fragments.add(CarAvailableFragment.newInstance());
             fragments.add(DatesFragment.newInstance());
 
@@ -147,7 +149,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
             MainOrderFragment fragment = fragments.get(1);
             Car selectedCar = fragment.getSelectedCar();
 
-            Rent rent = new Rent(0L, 0L, selectedCar, 0);
+            Rent rent = new Rent(fragment.getDateStart().getTimeInMillis(), fragment.getDateEnd().getTimeInMillis(), selectedCar, 0);
 
             if (rent.AddToDB(B.customer)) mainActivity.ReplaceFragment(MyAccountFragment.newInstance());
         }

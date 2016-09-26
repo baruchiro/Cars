@@ -139,7 +139,8 @@ public class CarsListFragment extends Fragment {
     public void UpdateDates(Calendar dateStart, Calendar dateEnd) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
-        listAdapter.Bind();
+        if (listAdapter != null)
+            listAdapter.Bind();
     }
 
     private class CarsListAdapter extends RecyclerView.Adapter<CarHolder>

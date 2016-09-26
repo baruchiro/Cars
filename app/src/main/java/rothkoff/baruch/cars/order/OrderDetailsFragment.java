@@ -19,6 +19,12 @@ public class OrderDetailsFragment extends MainOrderFragment {
         // Required empty public constructor
     }
 
+    public static OrderDetailsFragment newInstance(){
+        OrderDetailsFragment fragment = new OrderDetailsFragment();
+
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

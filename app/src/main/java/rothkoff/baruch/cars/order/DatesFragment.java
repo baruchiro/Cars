@@ -127,8 +127,10 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
 
     @Override
     public void Refresh() {
-        DateStartMembers(getDateStart().get(Calendar.YEAR),getDateStart().get(Calendar.MONTH),getDateStart().get(Calendar.DAY_OF_MONTH));
-        DateEndMembers(getDateEnd().get(Calendar.YEAR),getDateEnd().get(Calendar.MONTH),getDateEnd().get(Calendar.DAY_OF_MONTH));
+        if (getDateStart()!=null&&getDateEnd()!=null) {
+            DateStartMembers(getDateStart().get(Calendar.YEAR), getDateStart().get(Calendar.MONTH), getDateStart().get(Calendar.DAY_OF_MONTH));
+            DateEndMembers(getDateEnd().get(Calendar.YEAR), getDateEnd().get(Calendar.MONTH), getDateEnd().get(Calendar.DAY_OF_MONTH));
+        }
     }
 
     @Override

@@ -32,7 +32,10 @@ public abstract class MyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle();
+        //setSelectedDrawerItem();
     }
+
+    //protected abstract void setSelectedDrawerItem();
 
     public Tarrif getTarrif(String uid) {
         return mainActivity.getTarrifByUid(uid);

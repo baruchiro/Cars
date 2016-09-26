@@ -53,6 +53,7 @@ public class CarAvailableFragment extends MainOrderFragment {
         tabLayout.setupWithViewPager(viewPager, true);
 
         pagerAdapter.setCustomer(B.customer);
+        pagerAdapter.UpdateDates();
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
