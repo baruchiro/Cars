@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -80,6 +81,11 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
     @Override
     public void setTitle() {
 
+    }
+
+    @Override
+    public void setDrawerMenuItemChecked(Menu menu) {
+        menu.findItem(R.id.nav_managedb).setChecked(true);
     }
 
     @Override

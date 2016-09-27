@@ -2,6 +2,7 @@ package rothkoff.baruch.cars;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface ForUseMainActivity {
     String getString(int resID);
 
     Context getContext();
+
+    Menu getNavigationViewMenu();
 }

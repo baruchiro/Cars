@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -28,13 +29,13 @@ public class MyAccountFragment extends MyFragment {
     private RentsAdapter adapter;
     private ScrollView scrollView;
 
+    public MyAccountFragment() {
+    }
+
     public static MyAccountFragment newInstance() {
         MyAccountFragment fragment = new MyAccountFragment();
 
         return fragment;
-    }
-
-    public MyAccountFragment() {
     }
 
     @Override
@@ -45,6 +46,11 @@ public class MyAccountFragment extends MyFragment {
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.customer_main_title);
+    }
+
+    @Override
+    public void setDrawerMenuItemChecked(Menu menu) {
+        menu.findItem(R.id.nav_myaccount).setChecked(true);
     }
 
     @Override
@@ -73,10 +79,10 @@ public class MyAccountFragment extends MyFragment {
         adapter = new RentsAdapter(getContext(),B.customer.getRents().values(),false);
         layoutManager = new LinearLayoutManager(getContext(),LinearLayout.VERTICAL,true);
     }
-    private void BehaviorMembers(){
-        for (Map.Entry<String,String> entry: Customer.getMapForView(B.customer,getResources()).entrySet()) {
+    private void BehaviorMembers() {
+        for (Map.Entry<String, String> entry : B.customer.getMapForView(getResources()).entrySet()) {
             TextView tv = new TextView(getContext());
-            tv.setText(entry.getKey()+": "+entry.getValue());
+            tv.setText(entry.getKey() + ": " + entry.getValue());
             llMain.addView(tv);
         }
 

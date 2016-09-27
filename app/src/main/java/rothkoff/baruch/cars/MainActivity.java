@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AuthStateListener,ForUseMainActivity {
 
-    private RecyclerView recycleCars;
     //private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
+    private RecyclerView recycleCars;
     private AuthStateListener authStateListener;
     private DatabaseReference refCars;
     //private FloatingActionButton fab;
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_order:
                 ReplaceFragment(OrderFragment.newInstance());
                 break;
-            case R.id.nav_account:
+            case R.id.nav_myaccount:
                 ReplaceFragment(MyAccountFragment.newInstance());
                 break;
             case R.id.nav_managedb:
@@ -202,9 +202,10 @@ public class MainActivity extends AppCompatActivity
 
         DatabaseReference customerRef = FirebaseDatabase.getInstance()
                 .getReference(B.Keys.CUSTOMERS).child(firebaseAuth.getCurrentUser().getUid());
+
         customerRef.keepSynced(true);
 
-        customerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        customerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -226,11 +227,11 @@ public class MainActivity extends AppCompatActivity
     private void UserLogin() {
         layoutNoUser.setVisibility(View.GONE);
         ShowMenuItems(true, B.customer.isManager());
+
         if (B.customer.isDetailMissing())
             ReplaceFragment(CustomerDetailsEditFragment.newInstance());
         else ReplaceFragment(MyAccountFragment.newInstance());
 
-        navigationView.getMenu().findItem(R.id.nav_account).setChecked(true);
         progressDialog.dismiss();
     }
 
@@ -248,7 +249,7 @@ public class MainActivity extends AppCompatActivity
 
         //Show Order now & My account MenuItems
         navigationView.getMenu().findItem(R.id.nav_order).setVisible(connected);
-        navigationView.getMenu().findItem(R.id.nav_account).setVisible(connected);
+        navigationView.getMenu().findItem(R.id.nav_myaccount).setVisible(connected);
         //Show Next order & Manage DB if customer is Manager
         navigationView.getMenu().findItem(R.id.nav_nextorders).setVisible(manager);
         navigationView.getMenu().findItem(R.id.nav_managedb).setVisible(manager);
@@ -297,6 +298,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public Menu getNavigationViewMenu() {
+        return navigationView.getMenu();
     }
 
     private class TarrifChildEventListener implements ChildEventListener {

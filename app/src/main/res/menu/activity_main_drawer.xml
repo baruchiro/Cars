@@ -11,7 +11,7 @@
             android:icon="@drawable/ic_add"
             android:title="@string/order_new_rent" />
         <item
-            android:id="@+id/nav_account"
+            android:id="@+id/nav_myaccount"
             android:icon="@drawable/ic_account_circle"
             android:title="@string/my_account" />
         <item

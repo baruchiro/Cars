@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -191,5 +192,10 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.addtarrif_title);
+    }
+
+    @Override
+    public void setDrawerMenuItemChecked(Menu menu) {
+        menu.findItem(R.id.nav_managedb).setChecked(true);
     }
 }

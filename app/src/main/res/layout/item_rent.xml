@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_rent="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    card_rent:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,9 +13,9 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/item_rent_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item_rent_customer"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
             android:visibility="gone"/>
@@ -24,14 +27,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:text="@string/date"
+                android:textAlignment="viewStart"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/item_rent_date"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:id="@+id/item_rent_date"/>
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"/>
         </LinearLayout>
 
         <LinearLayout
@@ -41,14 +45,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:text="@string/car"
+                android:textAlignment="viewStart"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/item_rent_car"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:id="@+id/item_rent_car"/>
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"/>
         </LinearLayout>
     </LinearLayout>
 

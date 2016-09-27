@@ -26,11 +26,11 @@ import rothkoff.baruch.cars.R;
  */
 public class DatesFragment extends MainOrderFragment implements CompoundButton.OnCheckedChangeListener {
 
-    private EditText etDateStart,etDateEnd;
+    private EditText etDateStart, etDateEnd;
     private Switch sIsOneDay;
 
     private SimpleDateFormat simpleDateFormat;
-    private DatePickerDialog datePickerDialogStart,datePickerDialogEnd;
+    private DatePickerDialog datePickerDialogStart, datePickerDialogEnd;
     private OnDateSetListener dateSetListenerEnd;
 
     public DatesFragment() {
@@ -58,7 +58,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
     private void InitMembers(View view) {
         etDateStart = (EditText) view.findViewById(R.id.frag_order_edit_datestart);
         etDateEnd = (EditText) view.findViewById(R.id.frag_order_edit_dateend);
-        sIsOneDay = (Switch)view.findViewById(R.id.frag_order_switch_oneday);
+        sIsOneDay = (Switch) view.findViewById(R.id.frag_order_switch_oneday);
 
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
@@ -71,7 +71,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
             }
         };
         datePickerDialogStart = new DatePickerDialog(getContext(), dateSetListenerStart, 0, 0, 0);
-        datePickerDialogStart.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis()+B.Constants.DAY_IN_MILISECONDS);
+        datePickerDialogStart.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis() + B.Constants.DAY_IN_MILISECONDS);
 
         dateSetListenerEnd = new OnDateSetListener() {
             @Override
@@ -80,6 +80,7 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
             }
         };
         datePickerDialogEnd = new DatePickerDialog(getContext(), dateSetListenerEnd, 0, 0, 0);
+        datePickerDialogEnd.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis() + B.Constants.DAY_IN_MILISECONDS);
 
         etDateStart.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -108,16 +109,17 @@ public class DatesFragment extends MainOrderFragment implements CompoundButton.O
         if (b) DateEndMembers(year, month, day);
     }
 
-    private void DateEndMembers(int year,int month,int day){
+    private void DateEndMembers(int year, int month, int day) {
         datePickerDialogEnd.updateDate(year, month, day);
-        boolean b = setDateEnd(year,month,day);
+        boolean b = setDateEnd(year, month, day);
         etDateEnd.setText(simpleDateFormat.format(getDateEnd().getTimeInMillis()));
 
-        if (b)DateStartMembers(year, month, day);
+        if (b) DateStartMembers(year, month, day);
     }
+
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        getActivity().findViewById(R.id.frag_order_input_dateend).setVisibility(b?View.GONE:View.VISIBLE);
+        getActivity().findViewById(R.id.frag_order_input_dateend).setVisibility(b ? View.GONE : View.VISIBLE);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -30,10 +31,9 @@ public class CustomerDetailsEditFragment extends MyFragment
         implements View.OnClickListener, DatabaseReference.CompletionListener,
         DatePickerDialog.OnDateSetListener {
 
-    private ProgressDialog updatingDialog;
     private static int COLOR_ERROR;
     private static int COLOR_HEADING;
-
+    private ProgressDialog updatingDialog;
     private EditText etFirstName, etLastName, etDateOfBirth, etID;
     private FloatingActionButton fab;
     private TextView errorFields;
@@ -204,5 +204,10 @@ public class CustomerDetailsEditFragment extends MyFragment
     @Override
     public void setTitle() {
         getActivity().setTitle(R.string.customer_details_edit);
+    }
+
+    @Override
+    public void setDrawerMenuItemChecked(Menu menu) {
+        menu.findItem(R.id.nav_myaccount).setChecked(true);
     }
 }

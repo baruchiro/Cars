@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
 
 public abstract class MyFragment extends Fragment {
 
@@ -12,6 +13,7 @@ public abstract class MyFragment extends Fragment {
     public static int COLOR_HEADING;
     protected ForUseMainActivity mainActivity;
     public abstract void setTitle();
+    public abstract void setDrawerMenuItemChecked(Menu menu);
 
     @Override
     public void onAttach(Context context) {
@@ -32,10 +34,8 @@ public abstract class MyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle();
-        //setSelectedDrawerItem();
+        setDrawerMenuItemChecked(mainActivity.getNavigationViewMenu());
     }
-
-    //protected abstract void setSelectedDrawerItem();
 
     public Tarrif getTarrif(String uid) {
         return mainActivity.getTarrifByUid(uid);

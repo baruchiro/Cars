@@ -1,12 +1,14 @@
 package rothkoff.baruch.cars.order;
 
 import android.content.Context;
+import android.view.Menu;
 
 import java.util.Calendar;
 
 import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.ForUseMainActivity;
 import rothkoff.baruch.cars.MyFragment;
+import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.available.ForCarsPager;
 
 public abstract class MainOrderFragment extends MyFragment implements ForCarsPager {
@@ -79,5 +81,10 @@ public abstract class MainOrderFragment extends MyFragment implements ForCarsPag
     public boolean isAllDone() {
         if (selectedCar != null && dateStart != null) return true;
         return false;
+    }
+
+    @Override
+    public void setDrawerMenuItemChecked(Menu menu) {
+        menu.findItem(R.id.nav_order).setChecked(true);
     }
 }

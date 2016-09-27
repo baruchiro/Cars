@@ -23,12 +23,12 @@ public class Customer {
         this.uid = uid;
     }
 
-    public static Map<String, String> getMapForView(Customer customer, Resources resources) {
+    public Map<String, String> getMapForView(Resources resources) {
         Map<String, String> mapForView = new HashMap<>();
 
-        mapForView.put(resources.getString(R.string.full_name), customer.getFullName());
-        mapForView.put(resources.getString(R.string.age), String.valueOf(customer.getAge()));
-        mapForView.put(resources.getString(R.string.IDnumber), customer.IDnumber);
+        mapForView.put(resources.getString(R.string.full_name), getFullName());
+        mapForView.put(resources.getString(R.string.age), String.valueOf(getAge()));
+        mapForView.put(resources.getString(R.string.IDnumber), IDnumber);
 
         return mapForView;
     }
