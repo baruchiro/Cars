@@ -94,13 +94,6 @@ public class Car {
         return m;
     }
 
-    public double getPrice(Customer customer,Tarrif tarrif) {
-        if (customer.getAge()<24){
-            if (!isYoung)return 0;
-            return tarrif.getPrice()+tarrif.getYoungPrice();
-        }return tarrif.getPrice();
-    }
-
     //TODO check this
     public boolean availableInDates(Calendar dateStart, Calendar dateEnd) {
         dateStart = B.getCalenderWithOnlyDate(dateStart);
@@ -109,7 +102,7 @@ public class Car {
         for (long time = dateStart.getTimeInMillis(); time <= dateEnd.getTimeInMillis(); time += B.Constants.DAY_IN_MILISECONDS) {
             if (rents != null)
                 for (Rent rent : rents.values())
-                    if (B.isBetweenDate(rent.getDateStart(), rent.getDateEnd(), time)) return false;
+                    if (time >= rent.getDateStart() && time <= rent.getDateEnd()) return false;
         }
         return true;
     }

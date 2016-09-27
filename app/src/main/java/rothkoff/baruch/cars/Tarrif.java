@@ -1,5 +1,6 @@
 package rothkoff.baruch.cars;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +26,25 @@ public class Tarrif {
         return price;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public double getCalculatePrice(Calendar dateStart,Calendar dateEnd,boolean isYoung) {
+        double priceFinall = 0;
+
+        priceFinall += price * B.getNumberOfDays(dateStart, dateEnd);
+        if (isYoung) priceFinall += youngPrice;
+
+        return priceFinall;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUid() {
@@ -35,14 +53,6 @@ public class Tarrif {
 
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public int getSeatCount() {

@@ -109,8 +109,8 @@ public class CarsListFragment extends Fragment {
         if (tarrif != null) {
             tvSeatCount.setText(String.valueOf(tarrif.getSeatCount()));
             tvEngine.setText(String.valueOf(tarrif.getEngineCapacity()));
-            tvPrice.setText(String.valueOf(tarrif.getPrice()) + " " + getString(R.string.NIS));
-            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice()) + " " + getString(R.string.NIS));
+
+            CalculateTotalPrice();
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -118,6 +118,16 @@ public class CarsListFragment extends Fragment {
         listAdapter.Bind();
 
         recyclerView.setAdapter(listAdapter);
+    }
+
+    private void CalculateTotalPrice() {
+        if (dateStart != null && dateEnd != null) {
+            tvPrice.setText(String.valueOf(tarrif.getCalculatePrice(dateStart, dateEnd, customer.getAge() < B.Constants.YOUNG_AGE)) + " " + getString(R.string.NIS));
+            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice()) + " " + getString(R.string.NIS));
+        } else {
+            tvPrice.setText(String.valueOf(tarrif.getPrice()) + " " + getString(R.string.NIS));
+            tvYoungPrice.setText(String.valueOf(tarrif.getYoungPrice()) + " " + getString(R.string.NIS));
+        }
     }
 
     public void OnDataChange() {
@@ -139,6 +149,9 @@ public class CarsListFragment extends Fragment {
     public void UpdateDates(Calendar dateStart, Calendar dateEnd) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+
+        if (mainActivity!=null)CalculateTotalPrice();
+
         if (listAdapter != null)
             listAdapter.Bind();
     }
@@ -170,8 +183,6 @@ public class CarsListFragment extends Fragment {
         public void onBindViewHolder(CarHolder holder, int position) {
             Car c = cars.get(position);
             holder.Init(mainActivity, parentPagerAdapter, c);
-            if (customer != null)
-                holder.ShowPrice(customer);
 
             if (selectedCar != null)
                 holder.MakeChecked(c.getCarNumber().equals(selectedCar.getCarNumber()));
@@ -191,8 +202,10 @@ public class CarsListFragment extends Fragment {
 
                 boolean isInTarrif = tarrif == null || car.getTariffUid().equals(tarrif.getUid());
 
-                boolean isCustomer = customer == null ||
-                        car.getPrice(customer, mainActivity.getTarrifByUid(car.getTariffUid())) != 0;
+                boolean isYoung = customer == null;
+                if (!isYoung) {
+                    isYoung = customer.getAge() >= B.Constants.YOUNG_AGE || car.getIsYoung();
+                }
 
                 boolean isDates = dateStart == null;
                 if (!isDates){
@@ -200,7 +213,7 @@ public class CarsListFragment extends Fragment {
                 }
 
 
-                if (isInTarrif && isCustomer && isDates)
+                if (isInTarrif && isYoung && isDates)
                     cars.add(car);
             }
 

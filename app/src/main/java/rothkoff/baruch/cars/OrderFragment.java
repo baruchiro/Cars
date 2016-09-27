@@ -98,6 +98,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
+
     @Override
     public void onPageSelected(int position) {
         int count = pagerAdapter.getCount();

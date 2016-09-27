@@ -38,10 +38,8 @@ public class B {
         return getCalenderWithOnlyDate(c).getTimeInMillis();
     }
 
-    //TODO check this
-    public static boolean isBetweenDate(long dateStart,long dateEnd,long temp) {
-        if (temp >= dateStart && temp <= dateEnd) return true;
-        return false;
+    public static double getNumberOfDays(Calendar dateStart, Calendar dateEnd) {
+        return (dateEnd.getTimeInMillis() - dateStart.getTimeInMillis()) / Constants.DAY_IN_MILISECONDS + 1;
     }
 
     public static final class Keys {
@@ -77,5 +75,6 @@ public class B {
         public static final long YEAR_IN_MILISECONDS = 31556952000L;
         public static final long DAY_IN_MILISECONDS = 86400000L;
         public static final java.lang.String FRAGMENT_TITLE = "rothkoff.baruch.cars.FRAGMENT_TITLE";
+        public static final int YOUNG_AGE = 24;
     }
 }
