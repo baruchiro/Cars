@@ -1,0 +1,43 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rothkoff.baruch.cars.order.DatesFragment">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dateFirst"
+            android:id="@+id/frag_order_edit_datestart"
+            android:singleLine="true"
+            android:inputType="date"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_one_day"
+        android:id="@+id/frag_order_switch_oneday"
+        android:checked="true"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_order_input_dateend"
+        android:visibility="gone">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dateend"
+            android:id="@+id/frag_order_edit_dateend"
+            android:singleLine="true"
+            android:inputType="date"/>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

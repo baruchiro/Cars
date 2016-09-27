@@ -1,0 +1,94 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rothkoff.baruch.cars.AddTarrifFragment"
+    android:orientation="vertical"
+    android:windowSoftInputMode="adjustPan">
+
+    <!--Error Text-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/frag_addtarrif_error"/>
+
+    <!--Name-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:id="@+id/frag_addtarrif_edit_name"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Price-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/price"
+            android:id="@+id/frag_addtarrif_edit_price"
+            android:singleLine="true"
+            android:inputType="numberDecimal"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Seat Count-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/seat_count"
+            android:id="@+id/frag_addtarrif_edit_seatcount"
+            android:singleLine="true"
+            android:inputType="numberSigned"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Engine Capacity-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/engine_capacity"
+            android:id="@+id/frag_addtarrif_edit_enginecapacity"
+            android:singleLine="true"
+            android:inputType="numberSigned"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--Young Price-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_addtarrif_conteiner_youngprice">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/young_price"
+            android:id="@+id/frag_addtarrif_edit_youngPrice"
+            android:singleLine="true"
+            android:inputType="numberDecimal"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_save"
+        android:id="@+id/frag_addtarrif_fab"/>
+
+</LinearLayout>
