@@ -12,7 +12,7 @@ public class RentViewHolder extends RecyclerView.ViewHolder {
 
     private Rent rent;
     private TextView tvCustomer, tvDate, tvCar;
-    private Context context;
+    //private Context context;
 
     public RentViewHolder(View itemView) {
         super(itemView);
@@ -22,9 +22,9 @@ public class RentViewHolder extends RecyclerView.ViewHolder {
         tvCar = (TextView) itemView.findViewById(R.id.item_rent_car);
     }
 
-    public void setRent(Context context,Rent rent) {
+    public void setRent(Context context, Rent rent,boolean showCustomerName) {
         this.rent = rent;
-        this.context =context;
+        //this.context = context;
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String temp = formatter.format(new Date(rent.getDateStart()));
@@ -33,13 +33,12 @@ public class RentViewHolder extends RecyclerView.ViewHolder {
 
         tvDate.setText(temp);
 
-        temp = rent.getCarBrand()+" "+rent.getCarColor()+". "+context.getResources().getString(R.string.car_number)+": "+rent.getCarNumber();
+        temp = rent.getCarBrand() + " " + rent.getCarColor() + ". " + context.getResources().getString(R.string.car_number) + ": " + rent.getCarNumber();
         tvCar.setText(temp);
-    }
-    public void setRent(Context context,Rent rent, boolean showCustomerName) {
-        setRent(context,rent);
-        if (showCustomerName){
+
+        if (showCustomerName) {
             tvCustomer.setText(rent.getCustomerName());
+            tvCustomer.setVisibility(View.VISIBLE);
         }
     }
 }

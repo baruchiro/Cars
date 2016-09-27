@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">השכרת רכב</string>
+    <string name="app_name">יסע ברכה</string>
     <string name="action_settings">הגדרות</string>
     <string name="dateOfBirth">גיל</string>
     <string name="connect">התחבר</string>
@@ -73,4 +73,5 @@
     <string name="error_select_tarrif">חובה לבחור תעריף</string>
     <string name="NIS">ש"ח</string>
     <string name="not_found_data">אין רכבים זמינים</string>
+    <string name="order_details">פרטי הזמנה</string>
 </resources>

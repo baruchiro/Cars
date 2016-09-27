@@ -1,7 +1,6 @@
 package rothkoff.baruch.cars;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,7 +25,7 @@ public class MyAccountFragment extends MyFragment {
     private LinearLayout llMain;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RentsAdapter adapter;
+    private RentsAdapter rentsAdapter;
     private ScrollView scrollView;
 
     public MyAccountFragment() {
@@ -36,11 +35,6 @@ public class MyAccountFragment extends MyFragment {
         MyAccountFragment fragment = new MyAccountFragment();
 
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
     }
 
     @Override
@@ -76,7 +70,7 @@ public class MyAccountFragment extends MyFragment {
 
         scrollView = (ScrollView)view.findViewById(R.id.frag_customer_main_scroll);
         recyclerView = new RecyclerView(getContext());
-        adapter = new RentsAdapter(getContext(),B.customer.getRents().values(),false);
+        rentsAdapter = new RentsAdapter(getContext(),B.customer.getRents().values(),false);
         layoutManager = new LinearLayoutManager(getContext(),LinearLayout.VERTICAL,true);
     }
     private void BehaviorMembers() {
@@ -89,7 +83,7 @@ public class MyAccountFragment extends MyFragment {
         recyclerView.setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(rentsAdapter);
 
         scrollView.addView(recyclerView);
     }

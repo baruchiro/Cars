@@ -19,7 +19,7 @@ public class RentsAdapter extends RecyclerView.Adapter<RentViewHolder> {
     private List<Rent> rents;
     private boolean showCustomersNames;
 
-    public RentsAdapter(Context context, Collection<Rent> rents, boolean showCustomersNames){
+    public RentsAdapter(Context context, Collection<Rent> rents, boolean showCustomersNames) {
         this.rents = new ArrayList<>(rents);
         this.showCustomersNames = showCustomersNames;
         this.context = context;
@@ -34,11 +34,26 @@ public class RentsAdapter extends RecyclerView.Adapter<RentViewHolder> {
 
     @Override
     public void onBindViewHolder(RentViewHolder holder, int position) {
-        holder.setRent(context,rents.get(position),showCustomersNames);
+        holder.setRent(context, rents.get(position),showCustomersNames);
     }
 
     @Override
     public int getItemCount() {
         return rents.size();
+    }
+
+    public void addRent(Rent rent) {
+        if (rents.size() == 0) {
+            rents.add(rent);
+            notifyItemInserted(0);
+
+        } else {
+            int i = 0;
+            while (rents.get(i).getDateStart() < rent.getDateStart() && i < rents.size())
+                i++;
+            rents.add(i,rent);
+            notifyItemInserted(i);
+        }
+
     }
 }

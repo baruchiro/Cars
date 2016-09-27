@@ -169,9 +169,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_managedb:
                 ReplaceFragment(ManageDBFragment.newInstance());
                 break;
-            /*case R.id.nav_nextorders:
+            case R.id.nav_nextrents:
+                ReplaceFragment(NextRentsFragment.newInstance());
                 break;
-            case R.id.nav_send:
+            /*case R.id.nav_send:
                 break;
             case R.id.nav_share:
                 break;
@@ -251,7 +252,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.nav_order).setVisible(connected);
         navigationView.getMenu().findItem(R.id.nav_myaccount).setVisible(connected);
         //Show Next order & Manage DB if customer is Manager
-        navigationView.getMenu().findItem(R.id.nav_nextorders).setVisible(manager);
+        navigationView.getMenu().findItem(R.id.nav_nextrents).setVisible(manager);
         navigationView.getMenu().findItem(R.id.nav_managedb).setVisible(manager);
     }
 
