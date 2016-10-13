@@ -53,7 +53,7 @@ public class NextRentsFragment extends MyFragment {
 
     private void InitMembers(View view) {
         mainLinearLayout = (LinearLayout) view.findViewById(R.id.frag_nextrent_main);
-        FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).addChildEventListener(new RentsChildEventListener());
+        FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).orderByChild(B.Keys.DATE_START).startAt(B.getLongWithOnlyDate(System.currentTimeMillis())).addChildEventListener(new RentsChildEventListener());
 
         recyclerView = new RecyclerView(getContext());
         rentsAdapter = new RentsAdapter(getContext(), new ArrayList<Rent>(), true);
@@ -84,7 +84,7 @@ public class NextRentsFragment extends MyFragment {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Rent r = dataSnapshot.getValue(Rent.class);
-            if (r.getDateStart() >= B.getLongWithOnlyDate(System.currentTimeMillis()))
+            //if (r.getDateStart() >= B.getLongWithOnlyDate(System.currentTimeMillis()))
                 rentsAdapter.addRent(dataSnapshot.getValue(Rent.class));
         }
 

@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by baruc on 09 ספטמבר 2016.
- */
 public class RentsAdapter extends RecyclerView.Adapter<RentViewHolder> {
 
     private Context context;
@@ -43,17 +40,7 @@ public class RentsAdapter extends RecyclerView.Adapter<RentViewHolder> {
     }
 
     public void addRent(Rent rent) {
-        if (rents.size() == 0) {
-            rents.add(rent);
-            notifyItemInserted(0);
-
-        } else {
-            int i = 0;
-            while (rents.get(i).getDateStart() < rent.getDateStart() && i < rents.size())
-                i++;
-            rents.add(i,rent);
-            notifyItemInserted(i);
-        }
-
+        rents.add(rent);
+        notifyDataSetChanged();
     }
 }

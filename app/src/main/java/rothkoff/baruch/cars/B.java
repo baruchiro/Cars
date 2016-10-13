@@ -66,6 +66,7 @@ public class B {
         public static final String ENGINE_CAPACITY = "engineCapacity";
         public static final String YOUNG_PRICE = "youngPrice";
         public static final String RENTS = "rents";
+        public static final String DATE_START = "dateStart";
     }
 
     public class Constants {

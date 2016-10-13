@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,16 +12,16 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/engine_capacity"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/frag_carslist_engine"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/frag_carslist_engine"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,10 +30,10 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/frag_carslist_seacount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/frag_carslist_seacount"/>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -44,16 +44,16 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/price"
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/frag_carslist_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/frag_carslist_price"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,24 +62,25 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/frag_carslist_youngprice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/frag_carslist_youngprice"/>
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/frag_carslist_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frag_carslist_recycler"
-        android:background="@drawable/border"/>
+        android:background="@drawable/border"
+        android:padding="5dp"/>
 
     <TextView
+        android:id="@+id/frag_carslist_emptylist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/frag_carslist_emptylist"
-        android:visibility="gone"
+        android:background="@drawable/border"
         android:text="@string/not_found_data"
-        android:background="@drawable/border"/>
+        android:visibility="gone"/>
 
 </LinearLayout>

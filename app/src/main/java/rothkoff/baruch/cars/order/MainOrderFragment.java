@@ -9,7 +9,7 @@ import rothkoff.baruch.cars.Car;
 import rothkoff.baruch.cars.ForUseMainActivity;
 import rothkoff.baruch.cars.MyFragment;
 import rothkoff.baruch.cars.R;
-import rothkoff.baruch.cars.available.ForCarsPager;
+import rothkoff.baruch.cars.carslist.ForCarsPager;
 
 public abstract class MainOrderFragment extends MyFragment implements ForCarsPager {
 

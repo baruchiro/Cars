@@ -93,20 +93,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void InitBeaviors() {
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        //adapterCars = new CarsAvailableAdapter(this, null);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
-        //recycleCars.setAdapter(adapterCars);
 
         FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).addChildEventListener(new TarrifChildEventListener());
     }
@@ -195,7 +185,10 @@ public class MainActivity extends AppCompatActivity
                 getUserFreshDetails(firebaseAuth);
                 authFlag = false;
             }
-        } else UserLogout();
+        } else {
+            UserLogout();
+            authFlag = true;
+        }
     }
 
     public void getUserFreshDetails(FirebaseAuth firebaseAuth) {
@@ -270,7 +263,7 @@ public class MainActivity extends AppCompatActivity
         if (fragments != null)
             for (Fragment f : fragments)
                 transaction.add(R.id.main_fragment, f);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

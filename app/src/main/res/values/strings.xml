@@ -77,4 +77,6 @@
     <string name="NIS">NIS</string>
     <string name="not_found_data">Not found data</string>
     <string name="order_details">Order Details</string>
+    <string name="order_details_title">Rent Details</string>
+    <string name="order_details_dates">Dates</string>
 </resources>

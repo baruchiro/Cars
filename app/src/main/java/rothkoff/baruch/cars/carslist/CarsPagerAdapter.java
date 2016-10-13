@@ -1,4 +1,4 @@
-package rothkoff.baruch.cars.available;
+package rothkoff.baruch.cars.carslist;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

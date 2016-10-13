@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.R;
-import rothkoff.baruch.cars.available.CarsPagerAdapter;
+import rothkoff.baruch.cars.carslist.CarsPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -13,8 +13,8 @@ import android.widget.Button;
 
 import java.util.Calendar;
 
-import rothkoff.baruch.cars.available.CarsPagerAdapter;
-import rothkoff.baruch.cars.available.ForCarsPager;
+import rothkoff.baruch.cars.carslist.CarsPagerAdapter;
+import rothkoff.baruch.cars.carslist.ForCarsPager;
 
 
 /**
