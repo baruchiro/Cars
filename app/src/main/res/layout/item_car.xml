@@ -1,32 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardElevation="1dp"
-    app:contentPadding="5dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/item_car_brand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/item_car_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/item_car_young"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/is_young_driver"
-            android:visibility="gone"/>
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+version https://git-lfs.github.com/spec/v1
+oid sha256:627c874945b9ca3f7c3f2e6e5ea75eae94a5eea64b82b111c05299580ade653c
+size 1144
