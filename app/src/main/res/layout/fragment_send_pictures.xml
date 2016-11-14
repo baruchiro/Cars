@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ea8705802b191be35d159ed75478d0767845fcbf00e5f9e9cf8d3371ca0ee710
-size 1128
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rothkoff.baruch.cars.SendPicturesFragment">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/frag_sendpictures_linearpictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/frag_sendpictures_btn_take"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/take_picture"/>
+
+    <Button
+        android:id="@+id/frag_sendpictures_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/take_picture"/>
+
+</LinearLayout>

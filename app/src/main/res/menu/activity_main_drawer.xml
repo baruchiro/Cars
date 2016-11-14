@@ -1,3 +1,44 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a88f1320658cc4d6b5d7fba44d3d945d446ff97418a41d31f4fc458498cc2916
-size 1614
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_connect"
+            android:icon="@drawable/common_google_signin_btn_icon_light_normal"
+            android:title="@string/connect" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_add"
+            android:title="@string/order_new_rent" />
+        <item
+            android:id="@+id/nav_sendpictures"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/send_pictures"/>
+        <item
+            android:id="@+id/nav_myaccount"
+            android:icon="@drawable/ic_account_circle"
+            android:title="@string/my_account" />
+        <item
+            android:id="@+id/nav_nextrents"
+            android:icon="@drawable/ic_action_calendar_day"
+            android:title="@string/next_rents" />
+        <item
+            android:id="@+id/nav_managedb"
+            android:icon="@drawable/ic_action_database"
+            android:title="@string/manage_database" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

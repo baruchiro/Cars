@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f4481392bb9cf1a4884ed668de498a924cb9939598e3b5fd3d72f351dac06423
-size 315
+package rothkoff.baruch.cars.carslist;
+
+import java.util.Calendar;
+
+import rothkoff.baruch.cars.Car;
+import rothkoff.baruch.cars.Tarrif;
+
+public interface ForCarsPager {
+
+    Tarrif getTarrif(String uid);
+    void setSelectedCar(Car car);
+
+    Calendar getDateStart();
+
+    Calendar getDateEnd();
+}
