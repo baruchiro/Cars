@@ -25,7 +25,7 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
     private Button btnAddCar,btnAddTarrif;
 
     private ViewPager pager;
-    private CarsPagerAdapter pagerAdapter;
+    private CarsPagerAdapter carsPagerAdapter;
     private TabLayout tabLayout;
 
     public ManageDBFragment() {
@@ -52,15 +52,15 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
         btnAddTarrif = (Button) view.findViewById(R.id.frag_manage_btn_addtarrif);
 
         pager = (ViewPager) view.findViewById(R.id.frag_manage_pager);
-        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),
+        carsPagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),
                 this, mainActivity.getTarrifUids());
 
         tabLayout = (TabLayout) view.findViewById(R.id.frag_manage_tablayout);
     }
 
     private void BehaviorMembers() {
-        pager.setOffscreenPageLimit(pagerAdapter.getCount());
-        pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(carsPagerAdapter.getCount());
+        pager.setAdapter(carsPagerAdapter);
 
         tabLayout.setupWithViewPager(pager,true);
 
@@ -95,7 +95,7 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
 
     @Override
     public void setSelectedCar(Car car) {
-
+        mainActivity.ReplaceFragment();
     }
 
     @Override

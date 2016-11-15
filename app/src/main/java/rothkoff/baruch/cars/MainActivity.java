@@ -2,6 +2,7 @@ package rothkoff.baruch.cars;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -150,11 +151,11 @@ public class MainActivity extends AppCompatActivity
                                 .build(),
                         RC_SIGN_IN);
                 break;
+            case R.id.nav_car:
+                startActivity(new Intent(this,CarActivity.class));
+                break;
             case R.id.nav_order:
                 ReplaceFragment(OrderFragment.newInstance());
-                break;
-            case R.id.nav_sendpictures:
-                ReplaceFragment(SendPicturesFragment.newInstance());
                 break;
             case R.id.nav_myaccount:
                 ReplaceFragment(MyAccountFragment.newInstance());

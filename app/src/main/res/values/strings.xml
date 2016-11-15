@@ -84,4 +84,6 @@
     <string name="end_date">To</string>
     <string name="send_pictures">Send pictures</string>
     <string name="take_picture">Take picture</string>
+    <string name="error_select_car">Car not selected</string>
+    <string name="search_for_car">Search for car</string>
 </resources>
