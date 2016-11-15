@@ -86,4 +86,5 @@
     <string name="take_picture">Take picture</string>
     <string name="error_select_car">Car not selected</string>
     <string name="search_for_car">Search for car</string>
+    <string name="search_for_rent">Search for rent</string>
 </resources>

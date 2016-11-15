@@ -152,7 +152,9 @@ public class MainActivity extends AppCompatActivity
                         RC_SIGN_IN);
                 break;
             case R.id.nav_car:
-                startActivity(new Intent(this,CarActivity.class));
+                Intent intent = new Intent(this,CarActivity.class);
+                intent.putExtra(CarActivity.EXTRA_RENT_ID, "-KSVldu_GuNkMEexAYtM");
+                startActivity(intent);
                 break;
             case R.id.nav_order:
                 ReplaceFragment(OrderFragment.newInstance());
