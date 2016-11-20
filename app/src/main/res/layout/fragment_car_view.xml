@@ -1,10 +1,3 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="rothkoff.baruch.cars.cardetails.CarViewFragment">
-
-
-
-</LinearLayout>
+version https://git-lfs.github.com/spec/v1
+oid sha256:9962af9372e2418e274f8b0b045996ef2a8febc2cde190f47c3456b09b630933
+size 338

@@ -1,9 +1,3 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frag_nextrent_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="rothkoff.baruch.cars.NextRentsFragment">
-
-</LinearLayout>
+version https://git-lfs.github.com/spec/v1
+oid sha256:b0a02fec8d8842b47f55bafea4057c7d90a319b3be2963ae9bb85e9caa545a8f
+size 367

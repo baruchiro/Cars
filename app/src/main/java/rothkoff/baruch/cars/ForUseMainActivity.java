@@ -1,22 +1,3 @@
-package rothkoff.baruch.cars;
-
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.view.Menu;
-
-import java.util.List;
-
-public interface ForUseMainActivity {
-    void ReplaceFragment(Fragment... fragments);
-
-    List<Tarrif> getTarrifsList();
-    List<String> getTarrifUids();
-    String getTarrifName(String uid);
-    Tarrif getTarrifByUid(String uid);
-
-    String getString(int resID);
-
-    Context getContext();
-
-    Menu getNavigationViewMenu();
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:27b026e685c452e33ad0e56206dd2b22b6471e303d28741fcf89aebfd21ee7c3
+size 508
