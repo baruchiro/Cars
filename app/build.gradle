@@ -9,8 +9,8 @@ android {
         applicationId "rothkoff.baruch.cars"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 300
-        versionName '3.0.0 Beta'
+        versionCode 310
+        versionName '3.1.0 Beta'
     }
     buildTypes {
         release {
