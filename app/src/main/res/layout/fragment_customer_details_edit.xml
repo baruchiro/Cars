@@ -1,3 +1,85 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:28afdfe79ad871e0721fccea9a20b43fed963daf0eaf88c8de527b1423c9dedc
-size 3159
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CustomerDetailsEditFragment">
+
+    <!--Error Text-->
+    <TextView
+        android:id="@+id/frag_details_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <!--FirstName & LastName-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/frag_details_edit_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/firstName"
+                android:singleLine="true"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/frag_details_edit_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lastName"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <!--DateOfBirth-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/frag_details_edit_dateofbirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dateOfBirth"
+            android:inputType="date"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--IDnumber-->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/frag_details_edit_idnumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/IDnumber"
+            android:inputType="numberSigned"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/frag_details_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_save"/>
+
+</LinearLayout>

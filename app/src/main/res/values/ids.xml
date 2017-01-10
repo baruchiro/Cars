@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:688891a12ab1fc2f9752b65d071a7adacae61e8683547b42b569406be7731351
-size 132
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="frag_addtarrif_title" type="id">Add Tarrif</item>
+</resources>

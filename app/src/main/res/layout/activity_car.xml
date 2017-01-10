@@ -1,3 +1,105 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1420a3071ad32eea8b8263f78e91d1f4755b93a42add019e5f6fb0ec4296f930
-size 4227
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_car_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="rothkoff.baruch.cars.CarActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_car_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_car"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/activity_car_detailscard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_car_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/activity_car_addPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="@string/add_photo"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/activity_car_showSignBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_sign"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/activity_car_signArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signature"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/activity_car_sign_clearBtn"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:tag="HIDE"
+                    android:text="@string/clear"/>
+
+                <Button
+                    android:id="@+id/activity_car_activateBtn"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:tag="HIDE"
+                    android:text="@string/activate"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8c0788846b7e380df893692f13065eb3904ac72b1065b8f9ac6c8e47b5ab8e38
-size 719
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rothkoff.baruch.cars.order.CarAvailableFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/frag_order_caravail_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/frag_order_caravail_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

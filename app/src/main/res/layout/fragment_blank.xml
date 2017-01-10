@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5d91539239dd1db043b984fb40808d45c30201f804533dce8953424db6649dbe
-size 496
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rothkoff.baruch.cars.BlankFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>

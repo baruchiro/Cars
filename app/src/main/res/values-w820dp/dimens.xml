@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c797343469ccb9a6729c6a2a7303ecef73cfe1ba5052f208a6675a2199874fc1
-size 364
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+</resources>
