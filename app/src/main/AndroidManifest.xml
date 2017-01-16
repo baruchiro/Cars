@@ -8,7 +8,7 @@
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18"/>
+        android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -27,25 +27,29 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="http" />
-                <data android:scheme="https" />
-                <data android:host="rothkoff.baruch.cars" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CarActivity"
             android:label="@string/car"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <service android:name=".UploadService"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="cars-ab1f8.firebaseapp.com" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".UploadService"
             android:description="@string/service_description"
-            android:exported="false"/>
+            android:exported="false" />
 
         <service
             android:name=".MyUploadService"
-            android:exported="false"/>
+            android:exported="false" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

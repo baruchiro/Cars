@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class CarActivity extends AppCompatActivity
@@ -78,6 +79,7 @@ public class CarActivity extends AppCompatActivity
     private LinkedList<File> photosFiles;
     private File tempPhotoFile;
     private boolean makotListener;
+    private boolean ifFromLink;
 
     public CarActivity() {
     }
@@ -89,8 +91,55 @@ public class CarActivity extends AppCompatActivity
         Toolbar myToolbar = (Toolbar) findViewById(R.id.activity_car_toolbar);
         setSupportActionBar(myToolbar);
 
+        ifFromLink = false;
+
+        Intent intent = getIntent();
+        String link = intent.getDataString();
+
+        if (link == null) {
+            this.car = getIntent().getParcelableExtra(EXTRA_CAR);
+            this.rent = getIntent().getParcelableExtra(EXTRA_RENT);
+        } else {
+            Uri data = getIntent().getData();
+            String scheme = data.getScheme(); // "http"
+            String host = data.getHost(); // "twitter.com"
+            List<String> params = data.getPathSegments();
+            String type = params.get(0); // "car" / "rent"
+            String number = params.get(1); // "1234"
+
+            if (type.equals(B.Keys.CARS)) {
+                FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(number).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        car = dataSnapshot.getValue(Car.class);
+                        BehaviorMembers();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            } else if (type.equals(B.Keys.RENTS)) {
+                FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).child(number).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        rent = dataSnapshot.getValue(Rent.class);
+                        BehaviorMembers();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        }
+
         InitMembers();
-        BehaviorMembers();
+        if (!ifFromLink)
+            BehaviorMembers();
     }
 
     private void InitMembers() {
@@ -108,9 +157,6 @@ public class CarActivity extends AppCompatActivity
         rentHolder = new RentHolder(LayoutInflater.from(this).inflate(R.layout.item_rent, llDetailCard, false));
 
         progressDialog = new ProgressDialog(this);
-
-        this.car = getIntent().getParcelableExtra(EXTRA_CAR);
-        this.rent = getIntent().getParcelableExtra(EXTRA_RENT);
 
         photosRecycler = (RecyclerView) findViewById(R.id.activity_car_recycler);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
