@@ -1,6 +1,7 @@
 package rothkoff.baruch.cars;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyAccountFragment extends MyFragment {
+public class MyAccountFragment extends MyFragment implements RentHolder.OnClickListener {
 
     private LinearLayout llMain;
     private RecyclerView recyclerView;
@@ -65,14 +66,15 @@ public class MyAccountFragment extends MyFragment {
         return view;
     }
 
-    private void InitMembers(View view){
-        llMain = (LinearLayout)view.findViewById(R.id.frag_customer_main_main);
+    private void InitMembers(View view) {
+        llMain = (LinearLayout) view.findViewById(R.id.frag_customer_main_details);
 
-        scrollView = (ScrollView)view.findViewById(R.id.frag_customer_main_scroll);
+        scrollView = (ScrollView) view.findViewById(R.id.frag_customer_main_scroll);
         recyclerView = new RecyclerView(getContext());
-        rentsAdapter = new RentsAdapter(getContext(),B.customer.getRents().values(),false);
-        layoutManager = new LinearLayoutManager(getContext(),LinearLayout.VERTICAL,true);
+        rentsAdapter = new RentsAdapter(getContext(),this, B.customer.getNextRents(), false);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false);
     }
+
     private void BehaviorMembers() {
         for (Map.Entry<String, String> entry : B.customer.getMapForView(getResources()).entrySet()) {
             TextView tv = new TextView(getContext());
@@ -86,5 +88,13 @@ public class MyAccountFragment extends MyFragment {
         recyclerView.setAdapter(rentsAdapter);
 
         scrollView.addView(recyclerView);
+    }
+
+    //CarHolder OnClick
+    @Override
+    public void onClick(Rent rent, RentHolder holder) {
+        Intent intent = new Intent(getContext(), CarActivity.class);
+        intent.putExtra(CarActivity.EXTRA_RENT, rent);
+        getActivity().startActivity(intent);
     }
 }

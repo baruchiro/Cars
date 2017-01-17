@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ForUseMainActivity {
     void ReplaceFragment(Fragment... fragments);
+
     List<Tarrif> getTarrifsList();
     List<String> getTarrifUids();
     String getTarrifName(String uid);

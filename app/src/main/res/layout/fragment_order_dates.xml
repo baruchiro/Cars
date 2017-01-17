@@ -11,33 +11,33 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/frag_order_edit_datestart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/dateFirst"
-            android:id="@+id/frag_order_edit_datestart"
-            android:singleLine="true"
-            android:inputType="date"/>
+            android:inputType="date"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <Switch
+        android:id="@+id/frag_order_switch_oneday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/is_one_day"
-        android:id="@+id/frag_order_switch_oneday"
-        android:checked="true"/>
+        android:checked="true"
+        android:text="@string/is_one_day"/>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/frag_order_input_dateend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/frag_order_input_dateend"
         android:visibility="gone">
         <EditText
+            android:id="@+id/frag_order_edit_dateend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/dateend"
-            android:id="@+id/frag_order_edit_dateend"
-            android:singleLine="true"
-            android:inputType="date"/>
+            android:inputType="date"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

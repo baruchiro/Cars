@@ -1,6 +1,7 @@
 package rothkoff.baruch.cars;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NextRentsFragment extends MyFragment {
+public class NextRentsFragment extends MyFragment implements RentHolder.OnClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -53,11 +54,11 @@ public class NextRentsFragment extends MyFragment {
 
     private void InitMembers(View view) {
         mainLinearLayout = (LinearLayout) view.findViewById(R.id.frag_nextrent_main);
-        FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).addChildEventListener(new RentsChildEventListener());
+        FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).orderByChild(B.Keys.DATE_START).startAt(B.getLongWithOnlyDate(System.currentTimeMillis())).addChildEventListener(new RentsChildEventListener());
 
         recyclerView = new RecyclerView(getContext());
-        rentsAdapter = new RentsAdapter(getContext(), new ArrayList<Rent>(), true);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, true);
+        rentsAdapter = new RentsAdapter(getContext(),this, new ArrayList<Rent>(), true);
+        layoutManager = new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false);
     }
 
     private void BehaviorMembers() {
@@ -79,12 +80,19 @@ public class NextRentsFragment extends MyFragment {
         menu.findItem(R.id.nav_nextrents).setChecked(true);
     }
 
+    @Override
+    public void onClick(Rent rent, RentHolder holder) {
+        Intent intent = new Intent(getContext(), CarActivity.class);
+        intent.putExtra(CarActivity.EXTRA_RENT, rent);
+        getActivity().startActivity(intent);
+    }
+
     private class RentsChildEventListener implements ChildEventListener {
 
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Rent r = dataSnapshot.getValue(Rent.class);
-            if (r.getDateStart() >= B.getLongWithOnlyDate(System.currentTimeMillis()))
+            //if (r.getDateStart() >= B.getLongWithOnlyDate(System.currentTimeMillis()))
                 rentsAdapter.addRent(dataSnapshot.getValue(Rent.class));
         }
 

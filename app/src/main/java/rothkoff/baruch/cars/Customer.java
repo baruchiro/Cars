@@ -4,6 +4,8 @@ import android.content.res.Resources;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Customer {
@@ -13,7 +15,7 @@ public class Customer {
     private String lastName = "";
     private long dateOfBirth = 0L;
     private boolean manager = false;
-    private Map<String, Rent> rents = new HashMap<>();
+    private List<Rent> rents = new LinkedList<>();
 
     public Customer() {
 
@@ -100,12 +102,39 @@ public class Customer {
                 dateOfBirth == 0L;
     }
 
-    public Map<String, Rent> getRents() {
+    public List<Rent> getRents() {
         return rents;
     }
 
     public void setRents(Map<String, Rent> rents) {
-        this.rents = rents;
+        for (Rent rent : rents.values())
+            insertToRents(rent);
+        getNextRents();
+    }
+
+    public List<Rent> getNextRents(){
+        long now = B.getLongWithOnlyDate(System.currentTimeMillis());
+        List<Rent> r = new LinkedList<>(rents);
+
+        while (r.size()>0&&r.get(0).getDateStart()<now)
+            r.remove(0);
+
+        return r;
+    }
+
+    private void insertToRents(Rent rent) {
+        if (rents.size() == 0) rents.add(rent);
+        else {
+            int i = 0;
+            long dateStart = rent.getDateStart();
+
+            while (rents.size() > i &&
+                    rents.get(i).getDateStart() < dateStart) {
+                i++;
+            }
+
+            rents.add(i, rent);
+        }
     }
 
     public int getAge() {

@@ -1,6 +1,7 @@
 package rothkoff.baruch.cars;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,8 @@ import android.widget.Button;
 
 import java.util.Calendar;
 
-import rothkoff.baruch.cars.available.CarsPagerAdapter;
-import rothkoff.baruch.cars.available.ForCarsPager;
+import rothkoff.baruch.cars.carslist.CarsPagerAdapter;
+import rothkoff.baruch.cars.carslist.ForCarsPager;
 
 
 /**
@@ -25,7 +26,7 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
     private Button btnAddCar,btnAddTarrif;
 
     private ViewPager pager;
-    private CarsPagerAdapter pagerAdapter;
+    private CarsPagerAdapter carsPagerAdapter;
     private TabLayout tabLayout;
 
     public ManageDBFragment() {
@@ -52,15 +53,15 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
         btnAddTarrif = (Button) view.findViewById(R.id.frag_manage_btn_addtarrif);
 
         pager = (ViewPager) view.findViewById(R.id.frag_manage_pager);
-        pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),
+        carsPagerAdapter = new CarsPagerAdapter(getChildFragmentManager(),
                 this, mainActivity.getTarrifUids());
 
         tabLayout = (TabLayout) view.findViewById(R.id.frag_manage_tablayout);
     }
 
     private void BehaviorMembers() {
-        pager.setOffscreenPageLimit(pagerAdapter.getCount());
-        pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(carsPagerAdapter.getCount());
+        pager.setAdapter(carsPagerAdapter);
 
         tabLayout.setupWithViewPager(pager,true);
 
@@ -95,7 +96,9 @@ public class ManageDBFragment extends MyFragment implements ForCarsPager {
 
     @Override
     public void setSelectedCar(Car car) {
-
+        Intent intent = new Intent(getContext(),CarActivity.class);
+        intent.putExtra(CarActivity.EXTRA_CAR, car);
+        getActivity().startActivity(intent);
     }
 
     @Override

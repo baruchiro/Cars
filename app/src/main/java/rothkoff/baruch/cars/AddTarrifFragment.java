@@ -29,7 +29,7 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
 
     private ProgressDialog updatingDialog;
 
-    private EditText etName, etPrice, etSeatCount, etEngineCapacity,etYoungPrice;
+    private EditText etName, etPrice, etSeatCount, etEngineCapacity, etYoungPrice;
     private FloatingActionButton fab;
     private TextView errorFields;
 
@@ -41,13 +41,13 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
     private double youngPrice;
 
     public AddTarrifFragment() {
-}
+    }
 
     public static AddTarrifFragment newInstance(@NonNull String uid) {
         AddTarrifFragment fragment = new AddTarrifFragment();
 
         Bundle args = new Bundle();
-        args.putString(B.Keys.UID,uid);
+        args.putString(B.Keys.UID, uid);
         fragment.setArguments(args);
 
         return fragment;
@@ -69,7 +69,7 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
         etPrice = (EditText) view.findViewById(R.id.frag_addtarrif_edit_price);
         etSeatCount = (EditText) view.findViewById(R.id.frag_addtarrif_edit_seatcount);
         etEngineCapacity = (EditText) view.findViewById(R.id.frag_addtarrif_edit_enginecapacity);
-        etYoungPrice = (EditText)view.findViewById(R.id.frag_addtarrif_edit_youngPrice);
+        etYoungPrice = (EditText) view.findViewById(R.id.frag_addtarrif_edit_youngPrice);
 
         errorFields = (TextView) view.findViewById(R.id.frag_addtarrif_error);
 
@@ -77,8 +77,10 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
 
         updatingDialog = new ProgressDialog(getContext());
 
-        if (getArguments().getString(B.Keys.UID)!=null)uid = getArguments().getString(B.Keys.UID);
-        else throw new NullPointerException("Argument 'UID' not found. use static method 'newInstance' to create this fragment");
+        if (getArguments().getString(B.Keys.UID) != null)
+            uid = getArguments().getString(B.Keys.UID);
+        else
+            throw new NullPointerException("Argument 'UID' not found. use static method 'newInstance' to create this fragment");
     }
 
     private void BehavoirMembers() {
@@ -96,14 +98,14 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
 
     private void SaveTarrifDetails() {
 
-        Tarrif tarrif = new Tarrif(name,price,seatCount,engineCapacity,youngPrice);
+        Tarrif tarrif = new Tarrif(name, price, seatCount, engineCapacity, youngPrice);
 
         if (uid.equals(NEW_TARRIF)) {
             uid = FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).push().getKey();
             tarrif.setUid(uid);
         }
         FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).child(tarrif.getUid())
-                    .updateChildren(tarrif.getMapForUpdate(), this);
+                .updateChildren(tarrif.getMapForUpdate(), this);
         updatingDialog.setMessage(getString(R.string.wait_to_ok_from_server));
     }
 
@@ -112,20 +114,20 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
         try {
             name = etName.getText().toString();
 
-            price=-1;
-            if (!etPrice.getText().toString().matches("")&&etPrice.getText().toString().trim().length()>0)
+            price = -1;
+            if (!etPrice.getText().toString().matches("") && etPrice.getText().toString().trim().length() > 0)
                 price = Double.parseDouble(etPrice.getText().toString());
 
             seatCount = -1;
-            if (!etSeatCount.getText().toString().matches("")&&etSeatCount.getText().toString().trim().length()>0)
+            if (!etSeatCount.getText().toString().matches("") && etSeatCount.getText().toString().trim().length() > 0)
                 seatCount = Integer.parseInt(etSeatCount.getText().toString());
 
             engineCapacity = -1;
-            if (!etEngineCapacity.getText().toString().matches("")&&etEngineCapacity.getText().toString().trim().length()>0)
+            if (!etEngineCapacity.getText().toString().matches("") && etEngineCapacity.getText().toString().trim().length() > 0)
                 engineCapacity = Integer.parseInt(etEngineCapacity.getText().toString());
 
             youngPrice = -1;
-            if (!etYoungPrice.getText().toString().matches("")&&etYoungPrice.getText().toString().trim().length()>0)
+            if (!etYoungPrice.getText().toString().matches("") && etYoungPrice.getText().toString().trim().length() > 0)
                 youngPrice = Double.parseDouble(etYoungPrice.getText().toString());
 
 
@@ -133,19 +135,19 @@ public class AddTarrifFragment extends MyFragment implements DatabaseReference.C
                 errorMessage += getString(R.string.error_name) + "<br/>";
                 etName.setHighlightColor(COLOR_ERROR);
             }
-            if (price<=0) {
+            if (price <= 0) {
                 errorMessage += getString(R.string.error_price) + "<br/>";
                 etPrice.setHighlightColor(COLOR_ERROR);
             }
-            if (seatCount<=0) {
+            if (seatCount <= 0) {
                 errorMessage += getString(R.string.error_seatcount) + "<br/>";
                 etSeatCount.setHighlightColor(COLOR_ERROR);
             }
-            if (engineCapacity<=0) {
+            if (engineCapacity <= 0) {
                 errorMessage += getString(R.string.error_enginecapacity) + "<br/>";
                 etEngineCapacity.setHighlightColor(COLOR_ERROR);
             }
-            if (youngPrice<0){
+            if (youngPrice < 0) {
                 errorMessage += getString(R.string.error_youngprice) + "<br/>";
                 etYoungPrice.setHighlightColor(COLOR_ERROR);
             }

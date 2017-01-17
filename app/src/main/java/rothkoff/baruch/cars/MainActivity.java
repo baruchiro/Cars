@@ -2,6 +2,10 @@ package rothkoff.baruch.cars;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -38,7 +42,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        AuthStateListener,ForUseMainActivity {
+        AuthStateListener, ForUseMainActivity {
 
     //private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
@@ -58,14 +62,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if (savedInstanceState == null)
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().getReference().keepSynced(true);
 
         InitDrawer();
         InitMembers();
-        InitBeaviors();
+        BehaviorMembers();
 
-        /*if (FirebaseAuth.getInstance().getCurrentUser()==null)UserLogout();
-        else getUserFreshDetails(FirebaseAuth.getInstance());*/
     }
 
     private void InitDrawer() {
@@ -92,23 +96,36 @@ public class MainActivity extends AppCompatActivity
         tarrifMap = new HashMap<>();
     }
 
-    private void InitBeaviors() {
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
+    private void BehaviorMembers() {
         FirebaseAuth.getInstance().addAuthStateListener(this);
-        //adapterCars = new CarsAvailableAdapter(this, null);
 
         recycleCars.setHasFixedSize(true);
         recycleCars.setLayoutManager(new LinearLayoutManager(this));
-        //recycleCars.setAdapter(adapterCars);
 
         FirebaseDatabase.getInstance().getReference(B.Keys.TARIFFS).addChildEventListener(new TarrifChildEventListener());
+
+        FirebaseDatabase.getInstance().getReference(B.Keys.VERSION).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer v = dataSnapshot.getValue(Integer.class);
+
+                if (v != null) {
+                    try {
+                        PackageManager manager = MainActivity.this.getPackageManager();
+                        PackageInfo info = manager.getPackageInfo(MainActivity.this.getPackageName(), 0);
+                        navigationView.getMenu().findItem(R.id.nav_update).setVisible(v > info.versionCode);
+
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -119,6 +136,12 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("Closed","Closed");
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -172,6 +195,14 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_nextrents:
                 ReplaceFragment(NextRentsFragment.newInstance());
                 break;
+            case R.id.nav_update:
+                String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                break;
             /*case R.id.nav_send:
                 break;
             case R.id.nav_share:
@@ -195,7 +226,10 @@ public class MainActivity extends AppCompatActivity
                 getUserFreshDetails(firebaseAuth);
                 authFlag = false;
             }
-        } else UserLogout();
+        } else {
+            UserLogout();
+            authFlag = true;
+        }
     }
 
     public void getUserFreshDetails(FirebaseAuth firebaseAuth) {
@@ -270,7 +304,7 @@ public class MainActivity extends AppCompatActivity
         if (fragments != null)
             for (Fragment f : fragments)
                 transaction.add(R.id.main_fragment, f);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override

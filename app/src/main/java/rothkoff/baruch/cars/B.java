@@ -14,14 +14,10 @@ public class B {
      * @return 'true' if Day, Month, Year is ==. else false.
      */
     public static boolean CompareWithYearMonthDay(Calendar oneCal, Calendar twoCal) {
-        if (oneCal.get(Calendar.DAY_OF_MONTH) == twoCal.get(Calendar.DAY_OF_MONTH)) {
-            if (oneCal.get(Calendar.MONTH) == twoCal.get(Calendar.MONTH)) {
-                if (oneCal.get(Calendar.YEAR) == twoCal.get(Calendar.YEAR))
-                    return true;
-            }
-            return false;
-        }
-        return false;
+        return
+                oneCal.get(Calendar.DAY_OF_MONTH) == twoCal.get(Calendar.DAY_OF_MONTH)
+                        && oneCal.get(Calendar.MONTH) == twoCal.get(Calendar.MONTH)
+                        && oneCal.get(Calendar.YEAR) == twoCal.get(Calendar.YEAR);
     }
 
     public static Calendar getCalenderWithOnlyDate(Calendar calendar) {
@@ -66,6 +62,11 @@ public class B {
         public static final String ENGINE_CAPACITY = "engineCapacity";
         public static final String YOUNG_PRICE = "youngPrice";
         public static final String RENTS = "rents";
+        public static final String DATE_START = "dateStart";
+        public static final String IMAGES = "images";
+        public static final String MAKOT = "makot";
+        public static final String PDF = "pdf";
+        public static final String VERSION = "version";
     }
 
     public class Constants {
@@ -76,5 +77,8 @@ public class B {
         public static final long DAY_IN_MILISECONDS = 86400000L;
         public static final java.lang.String FRAGMENT_TITLE = "rothkoff.baruch.cars.FRAGMENT_TITLE";
         public static final int YOUNG_AGE = 24;
+        public static final String FIREBASE_STORAGE_URL = "https://firebasestorage.googleapis.com/v0/b/cars-ab1f8.appspot.com/o/";
+                //"gs://cars-ab1f8.appspot.com";
+        //public static final String FIREBASE_FOLDER = "%2F";
     }
 }

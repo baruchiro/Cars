@@ -22,6 +22,11 @@
             android:id="@+id/nav_managedb"
             android:icon="@drawable/ic_action_database"
             android:title="@string/manage_database" />
+        <item
+            android:id="@+id/nav_update"
+            android:icon="@drawable/ic_system_update_alt"
+            android:title="@string/have_update"
+            android:visible="false"/>
     </group>
 
     <item android:title="Communicate">

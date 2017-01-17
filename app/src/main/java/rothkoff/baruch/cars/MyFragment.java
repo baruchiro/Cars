@@ -27,7 +27,7 @@ public abstract class MyFragment extends Fragment {
         }
 
         COLOR_ERROR = ContextCompat.getColor(context, R.color.errorColor);
-        COLOR_HEADING = ContextCompat.getColor(context, R.color.headingColor);
+        COLOR_HEADING = ContextCompat.getColor(context, R.color.colorPrimary);
     }
 
     @Override
