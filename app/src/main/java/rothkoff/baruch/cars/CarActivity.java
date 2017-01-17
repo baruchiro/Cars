@@ -91,55 +91,68 @@ public class CarActivity extends AppCompatActivity
         Toolbar myToolbar = (Toolbar) findViewById(R.id.activity_car_toolbar);
         setSupportActionBar(myToolbar);
 
-        ifFromLink = false;
+        InitMembers();
 
-        Intent intent = getIntent();
-        String link = intent.getDataString();
-
-        if (link == null) {
+        if (!isFromLink()) {
             this.car = getIntent().getParcelableExtra(EXTRA_CAR);
             this.rent = getIntent().getParcelableExtra(EXTRA_RENT);
-        } else {
-            Uri data = getIntent().getData();
-            String scheme = data.getScheme(); // "http"
-            String host = data.getHost(); // "twitter.com"
-            List<String> params = data.getPathSegments();
-            String type = params.get(0); // "car" / "rent"
-            String number = params.get(1); // "1234"
+            BehaviorMembers();
+        }
+    }
 
-            if (type.equals(B.Keys.CARS)) {
-                FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(number).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        car = dataSnapshot.getValue(Car.class);
-                        BehaviorMembers();
-                    }
+    /**
+     * Check if this Activity lounch from out Link.
+     *
+     * @return if from link return <b>true</b>. else <b>false</b>
+     */
+    private boolean isFromLink() {
+        Intent intent = getIntent();
+        Uri link = intent.getData();
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+        if (link == null)
+            return false;
+        
+        List<String> params = link.getPathSegments();
+        if (params.size() < 2)
+            return false;
 
-                    }
-                });
+        String type = params.get(0); // "car" / "rent"
+        String number = params.get(1); // "1234"
 
-            } else if (type.equals(B.Keys.RENTS)) {
-                FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).child(number).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        rent = dataSnapshot.getValue(Rent.class);
-                        BehaviorMembers();
-                    }
+        if (type.equals(B.Keys.CARS)) {
+            FirebaseDatabase.getInstance().getReference(B.Keys.CARS)
+                    .child(number).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    car = dataSnapshot.getValue(Car.class);
+                    BehaviorMembers();
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-            }
+                }
+            });
+            return true;
         }
 
-        InitMembers();
-        if (!ifFromLink)
-            BehaviorMembers();
+        if (type.equals(B.Keys.RENTS)) {
+            FirebaseDatabase.getInstance().getReference(B.Keys.RENTS).child(number).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    rent = dataSnapshot.getValue(Rent.class);
+                    BehaviorMembers();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            return true;
+        }
+
+        return false;
     }
 
     private void InitMembers() {
@@ -178,9 +191,17 @@ public class CarActivity extends AppCompatActivity
                 BehaviorSignMembers();
         } else if (car != null)//show carHolder
             BehaviorCarMembers();
+        else {
+            goToMainActivity();
+        }
 
-        if (B.customer.isManager())//show add photo
+        if (B.customer != null && B.customer.isManager())//show add photo
             BehaviorManagerMembers();
+    }
+
+    private void goToMainActivity() {
+        Toast.makeText(this, R.string.not_found_data, Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void BehaviorSignMembers() {

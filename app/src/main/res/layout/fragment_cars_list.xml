@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:text="@string/not_found_data"
+        android:text="@string/not_found_cars"
         android:visibility="gone"/>
 
 </LinearLayout>

@@ -72,7 +72,7 @@
     <string name="young_price">תוספת ביטוח צעיר</string>
     <string name="error_select_tarrif">חובה לבחור תעריף</string>
     <string name="NIS">ש"ח</string>
-    <string name="not_found_data">אין רכבים זמינים</string>
+    <string name="not_found_data">לא נמצאו נתונים</string>
     <string name="order_details">פרטי הזמנה</string>
     <string name="end_date">עד תאריך</string>
     <string name="order_details_car">רכב</string>
@@ -109,4 +109,5 @@
     <string name="remined">נשארו</string>
     <string name="service_description">שירות להעלאת תמונות רכב</string>
     <string name="upload_photo">מעלה תמונות</string>
+    <string name="not_found_cars">אין רכבים זמינים</string>
 </resources>

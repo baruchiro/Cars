@@ -76,7 +76,7 @@
     <string name="young_price">Young price</string>
     <string name="error_select_tarrif">ERROR: Must select Tarrif</string>
     <string name="NIS">NIS</string>
-    <string name="not_found_data">Not found data</string>
+    <string name="not_found_cars">Cars not found</string>
     <string name="order_details">Order Details</string>
     <string name="order_details_title">Rent Details</string>
     <string name="order_details_dates">Dates</string>
@@ -112,4 +112,6 @@
     <string name="remined">remined</string>
     <string name="pictures">pictures</string>
     <string name="upload_photo">Uploading photo</string>
+    <string name="deepLink" translatable="false">http://cars-ab1f8.firebaseapp.com</string>
+    <string name="not_found_data">Data not found</string>
 </resources>

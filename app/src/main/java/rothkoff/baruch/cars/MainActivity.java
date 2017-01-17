@@ -42,7 +42,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        AuthStateListener,ForUseMainActivity {
+        AuthStateListener, ForUseMainActivity {
 
     //private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if (savedInstanceState == null)
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseDatabase.getInstance().getReference().keepSynced(true);
 
         InitDrawer();
@@ -135,6 +136,12 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("Closed","Closed");
+        super.onSaveInstanceState(outState);
     }
 
     @Override
