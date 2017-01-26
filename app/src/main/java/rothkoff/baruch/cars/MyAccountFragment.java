@@ -71,7 +71,7 @@ public class MyAccountFragment extends MyFragment implements RentHolder.OnClickL
 
         scrollView = (ScrollView) view.findViewById(R.id.frag_customer_main_scroll);
         recyclerView = new RecyclerView(getContext());
-        rentsAdapter = new RentsAdapter(getContext(),this, B.customer.getNextRents(), false);
+        rentsAdapter = new RentsAdapter(getContext(), this, B.customer.getNextRents(), false);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, false);
     }
 

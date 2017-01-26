@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -111,7 +112,7 @@ public class CarActivity extends AppCompatActivity
 
         if (link == null)
             return false;
-        
+
         List<String> params = link.getPathSegments();
         if (params.size() < 2)
             return false;
@@ -178,6 +179,8 @@ public class CarActivity extends AppCompatActivity
         this.btnShowSign = (Button) findViewById(R.id.activity_car_showSignBtn);
         this.btnActivate = (Button) findViewById(R.id.activity_car_activateBtn);
         this.btnClearSign = (Button) findViewById(R.id.activity_car_sign_clearBtn);
+
+        makotListener = true;
     }
 
     private void BehaviorMembers() {
@@ -260,6 +263,7 @@ public class CarActivity extends AppCompatActivity
         if (makotListener) {
             FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(car.getCarNumber())
                     .addListenerForSingleValueEvent(this);
+            Log.d("BARRUCH","Listener to makot from car Func");
             makotListener = false;
         }
 
@@ -277,6 +281,7 @@ public class CarActivity extends AppCompatActivity
             FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(this.rent.getCarNumber())
                     .addListenerForSingleValueEvent(this);
             makotListener = false;
+            Log.d("BARRUCH","Listener to makot from rent Func.");
         }
     }
 
@@ -419,8 +424,7 @@ public class CarActivity extends AppCompatActivity
         this.car = dataSnapshot.getValue(Car.class);
         BuildRecycler();
 
-        FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(car.getCarNumber())
-                .addListenerForSingleValueEvent(this);
+        Log.d("BARRUCH","Listener to makot from onDataChange Func");
 
         if (progressDialog.isShowing()) progressDialog.dismiss();
     }
@@ -429,6 +433,7 @@ public class CarActivity extends AppCompatActivity
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         if (photosAdapter != null) {
             photosAdapter.addPhoto(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
+            Log.d("BARRUCH","add photo from onChild Added");
         }
     }
 
