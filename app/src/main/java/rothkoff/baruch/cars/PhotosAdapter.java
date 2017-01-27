@@ -3,6 +3,7 @@ package rothkoff.baruch.cars;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,16 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoHolder> {
             this.details = new ArrayList<>();
             this.photos = new ArrayList<>();
         }
+
+        Log.i(MainActivity.LOG_NAME, String.valueOf("PhotosAdapter constructor. size: "
+                + (photos == null ? null : photos.size())));
     }
 
     @Override
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_photo, parent, false);
         views.add(itemView);
+        Log.i(MainActivity.LOG_NAME, "PhotosAdapter onCreateViewHolder views.size= " + views.size());
         return new PhotoHolder(itemView);
     }
 
@@ -51,6 +56,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoHolder> {
                 .child(photos.get(position) + ".jpg");
 
         holder.Init(context, reference, details.get(position));
+
+        Log.i(MainActivity.LOG_NAME, "PhotoAdapter onBindViewHolder position= " + position);
     }
 
     @Override
@@ -60,6 +67,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotoHolder> {
 
 
     public void addPhoto(String photoName, String details) {
+        Log.i(MainActivity.LOG_NAME, "PhotosAdapter addPhoto name:" + photoName + " details:" + details);
         if (!this.photos.contains(photoName)) {
             this.details.add(details);
             this.photos.add(photoName);

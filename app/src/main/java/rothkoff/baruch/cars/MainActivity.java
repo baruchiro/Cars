@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AuthStateListener, ForUseMainActivity {
 
+    public static final String LOG_NAME = "CarsLog";
     //private CarsAvailableAdapter adapterCars;
     private final int RC_SIGN_IN = 22;
     private RecyclerView recycleCars;

@@ -263,7 +263,7 @@ public class CarActivity extends AppCompatActivity
         if (makotListener) {
             FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(car.getCarNumber())
                     .addListenerForSingleValueEvent(this);
-            Log.d("BARRUCH","Listener to makot from car Func");
+            Log.d(MainActivity.LOG_NAME, "Listener to makot from car Func");
             makotListener = false;
         }
 
@@ -281,7 +281,7 @@ public class CarActivity extends AppCompatActivity
             FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(this.rent.getCarNumber())
                     .addListenerForSingleValueEvent(this);
             makotListener = false;
-            Log.d("BARRUCH","Listener to makot from rent Func.");
+            Log.d(MainActivity.LOG_NAME, "Listener to makot from rent Func.");
         }
     }
 
@@ -421,19 +421,18 @@ public class CarActivity extends AppCompatActivity
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        Log.d(MainActivity.LOG_NAME, "OnDataChange dataSnapshot= " + dataSnapshot.toString());
         this.car = dataSnapshot.getValue(Car.class);
         BuildRecycler();
-
-        Log.d("BARRUCH","Listener to makot from onDataChange Func");
 
         if (progressDialog.isShowing()) progressDialog.dismiss();
     }
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        Log.d(MainActivity.LOG_NAME, "onChildAdded dataSnapshot= " + dataSnapshot.toString());
         if (photosAdapter != null) {
             photosAdapter.addPhoto(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
-            Log.d("BARRUCH","add photo from onChild Added");
         }
     }
 

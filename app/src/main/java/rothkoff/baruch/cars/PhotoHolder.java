@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,34 +39,58 @@ public class PhotoHolder extends RecyclerView.ViewHolder {
     }
 
     public void Init(Context context, StorageReference storageReference, String details) {
+        Log.d(MainActivity.LOG_NAME, "PhotoHolder Init reference=" + storageReference.toString());
 
         this.context = context;
 
         File storageDir = context.getDir("Pictures", 0);
-        storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        photoFile = new File(Environment.getExternalStorageDirectory(), storageReference.getName());
+        storageDir = getStorageDir();
+        photoFile = new File(Environment.getExternalStorageDirectory().toString(), storageReference.getName());
+        Log.d(MainActivity.LOG_NAME, "PhotoHolder Init photoFile=" + photoFile.getAbsolutePath());
+
         photoFile = new File(storageDir, storageReference.getName());
+        Log.d(MainActivity.LOG_NAME, "PhotoHolder Init photoFile=" + photoFile.getAbsolutePath());
 
-        if (photoFile.exists())
+        if (photoFile.exists()) {
+            Log.i(MainActivity.LOG_NAME, "Photo exists. path: " + photoFile.getAbsolutePath());
             ShowPhoto();
-
+        }
         else {
+            Log.i(MainActivity.LOG_NAME, "Photo NOT exists. path: " + photoFile.getAbsolutePath());
             storageReference.getFile(photoFile)
                     .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Log.i(MainActivity.LOG_NAME, "Success Download photo: " + photoFile.getAbsolutePath());
                             ShowPhoto();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            Log.e(MainActivity.LOG_NAME, "ERROR Download photo: " + photoFile.getAbsolutePath());
+                            Log.e(MainActivity.LOG_NAME, e.getMessage());
                             NoPhoto();
                         }
                     });
         }
 
         tvDetails.setText(details);
+    }
+
+    private File getStorageDir() {
+        Log.d(MainActivity.LOG_NAME + "KITKAT", android.os.Build.VERSION.SDK_INT + "--" + android.os.Build.VERSION_CODES.KITKAT);
+        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.KITKAT) {
+            Log.d(MainActivity.LOG_NAME + "KITKAT", "getStorageDir KITKAT");
+
+            return context.getDir("Pictures", 0);
+
+
+        } else {
+            Log.d(MainActivity.LOG_NAME, "getStorageDir NOT KITKAT");
+            //return context.getDir("Pictures",0);
+            return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        }
     }
 
     private void ShowPhoto() {
