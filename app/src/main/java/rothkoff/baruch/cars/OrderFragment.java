@@ -21,6 +21,7 @@ import rothkoff.baruch.cars.order.CarAvailableFragment;
 import rothkoff.baruch.cars.order.DatesFragment;
 import rothkoff.baruch.cars.order.MainOrderFragment;
 import rothkoff.baruch.cars.order.OrderDetailsFragment;
+import rothkoff.baruch.cars.order.SelectCustomerFragment;
 
 
 /**
@@ -136,7 +137,7 @@ public class OrderFragment extends MyFragment implements ViewPager.OnPageChangeL
             fragments.add(OrderDetailsFragment.newInstance());
             fragments.add(CarAvailableFragment.newInstance());
             fragments.add(DatesFragment.newInstance());
-
+            fragments.add(SelectCustomerFragment.newInstance());
         }
 
         @Override
