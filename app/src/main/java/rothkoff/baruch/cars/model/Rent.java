@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import rothkoff.baruch.cars.B;
-import rothkoff.baruch.cars.Customer;
 
 public class Rent implements Parcelable {
     public static final Creator<Rent> CREATOR = new Creator<Rent>() {

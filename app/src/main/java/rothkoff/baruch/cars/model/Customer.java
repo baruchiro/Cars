@@ -10,7 +10,6 @@ import java.util.Map;
 
 import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.R;
-import rothkoff.baruch.cars.model.Rent;
 
 public class Customer {
     private String uid;

@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rothkoff.baruch.cars.B;
-import rothkoff.baruch.cars.Rent;
-import rothkoff.baruch.cars.Tarrif;
 
 public class Car implements Parcelable {
 
