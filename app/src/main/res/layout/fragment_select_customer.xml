@@ -5,7 +5,7 @@
     android:orientation="vertical"
     tools:context="rothkoff.baruch.cars.order.SelectCustomerFragment">
 
-    <rothkoff.baruch.cars.CustomersView
+    <rothkoff.baruch.cars.view.CustomersView
         android:id="@+id/frag_selectust_myrecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

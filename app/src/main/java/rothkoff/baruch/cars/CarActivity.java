@@ -77,7 +77,7 @@ public class CarActivity extends AppCompatActivity
     private RecyclerView.LayoutManager layoutManager;
     private LinearLayout llDetailCard;
     private LinearLayout llSignArea;
-    private CarViewHolder CarViewHolder;
+    private XCarViewHolder XCarViewHolder;
     private RentViewHolder RentViewHolder;
     private SignatureView signatureView;
     private LinkedList<File> photosFiles;
@@ -170,7 +170,7 @@ public class CarActivity extends AppCompatActivity
 
         this.signatureView = new SignatureView(this);
 
-        CarViewHolder = new CarViewHolder(LayoutInflater.from(this).inflate(R.layout.item_car, llDetailCard, false));
+        XCarViewHolder = new XCarViewHolder(LayoutInflater.from(this).inflate(R.layout.item_car, llDetailCard, false));
         RentViewHolder = new RentViewHolder(LayoutInflater.from(this).inflate(R.layout.item_rent, llDetailCard, false));
 
         progressDialog = new ProgressDialog(this);
@@ -195,7 +195,7 @@ public class CarActivity extends AppCompatActivity
             long thisTime = B.getLongWithOnlyDate(new Date().getTime());
             if (thisTime >= rent.getDateStart() && thisTime <= rent.getDateEnd())
                 BehaviorSignMembers();
-        } else if (car != null)//show CarViewHolder
+        } else if (car != null)//show XCarViewHolder
             BehaviorCarMembers();
         else {
             goToMainActivity();
@@ -260,8 +260,8 @@ public class CarActivity extends AppCompatActivity
     }
 
     private void BehaviorCarMembers() {
-        CarViewHolder.Init(this, null, this.car, true);
-        llDetailCard.addView(CarViewHolder.itemView);
+        XCarViewHolder.Init(this, null, this.car, true);
+        llDetailCard.addView(XCarViewHolder.itemView);
 
         if (makotListener) {
             FirebaseDatabase.getInstance().getReference(B.Keys.CARS).child(car.getCarNumber())

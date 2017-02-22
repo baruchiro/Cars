@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import rothkoff.baruch.cars.CustomersView;
 import rothkoff.baruch.cars.R;
+import rothkoff.baruch.cars.view.CustomersView;
 
 /**
  * A simple {@link Fragment} subclass.

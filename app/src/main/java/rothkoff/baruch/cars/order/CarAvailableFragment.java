@@ -4,7 +4,6 @@ package rothkoff.baruch.cars.order;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,14 @@ import android.view.ViewGroup;
 import rothkoff.baruch.cars.B;
 import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.carslist.CarsPagerAdapter;
+import rothkoff.baruch.cars.view.CarsView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CarAvailableFragment extends MainOrderFragment {
 
-    private ViewPager viewPager;
+    private CarsView carsView;
     private CarsPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
@@ -44,19 +44,20 @@ public class CarAvailableFragment extends MainOrderFragment {
     }
 
     private void InitMembers(View view) {
-        viewPager = (ViewPager) view.findViewById(R.id.frag_order_caravail_pager);
+        carsView = (CarsView) view.findViewById(R.id.frag_order_caravail_pager);
         pagerAdapter = new CarsPagerAdapter(getChildFragmentManager(), this, mainActivity.getTarrifUids());
         tabLayout = (TabLayout) view.findViewById(R.id.frag_order_caravail_tablayout);
     }
 
     private void BehaviorMembers() {
-        tabLayout.setupWithViewPager(viewPager, true);
+        tabLayout.setupWithViewPager(carsView, true);
 
         pagerAdapter.setCustomer(B.customer);
         pagerAdapter.UpdateDates();
 
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+        //carsView.setAdapter(pagerAdapter);
+        //carsView.setOffscreenPageLimit(pagerAdapter.getCount());
+        carsView.init(null, mainActivity.getTarrifsList());
     }
 
     @Override

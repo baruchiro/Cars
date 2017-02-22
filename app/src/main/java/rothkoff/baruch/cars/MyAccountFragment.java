@@ -92,7 +92,7 @@ public class MyAccountFragment extends MyFragment implements RentViewHolder.OnCl
         scrollView.addView(recyclerView);
     }
 
-    //CarViewHolder OnClick
+    //XCarViewHolder OnClick
     @Override
     public void onClick(Rent rent, RentViewHolder holder) {
         Intent intent = new Intent(getContext(), CarActivity.class);

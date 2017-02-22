@@ -1,4 +1,4 @@
-package rothkoff.baruch.cars;
+package rothkoff.baruch.cars.view;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.LinkedList;
 
+import rothkoff.baruch.cars.B;
+import rothkoff.baruch.cars.MainActivity;
+import rothkoff.baruch.cars.R;
 import rothkoff.baruch.cars.model.Customer;
 
 

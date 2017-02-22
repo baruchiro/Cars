@@ -22,9 +22,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import rothkoff.baruch.cars.B;
-import rothkoff.baruch.cars.CarViewHolder;
 import rothkoff.baruch.cars.ForUseMainActivity;
 import rothkoff.baruch.cars.R;
+import rothkoff.baruch.cars.XCarViewHolder;
 import rothkoff.baruch.cars.model.Car;
 import rothkoff.baruch.cars.model.Customer;
 import rothkoff.baruch.cars.model.Tarrif;
@@ -154,7 +154,7 @@ public class CarsListFragment extends Fragment {
             listAdapter.Bind();
     }
 
-    private class CarsListAdapter extends RecyclerView.Adapter<CarViewHolder>
+    private class CarsListAdapter extends RecyclerView.Adapter<XCarViewHolder>
             implements ValueEventListener {
 
         private List<Car> cars;
@@ -172,13 +172,13 @@ public class CarsListFragment extends Fragment {
         }
 
         @Override
-        public CarViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public XCarViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_car, parent, false);
-            return new CarViewHolder(view);
+            return new XCarViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(CarViewHolder holder, int position) {
+        public void onBindViewHolder(XCarViewHolder holder, int position) {
             Car c = cars.get(position);
             holder.Init(mainActivity.getContext(), parentPagerAdapter, c);
 

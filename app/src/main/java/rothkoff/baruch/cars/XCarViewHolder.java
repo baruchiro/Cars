@@ -9,7 +9,7 @@ import android.widget.TextView;
 import rothkoff.baruch.cars.model.Car;
 
 
-public class CarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class XCarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private View view;
     private Context context;
@@ -17,7 +17,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     private Car car;
     private TextView tvBrand, tvColor, tvYoung, tvNumber;
 
-    public CarViewHolder(View itemView) {
+    public XCarViewHolder(View itemView) {
         super(itemView);
         this.view = itemView;
         tvColor = (TextView) view.findViewById(R.id.item_car_color);
@@ -56,6 +56,6 @@ public class CarViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     }
 
     public interface OnClickListener {
-        void onClick(Car car, CarViewHolder holder);
+        void onClick(Car car, XCarViewHolder holder);
     }
 }

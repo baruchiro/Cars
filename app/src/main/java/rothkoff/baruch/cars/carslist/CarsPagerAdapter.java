@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import rothkoff.baruch.cars.CarViewHolder;
+import rothkoff.baruch.cars.XCarViewHolder;
 import rothkoff.baruch.cars.model.Car;
 import rothkoff.baruch.cars.model.Customer;
 
-public class CarsPagerAdapter extends FragmentPagerAdapter implements CarViewHolder.OnClickListener {
+public class CarsPagerAdapter extends FragmentPagerAdapter implements XCarViewHolder.OnClickListener {
 
     private ForCarsPager mainFragment;
     private List<CarsListFragment> fragments;
@@ -67,7 +67,7 @@ public class CarsPagerAdapter extends FragmentPagerAdapter implements CarViewHol
     }
 
     @Override
-    public void onClick(Car car, CarViewHolder holder) {
+    public void onClick(Car car, XCarViewHolder holder) {
         mainFragment.setSelectedCar(car);
         for (CarsListFragment fragment : fragments)
             fragment.setChecked(car);
