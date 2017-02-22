@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomersView"></declare-styleable>
-    <declare-styleable name="CarsView"></declare-styleable>
+    <declare-styleable name="CustomersView"/>
+    <declare-styleable name="CarsView"/>
 
 
 </resources>

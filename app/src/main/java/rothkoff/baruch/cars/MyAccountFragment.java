@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
+import rothkoff.baruch.cars.design.CarsByTarrif;
 import rothkoff.baruch.cars.model.Rent;
 
 
@@ -65,7 +66,9 @@ public class MyAccountFragment extends MyFragment implements RentViewHolder.OnCl
         InitMembers(view);
         BehaviorMembers();
 
-        return view;
+        //return view;
+
+        return new CarsByTarrif(getContext(),null);
     }
 
     private void InitMembers(View view) {
